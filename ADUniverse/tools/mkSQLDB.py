@@ -2,6 +2,7 @@
 Creates a table in the aduniverse.db file.
 """
 
+import argparse
 import numpy as np
 import os
 import pandas as pd
@@ -12,6 +13,10 @@ DATA_PATH = "data"
 DBNAME = "aduniverse.db"
 
 def main(csv_file, tablename=None):
+  """
+  :param str csv_file: file in data directory with extension
+  :parm str tablename:
+  """
   file_path = os.path.join(DATA_PATH, csv_file)
   db_path = os.path.join(DATA_PATH, DBNAME)
   try:
@@ -30,5 +35,10 @@ def main(csv_file, tablename=None):
 
   
 if __name__ == '__main__':
-  main("Residential_Building_Permits__Issued_and_Final.csv",
-      "permits")  
+  description = "Put CSV file into a SQL DB"
+  parser = argparse.ArgumentParser(description=description)
+  parser.add_argument('csv_file', type=str, help='CSV file')
+  parser.add_argument('table_name', type=str, 
+      help='Name of database table')
+  args = parser.parse_args()
+  main(args.csv_file, tablename=args.table_name)
