@@ -1,0 +1,13 @@
+﻿def Reclass(type_occ, comments):
+    if (type_occ == "ADU" or type_occ == "DADU" or 'accessory' in comments and type_occ  != "MF"):
+        return 1
+    else:
+        return 0
+
+
+Global Moran's I Summary
+Moran's Index:   0.179791 
+Expected Index:  -0.000030
+Variance:        0.000032 
+z-score:         31.835210
+p-value:         0.000000
