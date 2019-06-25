@@ -42,7 +42,8 @@ SF = np.asarray(permits.type_occ == 'SF').reshape(-1,1)
 ADU_kw = keyword_locate('ADU') - keyword_locate('ADULT') 
 # entries containing "accessory dwelling unit" in the comments
 ADU_text = keyword_locate('accessory dwelling unit')
-SF = (SF + ADU_kw + ADU_text) > 1SF = pd.Series(SF.ravel())
+SF = (SF + ADU_kw + ADU_text) > 1
+SF = pd.Series(SF.ravel())
 
 # Specifically noted exceptions
 EXCs = permits.objectid.eq(72) | permits.objectid.eq(117) | permits.objectid.eq(595) | permits.objectid.eq(622)
