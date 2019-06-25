@@ -38,10 +38,11 @@ ADU = permits.type_occ.eq('ADU') | permits.type_occ.eq('DADU')
 
 # ADUs under SF
 SF = np.asarray(permits.type_occ == 'SF').reshape(-1,1)
-# entries containing 'ADU', less those containing "adult"
+# entries containing "ADU", less those containing "adult"
 ADU_kw = keyword_locate('ADU') - keyword_locate('ADULT') 
-SF = (SF + ADU_kw) > 1
-SF = pd.Series(SF.ravel())
+# entries containing "accessory dwelling unit" in the comments
+ADU_text = keyword_locate('accessory dwelling unit')
+SF = (SF + ADU_kw + ADU_text) > 1SF = pd.Series(SF.ravel())
 
 # Specifically noted exceptions
 EXCs = permits.objectid.eq(72) | permits.objectid.eq(117) | permits.objectid.eq(595) | permits.objectid.eq(622)
