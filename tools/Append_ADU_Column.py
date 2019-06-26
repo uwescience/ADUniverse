@@ -39,10 +39,11 @@ ADU = permits.type_occ.eq('ADU') | permits.type_occ.eq('DADU')
 # ADUs under SF
 SF = np.asarray(permits.type_occ == 'SF').reshape(-1,1)
 # entries containing "ADU", less those containing "adult"
-ADU_kw = keyword_locate('ADU') - keyword_locate('ADULT') 
+ADU_kw = keyword_locate('ADU') - keyword_locate('adult')
 # entries containing "accessory dwelling unit" in the comments
 ADU_text = keyword_locate('accessory dwelling unit')
-SF = (SF + ADU_kw + ADU_text) > 1
+ADU_kw_text = (ADU_kw + ADU_text) > 0
+SF = (SF + ADU_kw_text) > 1
 SF = pd.Series(SF.ravel())
 
 # Specifically noted exceptions
@@ -56,6 +57,7 @@ ADU = ADU | SF | EXCs
 cols = list(permits.columns)
 cols.append("ADU")
 df_ADUS = DF(np.append(np.asarray(permits), np.asarray(ADU).reshape(-1,1)*1, axis=1), columns=cols)
+print("Approximate count of ADUs:", np.sum(df_ADUS.ADU))
 
 # Export DataFrame to csv file
 df_ADUS.to_csv("ADUs.csv")
