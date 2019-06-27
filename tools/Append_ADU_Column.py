@@ -37,13 +37,14 @@ def keyword_locate(kw, text = permits.comments):
 ADU = permits.type_occ.eq('ADU') | permits.type_occ.eq('DADU')
 
 # ADUs under SF
-SF = np.asarray(permits.type_occ == 'SF').reshape(-1,1)
+SF = (np.asarray(permits.type_occ == 'SF').reshape(-1,1))*1
 # entries containing "ADU", less those containing "adult"
 ADU_kw = keyword_locate('ADU') - keyword_locate('adult')
 # entries containing "accessory dwelling unit" in the comments
 ADU_text = keyword_locate('accessory dwelling unit')
-ADU_kw_text = (ADU_kw + ADU_text) > 0
-SF = (SF + ADU_kw_text) > 1
+ADU_kw_text = ((ADU_kw + ADU_text) > 0)*1
+
+SF = (SF*1 + ADU_kw_text*1) > 1
 SF = pd.Series(SF.ravel())
 
 # Specifically noted exceptions
@@ -51,12 +52,12 @@ EXCs = permits.objectid.eq(72) | permits.objectid.eq(117) | permits.objectid.eq(
 EXCs = EXCs | permits.objectid.eq(726) | permits.objectid.eq(998) | permits.objectid.eq(1064)
 EXCs = EXCs | permits.objectid.eq(1249) | permits.objectid.eq(10188) | permits.objectid.eq(16818)
 
-ADU = ADU | SF | EXCs
+ADUs = ADU | SF | EXCs
 
 # Create DataFrame of modified data
 cols = list(permits.columns)
 cols.append("ADU")
-df_ADUS = DF(np.append(np.asarray(permits), np.asarray(ADU).reshape(-1,1)*1, axis=1), columns=cols)
+df_ADUS = DF(np.append(np.asarray(permits), np.asarray(ADUs).reshape(-1,1)*1, axis=1), columns=cols)
 print("Approximate count of ADUs:", np.sum(df_ADUS.ADU))
 
 # Export DataFrame to csv file
