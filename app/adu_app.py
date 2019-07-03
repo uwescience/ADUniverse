@@ -11,26 +11,53 @@ from dash.dependencies import Input, Output
 
 FILE = "Seattle_Real_Time_Fire_911_Calls.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
+zoom_start = 12
 data = pd.read_csv(FILE)
 
 # for speed purposes
 MAX_RECORDS = 10
 
 # create empty map zoomed in on San Francisco
-map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=12)
+map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=zoom_start, control_scale=True)
+
+# add neighborhoods on top of this. This is an experiment to be replaced with a polygon geojson
 geo_json_data = json.load(open('neighborhoods.geojson'))
-folium.GeoJson(geo_json_data).add_to(map)
+# folium.GeoJson(geo_json_data).add_to(map)
+
+# regular style of polygons
+def style_function(feature):
+    return {
+        'weight' : 2,
+        'dashArray' : '5, 5',
+        'fillOpacity' : 0,
+        'lineOpacity' : 1,
+    }
+
+def highlight_function(feature):
+    return {
+        'fillColor' : 'blue',
+        'weight' : 2,
+        'lineColor' : 'black',
+        'lineWeight' : 2,
+        'dashArray' : '5, 5',
+        'fillOpacity' : 0.5,
+        'lineOpacity' : 1,
+    }
+
+
+# apply the neighborhood outlines to the map
+folium.GeoJson(geo_json_data,
+              style_function=style_function,
+              highlight_function=highlight_function,
+              ).add_to(map)
+
+# print(geo_json_data[1,:])
+geo_json_data_df = pd.DataFrame.from_dict(geo_json_data)
 
 # add a marker for every record in the filtered data, use a clustered view
-for _, row in data[0:MAX_RECORDS].iterrows():
-    popup = folium.Popup("Feasibility: " + str(row['Incident Number']) +
-                         "<br> Address: " + str(row['Address']), max_width=300)
-    # html_str = """
-    # <a href="https://www.ibm.com/" target="_blank"> Details.</a>
-    # """
-    # iframe = folium.IFrame(html=html_str, width=100, height=50)
-    # popup = folium.Popup(iframe, max_width=2650)
-    folium.Marker([row['Latitude'], row['Longitude']], popup=popup).add_to(map)
+for _, row in geo_json_data['features']['properties']:
+    popup = folium.Popup(row['name'])
+    # c.add_to(map)
 map.save("map.html")
 
 # Dashify
