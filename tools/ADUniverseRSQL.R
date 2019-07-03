@@ -1,6 +1,12 @@
+install.packages("sqldf")
+install.packages("DBI")
+install.packages("RSQLite")
+
 library(sqldf)
 library(DBI)
 library(RSQLite)
+
+#db <- read.csv.sql("/Users/Anaavu/Desktop/Anagha/DSSG/aduniverse.db")
 
 select <- function(table, cols = '*', cn = con) {
   #table: database table to select table from
@@ -26,7 +32,7 @@ con <- dbConnect(SQLite(),  dbname = "aduniverse.db")
 dbListTables(con)
 
 # Reads permits table and pull into a data frame
-dbReadTable(con, "permits")
+permits <- dbReadTable(con, "permits")
 
 # Select in all entries in parcels db table
 dbGetQuery( con,sprintf("select %s from %s", "*", "permits") )

@@ -1,6 +1,9 @@
 import folium
 import pandas as pd
 
+import json
+import sys
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -15,10 +18,12 @@ MAX_RECORDS = 10
 
 # create empty map zoomed in on San Francisco
 map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=12)
+geo_json_data = json.load(open('neighborhoods.geojson'))
+folium.GeoJson(geo_json_data).add_to(map)
 
 # add a marker for every record in the filtered data, use a clustered view
 for _, row in data[0:MAX_RECORDS].iterrows():
-    popup = folium.Popup("Feasibility: " + str(row['Random Number']) +
+    popup = folium.Popup("Feasibility: " + str(row['Incident Number']) +
                          "<br> Address: " + str(row['Address']), max_width=300)
     # html_str = """
     # <a href="https://www.ibm.com/" target="_blank"> Details.</a>
