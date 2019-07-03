@@ -55,9 +55,10 @@ folium.GeoJson(geo_json_data,
 geo_json_data_df = pd.DataFrame.from_dict(geo_json_data)
 
 # add a marker for every record in the filtered data, use a clustered view
-for _, row in geo_json_data['features']['properties']:
-    popup = folium.Popup(row['name'])
-    # c.add_to(map)
+# for _, row in geo_json_data['features']:
+#     for i in row['properties']:
+#         popup = folium.Popup(i['name'])
+#     # c.add_to(map)
 map.save("map.html")
 
 # Dashify
