@@ -18,7 +18,8 @@ map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=12)
 
 # add a marker for every record in the filtered data, use a clustered view
 for _, row in data[0:MAX_RECORDS].iterrows():
-    popup = folium.Popup("Feasibility: " + str(row['Random Number']), max_width=200)
+    popup = folium.Popup("Feasibility: " + str(row['Random Number']) +
+                         "<br> Address: " + str(row['Address']), max_width=300)
     # html_str = """
     # <a href="https://www.ibm.com/" target="_blank"> Details.</a>
     # """
@@ -32,6 +33,9 @@ map.save("map.html")
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash("SeattleADU",
                 external_stylesheets=external_stylesheets)
+
+# app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+
 # app.layout = html.Div([
 #     html.H1("Seattle ADU Feasibility"),
 #     html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
@@ -72,16 +76,15 @@ app = dash.Dash("SeattleADU",
 # Dropdown base on the dataframe
 
 
-def generate_table(data, MAX_RECORDS):
-    return html.Table(
-        # Header
-        [html.Tr([html.Th(col) for col in data.Address])] +
-
-        # Body
-        [html.Tr([
-            html.Td(data.iloc[i][col]) for col in data.Address
-        ]) for i in range(min(len(data), MAX_RECORDS))]
-    )
+# def generate_table(data, MAX_RECORDS):
+#     return html.Table(
+#         # Header
+#         [html.Tr([html.Th(col) for col in data.Address])] +
+#         # Body
+#         [html.Tr([
+#             html.Td(data.iloc[i][col]) for col in data.Address
+#         ]) for i in range(min(len(data), MAX_RECORDS))]
+#     )
 
 
 app.layout = html.Div([
@@ -97,17 +100,20 @@ app.layout = html.Div([
         ],
         placeholder='Filter by address...'),
     html.Div(id='output-container'),
+
+    dcc.Input(id='my-id', value='initial value', type='text'),
+    html.Div(id='my-div'),
     dcc.Markdown('''
 
-    ## **Frequently Asked Questions**
+    # **Frequently Asked Questions**
 
-    ### How to be a good landloard?
+    # How to be a good landloard?
 
     here are some useful information.
 
     [Rental Housing Association of Washington](https://www.rhawa.org/)
 
-    ### More financial information?
+    # More financial information?
 
     here are the home equity loan informations
 
@@ -120,21 +126,30 @@ app.layout = html.Div([
 @app.callback(
     # dash.dependencies.Output('output-container-range-slider', 'children'),
     dash.dependencies.Output('output-container', 'children'),
-    [dash.dependencies.Input('my-dropdown', 'value')])
+    [dash.dependencies.Input('my-dropdown', 'value')]
+)
 # [dash.dependencies.Input('my-range-slider', 'value')])
 def update_output(value):
     return 'You have selected "{}"'.format(value)
+# def display_table(dropdown_value):
+#     # import pdb
+#     # pdb.set_trace()
+#     if dropdown_value is None:
+#         return generate_table(data, MAX_RECORDS)
+#
+#     dff = data[data.Address.str.contains('|'.join(dropdown_value))]
+#     return generate_table(dff, MAX_RECORDS)
 
 
-def display_table(dropdown_value):
-    if dropdown_value is None:
-        return generate_table(data)
+@app.callback(
+    Output(component_id='my-div', component_property='children'),
+    [Input(component_id='my-id', component_property='value')]
+)
+def update_output_div(input_value):
+    return 'You\'ve entered "{}" for lot size'.format(input_value)
 
-    dff = data[data.state.str.contains('|'.join(dropdown_value))]
-    return generate_table(dff)
 
-
-app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+# app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
 
 
 if __name__ == '__main__':
