@@ -3,6 +3,8 @@ import pandas as pd
 
 import json
 import sys
+from folium.plugins import Search
+import geojson
 
 import dash
 import dash_core_components as dcc
@@ -22,6 +24,7 @@ map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=zoom_start, control_sc
 
 # add neighborhoods on top of this. This is an experiment to be replaced with a polygon geojson
 geo_json_data = json.load(open('neighborhoods.geojson'))
+
 # folium.GeoJson(geo_json_data).add_to(map)
 
 # regular style of polygons
@@ -46,13 +49,35 @@ def highlight_function(feature):
 
 
 # apply the neighborhood outlines to the map
-folium.GeoJson(geo_json_data,
+neighborhoods = folium.GeoJson(geo_json_data,
               style_function=style_function,
               highlight_function=highlight_function,
               ).add_to(map)
 
+neighborhoodsearch = Search(
+    layer=neighborhoods,
+    geom_type='Polygon',
+    placeholder='Search for a neighborhood name',
+    collapsed=False,
+    search_label='name',
+    weight=3,
+    kwargs={'fillColor' : "blue",
+    'fillOpacity' : 0.6}
+).add_to(map)
+# We need to fix kwargs and popups of polygons iterating through geojson
+
 # print(geo_json_data[1,:])
 geo_json_data_df = pd.DataFrame.from_dict(geo_json_data)
+
+for _, row in data[0:MAX_RECORDS].iterrows():
+    popup = folium.Popup("Feasibility: " + str(row['Random Number']) +
+                         "<br> Address: " + str(row['Address']), max_width=300)
+    # html_str = """
+    # <a href="https://www.ibm.com/" target="_blank"> Details.</a>
+    # """
+    # iframe = folium.IFrame(html=html_str, width=100, height=50)
+    # popup = folium.Popup(iframe, max_width=2650)
+    folium.Marker([row['Latitude'], row['Longitude']], popup=popup).add_to(map)
 
 # add a marker for every record in the filtered data, use a clustered view
 # for _, row in geo_json_data['features']:
