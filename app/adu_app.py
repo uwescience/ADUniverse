@@ -51,10 +51,13 @@ def highlight_function(feature):
 
 
 # apply the neighborhood outlines to the map
-neighborhoods = folium.GeoJson(geo_json_data,
+neighborhoods = folium.features.GeoJson(geo_json_data,
                                style_function=style_function,
                                highlight_function=highlight_function,
-                               ).add_to(map)
+                               )
+popup = folium.Popup('Hi')
+popup.add_to(neighborhoods)
+neighborhoods.add_to(map)
 
 neighborhoodsearch = Search(
     layer=neighborhoods,
@@ -67,10 +70,13 @@ neighborhoodsearch = Search(
             'fillOpacity': 0.6}
 ).add_to(map)
 # We need to fix kwargs and popups of polygons iterating through geojson
+# 
 
 
 # print(geo_json_data[1,:])
 geo_json_data_df = pd.DataFrame.from_dict(geo_json_data)
+geo_json_data_df.to_csv(r'/Users/Anaavu/Documents/GitHub/ADUniverse/app/geo_json_data_df.csv')
+# Anagha
 
 
 # add a marker for every record in the filtered data, use a clustered view
@@ -249,6 +255,14 @@ def update_output_div(input_value, json):  # orient='index'
 
 
 # app.css.append_css({"external_url": "https://codepen.io/chriddyp/pen/bWLwgP.css"})
+
+# Anagha
+# @app.callback(Output('output-keypress', 'children'),
+#               [Input('input-1-keypress', 'value'),
+#                Input('input-2-keypress', 'value')])
+# def update_output(input1, input2):
+#     return u'Input 1 is "{}" and Input 2 is "{}"'.format(input1, input2)
+
 
 
 if __name__ == '__main__':
