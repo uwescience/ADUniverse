@@ -27,11 +27,13 @@ adu_LR <- d %>%
 ds <- d %>%
   filter(ZONING_DES == "Single Family 5000" | 
            ZONING_DES == "Single Family 7200" | 
-           ZONING_DES == "Single Family 9600" ) %>%
+           ZONING_DES == "Single Family 9600" |
+           ZONING_DES == "Residential Small Lot") %>%
   filter(SQFTLOT >= 4000) %>%
-  filter(!is.na(SHORELINE_))
+  filter(TAXPAYER != "SEATTLE CITY OF DPR" & 
+           TAXPAYER != "NORMANDY PARK CITY OF" )
 
-table(ds$ADU_all) #N = 1842 ADUs
+table(ds$ADU_all) #N = 1957 ADUs
 
 #Checking which zoning categories the other ADU
 #parcels are in
@@ -78,7 +80,7 @@ kdens_lotsize <- ggplot(ds, aes(x = SQFTLOT)) +
   geom_density() + 
   xlim(4000,10000) +
   ggtitle("Distribution of Lot Size, by DADU") + 
-  geom_vline(xintercept = 6600, color = "red")
+  geom_vline(xintercept = mean(SQFTLOT, na.rm = T), color = "red")
 
 kdens_lotsize
 
@@ -115,7 +117,7 @@ summary(mod_pslide_DADU) #unrelated, ignoring from here on
 
 ##Descriptive analysis of census/demographic data
 
-ds_desc <- ds %>%
+ds_desc1 <- ds %>%
   group_by(AADU, DADU) %>%
   summarize(n = n(),
             mean_medage = mean(median_age, na.rm = T),
@@ -145,4 +147,4 @@ ds_desc <- ds %>%
             mean_hhsize = mean(HH_size.y, na.rm = T),
             sd_hhsize = sd(HH_size.y, na.rm = T))
 
-write.csv(ds_desc, "demos_descriptives.csv")
+write.csv(ds_desc1, "demos_descriptives.csv")
