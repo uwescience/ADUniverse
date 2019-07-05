@@ -6,8 +6,6 @@ library(sqldf)
 library(DBI)
 library(RSQLite)
 
-#db <- read.csv.sql("/Users/Anaavu/Desktop/Anagha/DSSG/aduniverse.db")
-
 select <- function(table, cols = '*', cn = con) {
   #table: database table to select table from
   #cols (optional): string of columns to select from table. Default is * (all columns)
@@ -36,6 +34,9 @@ permits <- dbReadTable(con, "permits")
 
 # Select in all entries in parcels db table
 dbGetQuery( con,sprintf("select %s from %s", "*", "permits") )
+
+# Select all entries with type_occ ADU
+dbGetQuery(con, "select * from permits where type_occ = 'ADU'")
 
 # disconnect from the database
 dbDisconnect()
