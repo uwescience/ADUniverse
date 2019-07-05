@@ -24,6 +24,9 @@ map = folium.Map(location=SEATTLE_COORDINATES, zoom_start=zoom_start, control_sc
 
 # add neighborhoods on top of this. This is an experiment to be replaced with a polygon geojson
 geo_json_data = json.load(open('neighborhoods.geojson'))
+parcel_data = json.load(open('Zoned_Parcels_forJSON.json'))
+# parcel2_data = json.load(open('Zoned_Parcels_forJSON_Featur.json'))
+
 # folium.GeoJson(geo_json_data).add_to(map)
 
 # regular style of polygons
@@ -55,6 +58,11 @@ neighborhoods = folium.features.GeoJson(geo_json_data,
                                style_function=style_function,
                                highlight_function=highlight_function,
                                )
+parcels = folium.features.GeoJson(parcel_data,
+                               style_function=style_function,
+                               highlight_function=highlight_function,
+                               )
+
 popup = folium.Popup('Hi')
 popup.add_to(neighborhoods)
 neighborhoods.add_to(map)
@@ -66,11 +74,19 @@ neighborhoodsearch = Search(
     collapsed=False,
     search_label='name',
     weight=3,
-    kwargs={'fillColor': "blue",
-            'fillOpacity': 0.6}
+    # fill_color='black'
+    kwargs={'fillColor': "black",
+             'fillOpacity': 0.6}
 ).add_to(map)
 # We need to fix kwargs and popups of polygons iterating through geojson
 # 
+
+def anaghaTest(neighborhoodsearch,**kwargs):
+    for key, value in kwargs.items():
+        print("%s==%s"%(key,value))
+
+#driver code
+anaghaTest(neighborhoodsearch, fill_color ='black', fill_opacity =0.6)
 
 
 # print(geo_json_data[1,:])
