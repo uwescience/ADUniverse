@@ -57,3 +57,15 @@ class Connection:
         
         SQLstring = "SELECT {} FROM {}".format(cols, tablename)
         return pd.read_sql_query(SQLstring, self.conn)
+        
+    def manual(self, tablename, query):
+        '''
+        :string param query: query the user wants to run against the database
+        :list param cols (optional): list of columns to select from table. Default is * (all columns)
+        Dependencies: sqlite3, pandas
+        
+        Example:
+        strQuery = "SELECT * FROM table WHERE row1 = 'value1'"
+        obj.query(strQuery)
+        '''
+        return pd.read_sql_query(query, self.conn)
