@@ -69,3 +69,9 @@ class Connection:
         obj.query(strQuery)
         '''
         return pd.read_sql_query(query, self.conn)
+        
+    def disconnect(self):
+        '''
+        Close the database connection
+        '''
+        self.conn.close()
