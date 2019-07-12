@@ -3,17 +3,17 @@ layout: page
 title: Motivation
 ---
 
-**Questions**
+### Questions
 
 We hope to answer three questions through our work:
 
-### 1) Where have ADUs been created historically?
+#### 1) Where have ADUs been created historically?
   We do this by exploring characteristics of sites where AADUs and DADUs have been permitted to date (using City of Seattle permit data). This has to do with parcel-level physical characteristics (single-family zoned, size and width of the lot; size of existing house; access to street corners and alleys; year built; and placement on tree canopy, environmentally critical areas and steep topography), neighborhood-level demographic characteristics (median income, race), and median rent and home values.
 
-### 2) What factors affect ADU feasibility, and how can we use this information to help a property owner understand his or her development potential and decide to proceed?
+#### 2) What factors affect ADU feasibility, and how can we use this information to help a property owner understand his or her development potential and decide to proceed?
   We know that if the home is outside of a single-family zone, they would be informed, through our online tool, that they would not be eligible for the building of an ADU. Similarly, if their lot was less than 3200 square feet, they could not build a DADU. We will also provide warnings if their properties are placed on environmentally critical areas, steep slopes, have significant tree cover, invasive side sewers, unwieldy lot configurations or existing structures. We would then also help them see the financial viability of construction and loans and support in the permitting process and provide other resources.
 
-### 3) Where should the City focus its programmatic strategies?
+#### 3) Where should the City focus its programmatic strategies?
   The city will be able to use this historical model and tool to target certain areas most likely and potentially most able to build ADUs and encourage and incentivize them to build ADUs. They might finance ADU construction for low-income homeowners, or finance ADU renting for low-income renters, or connect homeowners interested in housing disadvantaged renters with potential qualified renters. This would be a part of the city's larger anti-displacement strategy to enable homeowners to stay in their homes and renters to live in previously-difficult-to-access neighborhoods.
 
 We are filling the needs of users of all levels.
@@ -33,9 +33,7 @@ Although building accessory dwelling units has been legal in Seattle since 1995,
 Our work fills this gap by providing an easy-to-use tool for Seattle citizens to determine whether an ADU is right for them.   Drawing inspiration from existing proprietary tools, as well as novel, open source data, our web application will provide homeowners with a score that takes into account both the physical feasibility of the build given their lot characteristics as well as the financial feasibility given their desired usage of the unit. 
 
 
-**Stakeholders**
-
-### H3 Stakeholders
+### Stakeholders
 
 1. Who are the important stakeholders and what has your team done to take them into consideration?
 
@@ -53,7 +51,7 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 (2) City planners who try to figure out where they should reach out to local communities.
 
 
-**Ethics**
+### Ethics
 
 The tool we seek to develop is mostly used for informational purposes. One ethical question we considered was the issue of data privacy. We have tax payer information associated with addresses. Also, with the app in place, we expect to be able to display information regarding parcels of land based on any given address within the city. The question was raised of how much information this may divulge on an owner's private property. 
 
