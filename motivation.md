@@ -25,8 +25,23 @@ What work has previously been done?
 
 **Stakeholders**
 
-Who are the important stakeholders and what has your team done to take them into consideration?
-What are the use cases you’re building for?
+### H3 Stakeholders
+
+1. Who are the important stakeholders and what has your team done to take them into consideration?
+
+(1) The potential homeowners interested in building ADU: We help these homeowners to do financial and physical analysis. We understand that homeowners might be interested in building ADUs for different purposes. Some are building ADUs for the rental income while others might be more interested in housing family members. Based on these choices by the users, we choose to present different information. For example, we help to project rental income if the owner chooses so. If they need to sell the house, we also estimate the potential house values. 
+
+
+(2) City planning committee: We intend to provide information on the broader neighborhood level. City planners can use this app to find out where are the areas they should reach out for. Previous experience suggests that the information gap could part of the problem. Closing this information gap could be helpful for more homeowners to build ADUs.  
+
+(3) AARP(American Association of Retired Persons): AARP love the flexibility of ADUs. It gives many options for the elders. 
+
+2. What are the use cases you’re building for?
+
+(1) Homeowners who consider building ADU. They would like to know if this is the right decision for them. 
+
+(2) City planners who try to figure out where they should reach out to local communities.
+
 
 **Ethics**
 
