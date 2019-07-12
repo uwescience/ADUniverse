@@ -18,5 +18,4 @@ paginate:         5
 version:          0.0.0
 
 github:
-  repo:           https://github.com/uwescience/DSSG-website-template/
-#                 https://github.com/uwescience/ADUniverse/edit/gh-pages/DSSG-website-template-master/_config.yml
+  repo:           https://github.com/uwescience/ADUniverse/blob/gh-pages/DSSG-website-template-master/
