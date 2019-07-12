@@ -55,5 +55,10 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 
 **Ethics**
 
-What are the ethical questions you considered as a team?
-How are you addressing them in your work?
+The tool we seek to develop is mostly used for informational purposes. One ethical question we considered was the issue of data privacy. We have tax payer information associated with addresses. Also, with the app in place, we expect to be able to display information regarding parcels of land based on any given address within the city. The question was raised of how much information this may divulge on an owner's private property. 
+
+First, there is no plan or incentive to have the tax payer's name enter the application space. Also, the information that will display is publically available through various other means. 
+
+Also, we have access to city-wide building permit data that reveals construction/destruction intentions, timelines for application and project completion, project value, and the types of structures built. While we may potentially use some of this data to generate our models, none of the specific information will be made accessible or visible through the application or in our other deliverables.
+
+Lastly, given that we are entering a project around an active political issue, we have taken the time to understand various stakeholders relevant to the topic. This includes the motivations and experiences of our project leads, the pro- and counter-narratives on both sides of the issue, and other homeowners actively engaged in the process of building ADUs. This has afforded the team an awareness of the pros and cons of this solution, as well as the means with which to form our own opinions on the matter.
