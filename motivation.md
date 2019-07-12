@@ -18,7 +18,7 @@ We hope to answer three questions through our work:
 
 We are filling the needs of users of all levels.
 
-##Background
+**Background**
 
 Access to affordable housing in Seattle has become a major concern as the city’s economy and population have increased.  Lack of housing stock make it increasingly difficult for people that work in the city to live here, resulting in widespread traffic congestion and resulting pollution.  Providing sustainable solutions to increase housing stock has become a central focus of the Seattle policy agenda.  
 
