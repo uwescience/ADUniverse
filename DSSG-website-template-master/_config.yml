@@ -5,11 +5,11 @@ permalink:        pretty
 
 
 # Setup
-title:            DSSG Project Name
+title:            DSSG: ADUniverse
 tagline:          ''
 description:      'A 2019 Data Science for Social Good summer fellowship project at the University of Washington' 
 url:              "https://uwescience.github.io"
-baseurl:          "/DSSG-website-template"
+baseurl:          "/ADUniverse"
 
 
 paginate:         5
@@ -19,3 +19,4 @@ version:          0.0.0
 
 github:
   repo:           https://github.com/uwescience/DSSG-website-template/
+#                 https://github.com/uwescience/ADUniverse/edit/gh-pages/DSSG-website-template-master/_config.yml
