@@ -5,9 +5,9 @@ permalink:        pretty
 
 
 # Setup
-title:            'DSSG ADUniverse'
-tagline:          ''
-description:      'A 2019 Data Science for Social Good summer fellowship project at the University of Washington' 
+title:            'ADUniverse'
+tagline:          'This Is It.'
+description:      'Creating a tool to support homeowners interested in building an ADU' 
 url:              "https://uwescience.github.io"
 baseurl:          "/ADUniverse"
 
