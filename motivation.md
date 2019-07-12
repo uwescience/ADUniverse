@@ -35,9 +35,8 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 
 **Stakeholders**
 
-### H3 Stakeholders
 
-1. Who are the important stakeholders and what has your team done to take them into consideration?
+### 1)  Who are the important stakeholders and what has your team done to take them into consideration?
 
 (1) The potential homeowners interested in building ADU: We help these homeowners to do financial and physical analysis. We understand that homeowners might be interested in building ADUs for different purposes. Some are building ADUs for the rental income while others might be more interested in housing family members. Based on these choices by the users, we choose to present different information. For example, we help to project rental income if the owner chooses so. If they need to sell the house, we also estimate the potential house values. 
 
@@ -46,7 +45,7 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 
 (3) AARP(American Association of Retired Persons): AARP love the flexibility of ADUs. It gives many options for the elders. 
 
-2. What are the use cases you’re building for?
+### 2)  What are the use cases you’re building for?
 
 (1) Homeowners who consider building ADU. They would like to know if this is the right decision for them. 
 
