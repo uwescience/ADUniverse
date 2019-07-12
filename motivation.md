@@ -18,7 +18,7 @@ We hope to answer three questions through our work:
 
 We are filling the needs of users of all levels.
 
-**Background**
+### Background
 
 Access to affordable housing in Seattle has become a major concern as the city’s economy and population have increased.  Lack of housing stock make it increasingly difficult for people that work in the city to live here, resulting in widespread traffic congestion and resulting pollution.  Providing sustainable solutions to increase housing stock has become a central focus of the Seattle policy agenda.  
 
@@ -35,8 +35,9 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 
 **Stakeholders**
 
+### H3 Stakeholders
 
-### 1)  Who are the important stakeholders and what has your team done to take them into consideration?
+1. Who are the important stakeholders and what has your team done to take them into consideration?
 
 (1) The potential homeowners interested in building ADU: We help these homeowners to do financial and physical analysis. We understand that homeowners might be interested in building ADUs for different purposes. Some are building ADUs for the rental income while others might be more interested in housing family members. Based on these choices by the users, we choose to present different information. For example, we help to project rental income if the owner chooses so. If they need to sell the house, we also estimate the potential house values. 
 
@@ -45,7 +46,7 @@ Our work fills this gap by providing an easy-to-use tool for Seattle citizens to
 
 (3) AARP(American Association of Retired Persons): AARP love the flexibility of ADUs. It gives many options for the elders. 
 
-### 2)  What are the use cases you’re building for?
+2. What are the use cases you’re building for?
 
 (1) Homeowners who consider building ADU. They would like to know if this is the right decision for them. 
 
