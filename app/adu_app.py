@@ -130,13 +130,13 @@ app.layout = html.Div([
     ),
     html.Div(id='output_drop'),
 
-    html.H3("tell me your lot size"),
+    html.H3("How much you want to borrow?"),
     dcc.Input(id='my-id', value='initial value', type='number'),  # text
     # html.Div(id='my-div'),
     html.Table([
-        html.Tr([html.Td(['lot_size']), html.Td(id='my-div')]),
+        html.Tr([html.Td(['15 Year Loan']), html.Td(id='my-div')]),
         # html.Tr([html.Td(['intermediate']), html.Td(id='intermediate-value')]),
-        html.Tr([html.Td(['ADU score']), html.Td(id='calculation')])
+        html.Tr([html.Td(['Monthly Payment']), html.Td(id='calculation')])
 
     ]),
 
@@ -144,7 +144,7 @@ app.layout = html.Div([
 
     # **Frequently Asked Questions**
 
-    # How to be a good landloard?
+    # How to be a good landlord?
 
     here are some useful information.
 
@@ -186,7 +186,7 @@ def update_output(value):
     # dff = data[data.Address.str.contains('|'.join(value))]
     dff = data.loc[data['ADDRESS'] == value].head(1)
     dff = dff["YRBUILT"].values
-    return 'You have selected_random number "{}"'.format(dff)
+    return 'The home you selected was built in "{}"'.format(dff)
 
 
 @app.callback(
@@ -202,7 +202,10 @@ def update_output_div(input_value, json):  # orient='index'
     aux = pd.read_json(json, orient='values').values[0][1]
     # aux = pd.read_json(json, orient='values').iloc[0].values
     # aux = pd.read_json(json, orient='values')
-    return 'You\'ve entered "{}" for lot size'.format(input_value), aux*input_value
+    return 'You\'ve entered "{}" for loan'.format(input_value), 0*aux+input_value/144
+    # 2700+0*aux+0*input_value
+    # input_value*0.005833333*(1+0.005833333)**(180)/((1+0.005833333)**(180)-1)
+    #
 
 
 @app.callback(
