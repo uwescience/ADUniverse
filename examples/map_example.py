@@ -68,7 +68,10 @@ def update_output(value):
     dash.dependencies.Output('target', 'children'),
     [dash.dependencies.Input('inbox', 'value')])
 def update_output(value):
-    int_value = int(value)
+    try:
+      int_value = int(value)
+    except:
+      int_value = 12
     _ = make_map(zoom_start=int_value)
     return html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
         width="100%", height="500")
