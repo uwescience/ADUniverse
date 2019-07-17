@@ -95,6 +95,24 @@ class Connection:
         Close the database connection
         '''
         self.conn.close()
+        
+    def getCoords(self, address):
+        '''
+        Retrieve the long/lat coordinates for a specific addressClose the database connection
+        '''
+        adr_tokens = word_tokenize(address)
+        WHERE = "where "
+        adLIKE = "address LIKE "
+        clause = ""
+            
+        for t,s in zip(adr_tokens, range(0,len(adr_tokens))):
+            if s == len(adr_tokens) -1:
+                clause = clause + adLIKE + "'%{}%'".format(t)
+            else:
+                clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
+                
+        searchStr = "select p.intptla, p.intptlo FROM Parcels p join Address a on p.addressid = a.id " + WHERE + clause +" limit 1"
+        return self.manual(searchStr)
 
 def keyword_locate(kw, text):
     '''
