@@ -16,7 +16,7 @@ FILE = "adudata_UnivDist_small.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
 data = pd.read_csv(FILE)
 
-# create empty map zoomed in on San Francisco
+# create empty map zoomed in on Seattle
 map = folium.Map(location=SEATTLE_COORDINATES,
                  zoom_start=12, control_scale=True)
 
