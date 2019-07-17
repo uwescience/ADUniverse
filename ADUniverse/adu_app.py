@@ -208,7 +208,8 @@ def get_features(value):
      Input(component_id='intermediate-value', component_property='children')]
 )
 def loan_calculator(loan, feature):
-    return functions.loan_calculator(loan, feature)
+    (output1, output2) = functions.loan_calculator(loan, feature)
+    return 'Total amount of loan is "{0:12,.0f}"'.format(output1), "{0:8,.1f}".format(output2)
 
 
 @app.callback(

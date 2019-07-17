@@ -7,4 +7,4 @@ maturity = 15  # loan maturity years
 def loan_calculator(loan, feature):
     loan = float(loan)
     payment = 0*feature + loan*(apr/12)*(1+(apr/12))**(maturity*12)/((1+(apr/12))**(maturity*12)-1)
-    return 'Total amount of loan is "{0:12,.0f}"'.format(loan), "{0:8,.1f}".format(payment)
+    return loan, payment
