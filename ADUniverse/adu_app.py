@@ -165,6 +165,8 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         adunit = ads.Connection("adunits.db")
         adunit.connect()
         newCoords = adunit.getCoords(value)
+        print(adunit.getParcelCoords(value))
+        df = adunit.getParcelCoords(value)
         adunit.disconnect()
         coords = (newCoords.intptla[0], newCoords.intptlo[0])
         zoom = 14
