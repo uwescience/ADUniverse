@@ -28,10 +28,6 @@ adunit.disconnect()
 map = folium.Map(location=SEATTLE_COORDINATES,
                  zoom_start=12, control_scale=True)
 
-# add neighborhoods on top of this. This is an experiment to be replaced with a polygon geojson
-geo_json_data = json.load(open('neighborhoods.geojson'))
-# folium.GeoJson(geo_json_data).add_to(map)
-
 # regular style of polygons
 
 def style_function(feature):
@@ -42,6 +38,7 @@ def style_function(feature):
         'lineOpacity': 1,
     }
 
+# when clicked on, style of polygon
 def highlight_function(feature):
     return {
         'fillColor': 'blue',
@@ -52,33 +49,6 @@ def highlight_function(feature):
         'fillOpacity': 0.5,
         'lineOpacity': 1,
     }
-
-
-# apply the neighborhood outlines to the map
-neighborhoods = folium.features.GeoJson(geo_json_data,
-                                        style_function=style_function,
-                                        highlight_function=highlight_function,
-                                        )
-popup = folium.Popup('Your Dream is Here!')
-popup.add_to(neighborhoods)
-neighborhoods.add_to(map)
-
-neighborhoodsearch = Search(
-    layer=neighborhoods,
-    geom_type='Polygon',
-    placeholder='Search for a neighborhood name',
-    collapsed=False,
-    search_label='name',
-    weight=3,
-    kwargs={'fillColor': "blue",
-            'fillOpacity': 0.6}
-).add_to(map)
-# We need to fix kwargs and popups of polygons iterating through geojson
-
-# print(geo_json_data[1,:])
-# geo_json_data_df = pd.DataFrame.from_dict(geo_json_data)
-# geo_json_data_df.to_csv(r'/Users/Anaavu/Documents/GitHub/ADUniverse/app/geo_json_data_df.csv')
-# Anagha
 
 # for speed purposes
 MAX_RECORDS = 100
@@ -169,24 +139,46 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         newCoords = adunit.getCoords(value)
         print(adunit.getParcelCoords(value))
         df = adunit.getParcelCoords(value)
+        df.to_csv("df.csv")
         adunit.disconnect()
         coords = (newCoords.intptla[0], newCoords.intptlo[0])
         zoom = 14
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
+    def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
+        geojson = {'type':'FeatureCollection', 'features':[]}
+        feature = {'type':'Feature',
+                        'properties':{},
+                        'geometry':{'type':'Polygon',
+                                    'coordinates':[]}}
+        for _, row in df.iterrows():
+            feature['geometry']['coordinates'].append([row[lon],row[lat]])
+            for prop in properties:
+                feature['properties'][prop] = row[prop]
+            geojson['features'] = feature
+        return geojson
 
-    neighborhoods.add_to(new_map)
-    neighborhoodsearch = Search(
-        layer=neighborhoods,
-        geom_type='Polygon',
-        placeholder='Search for a neighborhood name',
-        collapsed=False,
-        search_label='name',
-        weight=3,
-        kwargs={'fillColor': "blue",
-                'fillOpacity': 0.6}
-    ).add_to(new_map)
+    cols = ['PIN', 'sqftlot']
+    geojson = df_to_geojson(df, cols, lat='coordY', lon='coordX')
+
+    parcel = folium.map.FeatureGroup(name="parcel", 
+        overlay=True, control=True, show=True,)
+
+
+    for i in range(0,len(geojson["features"])):
+        feature = folium.features.GeoJson(geojson["features"][i]["geometry"],
+            name=(geojson["features"][i]["properties"]["PIN"]),
+            style_function=style_function,
+            highlight_function=highlight_function,)
+        folium.Popup("PIN: " + geojson["features"][i]["properties"]["PIN"] + " "  + 
+            "Square feet of lot: " + geojson["features"][i]["properties"]["sqftlot"], max_width=200).add_to(feature)
+        parcel.add_child(feature)
+
+    parcel.add_to(map)
+
+
+ 
     new_map.save("map.html")
     # map.render()
     return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
