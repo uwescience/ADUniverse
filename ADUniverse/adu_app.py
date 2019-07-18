@@ -11,6 +11,8 @@ import sys
 
 from dash.dependencies import Input, Output
 from folium.plugins import Search
+import nltk
+nltk.download('punkt')
 
 #FILE = "adudata_UnivDist_small.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
