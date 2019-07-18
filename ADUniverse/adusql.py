@@ -3,6 +3,8 @@ import pandas as pd
 import re
 import sqlite3
 
+from nltk.tokenize import word_tokenize
+
 def hello():
     print("Successfully imported adusql")
 
@@ -98,7 +100,7 @@ class Connection:
         
     def getCoords(self, address):
         '''
-        Retrieve the long/lat coordinates for a specific addressClose the database connection
+        Retrieve the long/lat coordinates for a specific address
         '''
         adr_tokens = word_tokenize(address)
         WHERE = "where "
