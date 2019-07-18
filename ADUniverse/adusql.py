@@ -132,7 +132,7 @@ class Connection:
             else:
                 clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
                 
-        searchStr = "select * FROM Parcels p join Address a on p.addressid = a.id join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN " + WHERE + clause +" limit 1"
+        searchStr = "select * FROM Parcels p join Address a on p.addressid = a.id join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN " + WHERE + clause
         return self.manual(searchStr)
 
 def keyword_locate(kw, text):
