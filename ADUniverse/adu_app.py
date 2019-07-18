@@ -168,7 +168,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         #lat = addresses.loc[addresses.address == value].reset_index()['INTPTLO'][0]
         adunit = ads.Connection("adunits.db")
         adunit.connect()
-        newCoords = adunit.getCoord(value)
+        newCoords = adunit.getCoords(value)
         adunit.disconnect()
         coords = (newCoords.intptla[0], newCoords.intptlo[0])
         zoom = 14
