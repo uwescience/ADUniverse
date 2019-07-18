@@ -150,20 +150,16 @@ app.layout = html.Div([
 # dynamically updates the map based on the address selected
 
 
-#@app.callback(
-#    [Output('output-container', 'children'),
-#     Output('map', 'srcDoc')],
-#    [Input('addressDropdown', 'value')]
-#)
 @app.callback(
-    [Output('map', 'srcDoc')],
+    [Output('output-container', 'children'),
+     Output('map', 'srcDoc')],
     [Input('addressDropdown', 'value')]
 )
 def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
-    yearbuilt = 0
+    yearbuilt = 1
 
     if value != None:
-        yearbuilt = 0
+        yearbuilt = 1
         #long = addresses.loc[addresses.address == value].reset_index()['INTPTLA'][0]
         #lat = addresses.loc[addresses.address == value].reset_index()['INTPTLO'][0]
         adunit = ads.Connection("adunits.db")
@@ -189,8 +185,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
     ).add_to(new_map)
     new_map.save("map.html")
     # map.render()
-    return open("map.html", "r").read()
-    #return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
+    return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
 
 
 @app.callback(
