@@ -1,20 +1,26 @@
-from dash.dependencies import Input, Output
-import dash_html_components as html
-import dash_core_components as dcc
+import adusql as ads
 import dash
-import geojson
-from folium.plugins import Search
-import sys
-import json
+import dash_core_components as dcc
+import dash_html_components as html
 import folium
-import pandas as pd
-import adusql
 import functions
+import geojson
+import json
+import pandas as pd
+import sys
 
+from dash.dependencies import Input, Output
+from folium.plugins import Search
 
-FILE = "adudata_UnivDist_small.csv"
+#FILE = "adudata_UnivDist_small.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
-data = pd.read_csv(FILE)
+init_zoom = 12
+#data = pd.read_csv(FILE)
+
+adunit = ads.Connection("adunits.db")
+adunit.connect()
+addresses = adunit.select("address")
+adunit.disconnect()
 
 # create empty map zoomed in on Seattle
 map = folium.Map(location=SEATTLE_COORDINATES,
@@ -26,7 +32,6 @@ geo_json_data = json.load(open('neighborhoods.geojson'))
 
 # regular style of polygons
 
-
 def style_function(feature):
     return {
         'weight': 2,
@@ -34,7 +39,6 @@ def style_function(feature):
         'fillOpacity': 0,
         'lineOpacity': 1,
     }
-
 
 def highlight_function(feature):
     return {
@@ -78,15 +82,10 @@ neighborhoodsearch = Search(
 MAX_RECORDS = 100
 
 # add a marker for every record in the filtered data, use a clustered view
-for _, row in data[0:MAX_RECORDS].iterrows():
-    popup = folium.Popup("Year Build: " + str(row['YRBUILT']) +
-                         "<br> Address: " + str(row['ADDRESS']), max_width=300)
-    # html_str = """
-    # <a href="https://www.ibm.com/" target="_blank"> Details.</a>
-    # """
-    # iframe = folium.IFrame(html=html_str, width=100, height=50)
-    # popup = folium.Popup(iframe, max_width=2650)
-    folium.Marker([row['INTPTLA'], row['INTPTLO']], popup=popup).add_to(map)
+#for _, row in data[0:MAX_RECORDS].iterrows():
+    #popup = folium.Popup("Year Build: " + str(row['YRBUILT']) +
+    #                     "<br> Address: " + str(row['ADDRESS']), max_width=300)
+    #folium.Marker([row['INTPTLA'], row['INTPTLO']], popup=popup).add_to(map)
 
 map.save("map.html")
 
@@ -101,21 +100,24 @@ app.layout = html.Div([
 
     html.H3("Find your home"),
     dcc.Dropdown(
-        id='AddressDropdown',
+        id='addressDropdown',
         options=[
-            {'label': i, 'value': i} for i in data.ADDRESS.unique()
+            {'label': i, 'value': i} for i in addresses.address.unique()
         ],
         placeholder='Type your house address here...'),
 
+    # Not intuitively named
     html.Div(id='intermediate-value', style={'display': 'none'}),
 
+    # Not intuitively named
     html.Div(id='output-container'),
 
     html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                 width="100%", height="550"),
 
-    html.H2("Why you want an ADU?"),
+    html.H2("Why are you thinking of building an ADU?"),
     dcc.Dropdown(
+        # Not intuitively named
         id='my-dropdown',
         options=[
             {'label': 'Build one more unit for rental income', 'value': 'income'},
@@ -123,9 +125,10 @@ app.layout = html.Div([
         ],
         value='purposes'
     ),
+    # Not intuitively named
     html.Div(id='output_drop'),
 
-    html.H3("How much you want to borrow?"),
+    html.H3("How much do you want to borrow?"),
     dcc.Input(id='LoanInput', value='0', type='number'),
     html.Table([
         html.Tr([html.Td(['15 Year Fix Rate Loan']), html.Td(id='LoanAmount')]),
@@ -134,47 +137,46 @@ app.layout = html.Div([
     ]),
 
     dcc.Markdown('''
-
     # **Frequently Asked Questions**
-
     # How to be a good landlord?
-
     here are some useful information.
-
     [Rental Housing Association of Washington](https://www.rhawa.org/)
-
     # More financial information?
-
     here are the home equity loan informations
-
     *Disclaimer: We help to gether useful informtions to facilitate your decisions *
-
     '''),
 ])
 
 # dynamically updates the map based on the address selected
 
 
+#@app.callback(
+#    [Output('output-container', 'children'),
+#     Output('map', 'srcDoc')],
+#    [Input('addressDropdown', 'value')]
+#)
 @app.callback(
-    [Output('output-container', 'children'),
-     Output('map', 'srcDoc')],
-    [Input('AddressDropdown', 'value')]
+    [Output('map', 'srcDoc')],
+    [Input('addressDropdown', 'value')]
 )
-def update_map(value, coords=SEATTLE_COORDINATES):
-    dff_new = 0
-    lo = 47.6062        # initial Seattle Coordinates
-    la = -122.3321      # initial Seattle Coordinates
-
-    mp = folium.Map(location=(lo, la), zoom_start=12)
+def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
+    yearbuilt = 0
 
     if value != None:
-        dff_new = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
-        lo = data.loc[data['ADDRESS'] == value].reset_index()['INTPTLA'][0]
-        la = data.loc[data['ADDRESS'] == value].reset_index()['INTPTLO'][0]
-        coords = (lo, la)
-        mp = folium.Map(location=coords, zoom_start=20)
+        yearbuilt = 0
+        #long = addresses.loc[addresses.address == value].reset_index()['INTPTLA'][0]
+        #lat = addresses.loc[addresses.address == value].reset_index()['INTPTLO'][0]
+        adunit = ads.Connection("adunits.db")
+        adunit.connect()
+        newCoords = adunit.getCoord(value)
+        adunit.disconnect()
+        coords = (newCoords.intptla[0], newCoords.intptlo[0])
+        zoom = 14
 
-    neighborhoods.add_to(mp)
+    new_map = folium.Map(location=coords, zoom_start=zoom)
+
+
+    neighborhoods.add_to(new_map)
     neighborhoodsearch = Search(
         layer=neighborhoods,
         geom_type='Polygon',
@@ -184,19 +186,21 @@ def update_map(value, coords=SEATTLE_COORDINATES):
         weight=3,
         kwargs={'fillColor': "blue",
                 'fillOpacity': 0.6}
-    ).add_to(mp)
-    mp.save("map.html")
+    ).add_to(new_map)
+    new_map.save("map.html")
     # map.render()
-    return 'The home you selected was built in year "{}"'.format(dff_new), open("map.html", "r").read()
+    return open("map.html", "r").read()
+    #return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
 
 
 @app.callback(
     Output('intermediate-value', 'children'),
-    [Input('AddressDropdown', 'value')]
+    [Input('addressDropdown', 'value')]
 )
 def get_features(value):
-    if value != None:
-        output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
+    #if value != None:
+        #output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
+        #output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
     output = 0
     return output
 
@@ -208,8 +212,7 @@ def get_features(value):
      Input(component_id='intermediate-value', component_property='children')]
 )
 def loan_calculator(loan, feature):
-    (output1, output2) = functions.loan_calculator(loan, feature)
-    return 'Total amount of loan is "{0:12,.0f}"'.format(output1), "{0:8,.1f}".format(output2)
+    return functions.loan_calculator(loan, feature)
 
 
 @app.callback(
