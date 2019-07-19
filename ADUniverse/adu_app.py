@@ -21,7 +21,7 @@ init_zoom = 12
 
 adunit = ads.Connection("adunits.db")
 adunit.connect()
-addresses = adunit.select("address")
+addresses = adunit.manual("select address from Parcels")
 adunit.disconnect()
 
 # create empty map zoomed in on Seattle
@@ -205,7 +205,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         df = adunit.getParcelCoords(value)
         df.to_csv("df.csv")
         adunit.disconnect()
-        coords = (newCoords.intptla[0], newCoords.intptlo[0])
+        coords = (newCoords.latitude[0], newCoords.longitude[0])
         zoom = 14
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
