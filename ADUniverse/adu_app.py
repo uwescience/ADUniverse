@@ -28,9 +28,8 @@ adunit.disconnect()
 map = folium.Map(location=SEATTLE_COORDINATES,
                  zoom_start=12, control_scale=True)
 
+
 # regular style of polygons
-
-
 def style_function(feature):
     return {
         'weight': 2,
@@ -39,7 +38,7 @@ def style_function(feature):
         'lineOpacity': 1,
     }
 
-
+# when polygon is selected, its style
 def highlight_function(feature):
     return {
         'fillColor': 'blue',
@@ -54,12 +53,6 @@ def highlight_function(feature):
 
 # for speed purposes
 MAX_RECORDS = 100
-
-# add a marker for every record in the filtered data, use a clustered view
-# for _, row in data[0:MAX_RECORDS].iterrows():
-# popup = folium.Popup("Year Build: " + str(row['YRBUILT']) +
-#                     "<br> Address: " + str(row['ADDRESS']), max_width=300)
-# folium.Marker([row['INTPTLA'], row['INTPTLO']], popup=popup).add_to(map)
 
 map.save("map.html")
 
