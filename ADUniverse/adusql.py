@@ -113,7 +113,7 @@ class Connection:
             else:
                 clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
                 
-        searchStr = "select p.intptla, p.intptlo FROM Parcels p join Address a on p.addressid = a.id " + WHERE + clause +" limit 1"
+        searchStr = "select latitude, longitude FROM Parcels p " + WHERE + clause +" limit 1"
         return self.manual(searchStr)
 
     def getParcelCoords(self, address):
@@ -132,7 +132,7 @@ class Connection:
             else:
                 clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
                 
-        searchStr = "select * FROM Parcels p join Address a on p.addressid = a.id join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN " + WHERE + clause
+        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN " + WHERE + clause
         return self.manual(searchStr)
 
 def keyword_locate(kw, text):
