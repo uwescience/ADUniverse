@@ -116,6 +116,25 @@ class Connection:
         searchStr = "select p.intptla, p.intptlo FROM Parcels p join Address a on p.addressid = a.id " + WHERE + clause +" limit 1"
         return self.manual(searchStr)
 
+    def getParcelCoords(self, address):
+        '''
+        Retrieve the parcel long/lat coordinates for a specific address
+        '''
+        adr_tokens = word_tokenize(address)
+        WHERE = "where "
+        adLIKE = "address LIKE "
+
+        clause = ""
+            
+        for t,s in zip(adr_tokens, range(0,len(adr_tokens))):
+            if s == len(adr_tokens) -1:
+                clause = clause + adLIKE + "'%{}%'".format(t)
+            else:
+                clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
+                
+        searchStr = "select * FROM Parcels p join Address a on p.addressid = a.id join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN " + WHERE + clause
+        return self.manual(searchStr)
+
 def keyword_locate(kw, text):
     '''
     This function iterates over entries in the "text" variable, searching for any matches to the "kw" variable.
