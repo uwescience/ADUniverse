@@ -3,7 +3,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import folium
-import functions
+import financials
 import geojson
 import json
 import pandas as pd
@@ -164,7 +164,7 @@ app.layout = html.Div([
     [Input('BuildSizeInput', 'value')])
 def cost_breakdown(value):
     # 'Total amount of loan is "{0:12,.0f}"'.format(loan)
-    return functions.cost_breakdown(value)
+    return financials.cost_breakdown(value)
 
 # calculate the rental income
 
@@ -184,7 +184,7 @@ def rents(value1, value2):
     [Input('rental', 'children'),
      Input('MortgageCalculator', 'children')])
 def decide_finance(benifit, cost):
-    return functions.decide_finance(benifit, cost)
+    return financials.decide_finance(benifit, cost)
 
 
 # dynamically updates the map based on the address selected
@@ -275,7 +275,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
 
         feature = folium.features.GeoJson(geojson["features"]["geometry"],
             name=None, style_function=style_function, highlight_function=highlight_function,)
-        folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=200).add_to(feature)
+        folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=300).add_to(feature)
         parcel.add_child(feature)
         feature.add_to(new_map)
 
@@ -312,7 +312,7 @@ def get_features(value):
      Input(component_id='intermediate-value', component_property='children')]
 )
 def loan_calculator(loan, feature):
-    return functions.loan_calculator(loan, feature)
+    return financials.loan_calculator(loan, feature)
 
 # print out
 

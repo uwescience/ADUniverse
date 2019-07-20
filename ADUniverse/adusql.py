@@ -113,7 +113,6 @@ class Connection:
             else:
                 clause = clause + adLIKE + "'%{}%'".format(t) + " AND "
                 
-        searchStr = "select p.latitude, p.longitude FROM Parcels p " + WHERE + clause +" limit 1"
         return self.manual(searchStr)
 
     def getParcelCoords(self, address):
