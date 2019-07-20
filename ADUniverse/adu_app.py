@@ -14,6 +14,8 @@ from folium.plugins import Search
 import nltk
 nltk.download('punkt')
 
+# import navbar
+
 # FILE = "adudata_UnivDist_small.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
 init_zoom = 12
@@ -21,7 +23,7 @@ init_zoom = 12
 
 adunit = ads.Connection("adunits.db")
 adunit.connect()
-addresses = adunit.select("address")
+addresses = adunit.manual("select distinct address from Parcels")
 adunit.disconnect()
 
 # create empty map zoomed in on Seattle
@@ -63,8 +65,10 @@ app = dash.Dash("SeattleADU",
                 external_stylesheets=external_stylesheets)
 
 app.layout = html.Div([
-    html.H1("Seattle ADU Feasibility"),
 
+    html.H1("Seattle ADU Feasibility"),
+    # navb,
+    # html.Div(id='navb'),
     html.H3("Find your home"),
     dcc.Dropdown(
         id='addressDropdown',
@@ -201,49 +205,89 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         adunit = ads.Connection("adunits.db")
         adunit.connect()
         newCoords = adunit.getCoords(value)
-        print(adunit.getParcelCoords(value))
+        # print(adunit.getParcelCoords(value))
         df = adunit.getParcelCoords(value)
         df.to_csv("df.csv")
         adunit.disconnect()
-        coords = (newCoords.intptla[0], newCoords.intptlo[0])
-        zoom = 14
+        # coords = (newCoords.latitude[0], newCoords.longitude[0])
+        coords = (newCoords.latitude[0], newCoords.longitude[0])
+        print(coords)
+        # float max digits is not long enough
+        zoom = 16
+
+
+
+        def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
+            geojson = {'type': 'FeatureCollection', 'features': []}
+            feature = {'type': 'Feature',
+                       'properties': {},
+                       'geometry': {'type': 'Polygon',
+                                    'coordinates': []}}
+            for _, row in df.iterrows():
+                feature['geometry']['coordinates'].append([row[lon], row[lat]])
+                for prop in properties:
+                    feature['properties'][prop] = row[prop]
+                geojson['features'] = feature
+            return geojson
+
+
+        cols = ['sqftlot']
+        geojson = df_to_geojson(df, cols, lat='coordY', lon='coordX')
+
+        print(geojson)
+
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
-    def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
-        geojson = {'type': 'FeatureCollection', 'features': []}
-        feature = {'type': 'Feature',
-                   'properties': {},
-                   'geometry': {'type': 'Polygon',
-                                'coordinates': []}}
-        for _, row in df.iterrows():
-            feature['geometry']['coordinates'].append([row[lon], row[lat]])
-            for prop in properties:
-                feature['properties'][prop] = row[prop]
-            geojson['features'] = feature
-        return geojson
 
-    cols = ['PIN', 'sqftlot']
-    geojson = df_to_geojson(df, cols, lat='coordY', lon='coordX')
+    # with open('myfile.geojson', 'w') as f:
+    #     json.dump(geojson, f)
 
-    parcel = folium.map.FeatureGroup(name="parcel",
-                                     overlay=True, control=True, show=True,)
+    # with open('myfile2.geojson', 'w') as f2:
+    #     geojson.write(f2)
+    #     f2.close()
+    if value != None:
+        parcel = folium.map.FeatureGroup(name="parcel",
+                                         overlay=True, control=True, show=True,)
 
-    for i in range(0, len(geojson["features"])):
-        feature = folium.features.GeoJson(geojson["features"][i]["geometry"],
-                                          name=(geojson["features"][i]["properties"]["PIN"]),
-                                          style_function=style_function,
-                                          highlight_function=highlight_function,)
-        folium.Popup("PIN: " + geojson["features"][i]["properties"]["PIN"] + " " +
-                     "Square feet of lot: " + geojson["features"][i]["properties"]["sqftlot"], max_width=200).add_to(feature)
+        # for i in range(0, len(geojson["features"])):
+        #     print(len(geojson["features"]))
+        #     print(i)
+        #     print(geojson["features"][i]["geometry"])
+        #     feature = folium.features.GeoJson(geojson["features"][i]["geometry"],
+        #                                       name=(geojson["features"][i]["properties"]["sqftlot"]),
+        #                                       style_function=style_function,
+        #                                       highlight_function=highlight_function,)
+        #     folium.Popup(
+        #                  "Square feet of lot: " + geojson["features"][i]["properties"]["sqftlot"], max_width=200).add_to(feature)
+        #     parcel.add_child(feature)
+
+        # parcel = folium.features.GeoJson(geojson, style_function=style_function, highlight_function=highlight_function) #### Anag
+        # print(geojson["features"][0]["geometry"])
+        print(geojson["features"]["geometry"])
+        print(geojson["features"]["properties"])
+        print(geojson["features"]["properties"]["sqftlot"])
+
+        # folium.Popup()
+        folium.Marker(coords, popup=folium.Popup("Square feet of lot: " + 
+            str(df.iloc[0]["sqftlot"])), max_width=200).add_to(new_map)
+
+
+        feature = folium.features.GeoJson(geojson["features"]["geometry"],
+            name=None, style_function=style_function, highlight_function=highlight_function,)
+        folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=200).add_to(feature)
         parcel.add_child(feature)
+        feature.add_to(new_map)
 
-    parcel.add_to(map)
+        parcel.add_to(new_map)
+        print(df.iloc[0]["sqftlot"])
+
 
     new_map.save("map.html")
     # map.render()
     return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
 
+    # return open("map.html", "r").read()
 # space holder for some features
 
 
