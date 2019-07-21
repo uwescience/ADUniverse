@@ -231,7 +231,12 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
             return geojson
 
 
-        cols = ['sqftlot']
+        cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot', 
+        'ls_indic', 'lotcov_indic','lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
+        'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
+        'parcel_flood', 'parcel_landf', 'parcel_peat', 
+        'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope', 
+        ]
         geojson = df_to_geojson(df, cols, lat='coordY', lon='coordX')
 
         print(geojson)
@@ -269,8 +274,26 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         print(geojson["features"]["properties"]["sqftlot"])
 
         # folium.Popup()
-        folium.Marker(coords, popup=folium.Popup("Square feet of lot: " + 
-            str(df.iloc[0]["sqftlot"])), max_width=200).add_to(new_map)
+        folium.Marker(coords, popup=folium.Popup("<b>Is this home ADU eligible? </b>" + 
+            str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" + 
+            "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
+            "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
+            "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) + 
+            "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
+            "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) + 
+            "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) + 
+            "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) + 
+            "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) + 
+            "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) + 
+            "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
+            "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
+            "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
+            "<br><i>Environmentally Critical Areas assessment</i>" + 
+            "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
+            "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) + 
+            "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]), 
+            max_width=600)
+            ).add_to(new_map)
 
 
         feature = folium.features.GeoJson(geojson["features"]["geometry"],
@@ -280,7 +303,6 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         feature.add_to(new_map)
 
         parcel.add_to(new_map)
-        print(df.iloc[0]["sqftlot"])
 
 
     new_map.save("map.html")
