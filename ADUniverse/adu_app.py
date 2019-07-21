@@ -237,7 +237,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         'parcel_flood', 'parcel_landf', 'parcel_peat', 
         'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope', 
         ]
-        geojson = df_to_geojson(df, cols, lat='coordY', lon='coordX')
+        geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
 
         print(geojson)
 
@@ -252,8 +252,8 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
     #     geojson.write(f2)
     #     f2.close()
     if value != None:
-        parcel = folium.map.FeatureGroup(name="parcel",
-                                         overlay=True, control=True, show=True,)
+        # parcel = folium.map.FeatureGroup(name="parcel",
+        #                                  overlay=True, control=True, show=True,)
 
         # for i in range(0, len(geojson["features"])):
         #     print(len(geojson["features"]))
@@ -269,12 +269,34 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
 
         # parcel = folium.features.GeoJson(geojson, style_function=style_function, highlight_function=highlight_function) #### Anag
         # print(geojson["features"][0]["geometry"])
-        print(geojson["features"]["geometry"])
-        print(geojson["features"]["properties"])
-        print(geojson["features"]["properties"]["sqftlot"])
 
         # folium.Popup()
-        folium.Marker(coords, popup=folium.Popup("<b>Is this home ADU eligible? </b>" + 
+        # folium.Marker(coords, popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" + 
+        #     str(df.iloc[0]["adu_eligible"]) + "<br><h5><i>Details</i></h5>" + 
+        #     "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
+        #     "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
+        #     "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) + 
+        #     "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
+        #     "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) + 
+        #     "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) + 
+        #     "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) + 
+        #     "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) + 
+        #     "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) + 
+        #     "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
+        #     "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
+        #     "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
+        #     "<br><i>Environmentally Critical Areas assessment</i>" + 
+        #     "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
+        #     "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) + 
+        #     "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]), 
+        #     max_width=2000)
+        #     ).add_to(new_map)
+
+        locations = geojson["features"]["geometry"]["coordinates"]
+
+        folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
+            fill_opacity=0.5, fill=True, 
+            popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" + 
             str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" + 
             "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
             "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
@@ -292,17 +314,17 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
             "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
             "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) + 
             "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]), 
-            max_width=600)
-            ).add_to(new_map)
+            max_width=2000), 
+            tooltip='Click me!',).add_to(new_map)
+        
 
+        # feature = folium.features.GeoJson(geojson["features"]["geometry"],
+        #     name=None, style_function=style_function, highlight_function=highlight_function,)
+        # folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=300).add_to(feature)
+        # parcel.add_child(feature)
+        # feature.add_to(new_map)
 
-        feature = folium.features.GeoJson(geojson["features"]["geometry"],
-            name=None, style_function=style_function, highlight_function=highlight_function,)
-        folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=300).add_to(feature)
-        parcel.add_child(feature)
-        feature.add_to(new_map)
-
-        parcel.add_to(new_map)
+        # parcel.add_to(new_map)
 
 
     new_map.save("map.html")
