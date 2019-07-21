@@ -213,7 +213,7 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         coords = (newCoords.latitude[0], newCoords.longitude[0])
         print(coords)
         # float max digits is not long enough
-        zoom = 16
+        zoom = 17
 
 
 
