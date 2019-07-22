@@ -301,14 +301,14 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
             "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
             "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
             "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) + 
-            "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
-            "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) + 
-            "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) + 
-            "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) + 
-            "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) + 
+            "<br> Is this lot above 3200 square feet? " + str(df.iloc[0]["ls_indic"]) +
+            "<br> For those lots bigger than 5000 square feet, is the lot coverage sufficient? " + str(df.iloc[0]["lotcov_indic"]) + 
+            "<br> For those lots bigger than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["lotcoverage"]) + 
+            "<br> For those lots smaller than 5000 square feet, is the lot coverage sufficient? " + str(df.iloc[0]["sm_lotcov_ind"]) + 
+            "<br> For those lots smaller than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["sm_lotcov"]) + 
             "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) + 
-            "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
-            "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
+            # "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
+            # "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
             "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
             "<br><i>Environmentally Critical Areas assessment</i>" + 
             "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
