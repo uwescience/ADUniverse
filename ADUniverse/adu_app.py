@@ -10,6 +10,7 @@ import json
 import numpy as np
 import pandas as pd
 import sys
+import numpy as np
 
 from dash.dependencies import Input, Output
 from folium.plugins import Search
@@ -228,16 +229,19 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # lat = addresses.loc[addresses.address == value].reset_index()['INTPTLO'][0]
         adunit = ads.Connection("adunits.db")
         adunit.connect()
-        newCoords = adunit.getCoords(value)
+        # newCoords = adunit.getCoords(value)
         # print(adunit.getParcelCoords(value))
         df = adunit.getParcelCoords(value)
-        df.to_csv("df.csv")
+        # df.to_csv("df.csv")
         adunit.disconnect()
         # coords = (newCoords.latitude[0], newCoords.longitude[0])
-        coords = (newCoords.latitude[0], newCoords.longitude[0])
-        print(coords)
+        # coords = (newCoords.latitude[0], newCoords.longitude[0])
+        # print(coords)
+        coords = (df.coordY[0], df.coordX[0])
+        # coords = (df.iloc[0]["coordY"]["coordX"])
+        # print(coords)
         # float max digits is not long enough
-        zoom = 17
+        zoom = 18
 
         def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
             geojson = {'type': 'FeatureCollection', 'features': []}
@@ -259,8 +263,6 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
                 'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
                 ]
         geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
-
-        print(geojson)
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
@@ -311,7 +313,10 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         #     max_width=2000)
         #     ).add_to(new_map)
 
-        locations = geojson["features"]["geometry"]["coordinates"]
+        # locations = geojson["features"]["geometry"]["coordinates"]
+
+        locations = np.asarray(df[pd.Index(['coordY', 'coordX'])])
+        # print(locations)
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
