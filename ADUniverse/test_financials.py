@@ -1,6 +1,6 @@
-# Structural Parameter Assumptions
-
 import financials
+
+# Structural Parameter Assumptions
 APR = 0.069  # anual interest rate
 MATURITY = 15  # loan MATURITY years
 
@@ -12,10 +12,10 @@ def test_loan_calculator():
     assert (output1 != 0)
     assert (output2 != 0)
 
+
 def test_cost_breakdown():
-    construction, design, total = financials.cost_breakdown(100)
+    construction, sewer, design, total = financials.cost_breakdown(True, 500)
     assert(isinstance(construction, float))
+    assert(isinstance(sewer, float))
     assert(isinstance(design, float))
     assert(isinstance(total, float))
-
-#FIXME: Test for decide_finance

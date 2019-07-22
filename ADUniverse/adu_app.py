@@ -2,10 +2,12 @@ import adusql as ads
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_daq as daq
 import folium
 import financials
 import geojson
 import json
+import numpy as np
 import pandas as pd
 import sys
 
@@ -41,6 +43,8 @@ def style_function(feature):
     }
 
 # when polygon is selected, its style
+
+
 def highlight_function(feature):
     return {
         'fillColor': 'blue',
@@ -99,30 +103,53 @@ app.layout = html.Div([
     # Not intuitively named
     html.Div(id='output_drop'),
 
-    html.H2("Let's do the numbers! (DADU)",
+    html.H2("Let's do the numbers!",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
 
     html.Div([
         html.Div([
+            daq.ToggleSwitch(
+                id='build_dadu',
+                label=['Attached ADU', 'Detached ADU'],
+                style={'width': '350px', 'margin': 'auto'},
+                value=False),
             html.H3('Cost Breakdown'),
-            html.H4('How large (square foot) will be your ADU?'),
-            dcc.Input(id='BuildSizeInput', value='0', type='number'),
+            html.H4('How large will be your ADU?'),
+            dcc.Slider(
+                id='BuildSizeInput',
+                min=0,
+                max=1000,
+                step=10,
+                value=500,),
+            html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
             html.Table([
                 html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
-                html.Tr([html.Td(['+ Sewer Capacity Charge ']), html.Td(11268)]),
+                html.Tr([html.Td(['+ Sewer Capacity Charge ']), html.Td(id='SewerCharge')]),
                 html.Tr([html.Td(['+  Permit Fee']), html.Td(4000)]),
                 html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
                 html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])])
         ], className="six columns"),
 
         html.Div([
-            html.H3("How much do you want to borrow?"),
-            dcc.Input(id='LoanInput', value='0', type='number'),
+            html.H3("How much will you borrow?"),
+            dcc.Slider(
+                id='LoanInput',
+                min=100000,
+                max=300000,
+                step=5000,
+                value=200000,
+            ),
             html.Table([
-                html.Tr([html.Td(['Total']), html.Td(id='LoanAmount')]),
-                html.Tr([html.Td(['Monthly Payment']), html.Td(id='MortgageCalculator')])
+                html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
+                html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')])
             ]),
+
+            dcc.Markdown('''
+            Note: We assume APR 6.9% for a 15-year fixed-rate home equity loan.  \
+                    Bank typical requires debt-to-income ratio > 30%.  \
+                    Loan is likely to be approved if monthly income > 3*payment
+            '''),
 
             html.H3("Where do you live?"),
             dcc.Dropdown(
@@ -133,15 +160,11 @@ app.layout = html.Div([
                     {'label': 'Downtown', 'value': '3.861445783'},
                     {'label': 'Fremont', 'value': '3'}, ],
                 value='3'),
-            html.H3("Your expected monthly rental income"),
+            html.H3("Expected monthly rental income"),
             html.Div(id='rental'),
         ], className="six columns"),
 
     ], className="row"),
-
-    html.H2("Financial Feasibility", style={'textAlign': 'center'}),
-    html.Div(id='ConcludeFinance', style={'textAlign': 'center'}),
-
 
     dcc.Markdown('''
     # **Frequently Asked Questions**
@@ -154,17 +177,28 @@ app.layout = html.Div([
     '''),
 ])
 
+# input slider for square foot
+
+
+@app.callback(
+    Output('BuildSizeOutput', 'children'),
+    [Input('BuildSizeInput', 'value')])
+def update_output(value):
+    return 'Your Future ADU Size: "{}" Square Feet '.format(value)
+
 # calculate cost breakdown
 
 
 @app.callback(
     [Output('ConstructCost', 'children'),
+     Output('SewerCharge', 'children'),
      Output('DesignCost', 'children'),
      Output('TotalCost', 'children')],
-    [Input('BuildSizeInput', 'value')])
-def cost_breakdown(value):
+    [Input('build_dadu', 'value'),
+     Input('BuildSizeInput', 'value')])
+def cost_breakdown(value1, value2):
     # 'Total amount of loan is "{0:12,.0f}"'.format(loan)
-    return financials.cost_breakdown(value)
+    return financials.cost_breakdown(value1, value2)
 
 # calculate the rental income
 
@@ -175,16 +209,6 @@ def cost_breakdown(value):
      Input('neighbor_dropdown', 'value')])
 def rents(value1, value2):
     return float(value1)*float(value2)
-
-# cost benefit analysis
-
-
-@app.callback(
-    Output('ConcludeFinance', 'children'),
-    [Input('rental', 'children'),
-     Input('MortgageCalculator', 'children')])
-def decide_finance(benifit, cost):
-    return financials.decide_finance(benifit, cost)
 
 
 # dynamically updates the map based on the address selected
@@ -215,8 +239,6 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # float max digits is not long enough
         zoom = 17
 
-
-
         def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
             geojson = {'type': 'FeatureCollection', 'features': []}
             feature = {'type': 'Feature',
@@ -230,20 +252,17 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
                 geojson['features'] = feature
             return geojson
 
-
-        cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot', 
-        'ls_indic', 'lotcov_indic','lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
-        'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
-        'parcel_flood', 'parcel_landf', 'parcel_peat', 
-        'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope', 
-        ]
+        cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot',
+                'ls_indic', 'lotcov_indic', 'lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
+                'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
+                'parcel_flood', 'parcel_landf', 'parcel_peat',
+                'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
+                ]
         geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
 
         print(geojson)
 
-
     new_map = folium.Map(location=coords, zoom_start=zoom)
-
 
     # with open('myfile.geojson', 'w') as f:
     #     json.dump(geojson, f)
@@ -271,52 +290,52 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # print(geojson["features"][0]["geometry"])
 
         # folium.Popup()
-        # folium.Marker(coords, popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" + 
-        #     str(df.iloc[0]["adu_eligible"]) + "<br><h5><i>Details</i></h5>" + 
-        #     "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
-        #     "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
-        #     "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) + 
+        # folium.Marker(coords, popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" +
+        #     str(df.iloc[0]["adu_eligible"]) + "<br><h5><i>Details</i></h5>" +
+        #     "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) +
+        #     "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
+        #     "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) +
         #     "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
-        #     "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) + 
-        #     "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) + 
-        #     "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) + 
-        #     "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) + 
-        #     "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) + 
-        #     "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
-        #     "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
+        #     "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) +
+        #     "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) +
+        #     "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) +
+        #     "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) +
+        #     "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) +
+        #     "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
+        #     "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
         #     "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
-        #     "<br><i>Environmentally Critical Areas assessment</i>" + 
-        #     "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
-        #     "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) + 
-        #     "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]), 
+        #     "<br><i>Environmentally Critical Areas assessment</i>" +
+        #     "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) +
+        #     "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) +
+        #     "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]),
         #     max_width=2000)
         #     ).add_to(new_map)
 
         locations = geojson["features"]["geometry"]["coordinates"]
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
-            fill_opacity=0.5, fill=True, 
-            popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" + 
-            str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" + 
-            "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) + 
-            "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
-            "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) + 
-            "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
-            "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) + 
-            "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) + 
-            "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) + 
-            "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) + 
-            "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) + 
-            "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) + 
-            "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) + 
-            "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
-            "<br><i>Environmentally Critical Areas assessment</i>" + 
-            "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) + 
-            "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) + 
-            "<br>Is this parcel on a potential slide area? " + str(df.iloc[0]["parcel_poteslide"]), 
-            max_width=2000), 
-            tooltip='Click me!',).add_to(new_map)
-        
+                       fill_opacity=0.5, fill=True,
+                       popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" +
+                                          str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" +
+                                          "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) +
+                                          "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
+                                          "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) +
+                                          "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
+                                          "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) +
+                                          "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) +
+                                          "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) +
+                                          "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) +
+                                          "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) +
+                                          "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
+                                          "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
+                                          "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
+                                          "<br><i>Environmentally Critical Areas assessment</i>" +
+                                          "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) +
+                                          "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) +
+                                          "<br>Is this parcel on a potential slide area? " +
+                                          str(df.iloc[0]["parcel_poteslide"]),
+                                          max_width=2000),
+                       tooltip='Click me!',).add_to(new_map)
 
         # feature = folium.features.GeoJson(geojson["features"]["geometry"],
         #     name=None, style_function=style_function, highlight_function=highlight_function,)
@@ -325,7 +344,6 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # feature.add_to(new_map)
 
         # parcel.add_to(new_map)
-
 
     new_map.save("map.html")
     # map.render()
@@ -351,7 +369,7 @@ def get_features(value):
 
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
-     Output(component_id='MortgageCalculator', component_property='children')],
+     Output(component_id='MonthlyPayment', component_property='children')],
     [Input(component_id='LoanInput', component_property='value'),
      Input(component_id='intermediate-value', component_property='children')]
 )
