@@ -33,12 +33,14 @@ if __name__ == "__main__":
 
 # @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 # def render_page_content(pathname):
-#     if pathname in ["/", "/page-1"]:
+#     if pathname in ["/", "/map"]:
 #         return html.P("This is the content of page 1!")
-#     elif pathname == "/page-2":
+#     elif pathname == "/finances":
 #         return html.P("This is the content of page 2. Yay!")
-#     elif pathname == "/page-3":
+#     elif pathname == "/more-info":
 #         return html.P("Oh cool, this is page 3!")
+#     elif pathname == "/transparency":
+#         return html.P("Oh cool, this is page 4!")
 #     # If the user tries to reach a different page, return a 404 message
 #     return dbc.Jumbotron(
 #         [
