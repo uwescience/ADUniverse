@@ -4,7 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_daq as daq
 import folium
-import financials
+import financials as fin
 import geojson
 import json
 import numpy as np
@@ -19,10 +19,8 @@ nltk.download('punkt')
 
 # import navbar
 
-# FILE = "adudata_UnivDist_small.csv"
 SEATTLE_COORDINATES = (47.6062, -122.3321)
 init_zoom = 12
-# data = pd.read_csv(FILE)
 
 adunit = ads.Connection("adunits.db")
 addresses = adunit.getAddresses()
@@ -42,8 +40,6 @@ def style_function(feature):
     }
 
 # when polygon is selected, its style
-
-
 def highlight_function(feature):
     return {
         'fillColor': 'blue',
@@ -91,8 +87,7 @@ app.layout = html.Div([
 
     html.H2("Why are you thinking of building an ADU?"),
     dcc.Dropdown(
-        # Not intuitively named
-        id='my-dropdown',
+        id='aduPurposeDropdown',
         options=[
             {'label': 'Build one more unit for rental income', 'value': 'income'},
             {'label': 'A Relative needs some housing', 'value': 'support'},
@@ -177,8 +172,6 @@ app.layout = html.Div([
 ])
 
 # input slider for square foot
-
-
 @app.callback(
     Output('BuildSizeOutput', 'children'),
     [Input('BuildSizeInput', 'value')])
@@ -186,8 +179,6 @@ def update_output(value):
     return 'Your Future ADU Size: "{}" Square Feet '.format(value)
 
 # calculate cost breakdown
-
-
 @app.callback(
     [Output('ConstructCost', 'children'),
      Output('SewerCharge', 'children'),
@@ -197,22 +188,18 @@ def update_output(value):
      Input('BuildSizeInput', 'value')])
 def cost_breakdown(value1, value2):
     # 'Total amount of loan is "{0:12,.0f}"'.format(loan)
-    return financials.cost_breakdown(value1, value2)
+    return fin.cost_breakdown(value1, value2)
 
 # calculate the rental income
-
-
 @app.callback(
     Output('rental', 'children'),
     [Input('BuildSizeInput', 'value'),
      Input('neighbor_dropdown', 'value')])
-def rents(value1, value2):
-    return float(value1)*float(value2)
+def rents(buildSize, neighbor):
+    return float(buildSize)*float(neighbor)
 
 
 # dynamically updates the map based on the address selected
-
-
 @app.callback(
     [Output('output-container', 'children'),
      Output('map', 'srcDoc')],
@@ -224,7 +211,6 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
     if value != None:
         yearbuilt = 1
         adunit = ads.Connection("adunits.db")
-        # newCoords = adunit.getCoords(value)
         df = adunit.getParcelCoords(value)
         # df.to_csv("df.csv")
         # coords = (newCoords.latitude[0], newCoords.longitude[0])
@@ -233,26 +219,26 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # float max digits is not long enough
         zoom = 18
 
-        # def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
-        #     geojson = {'type': 'FeatureCollection', 'features': []}
-        #     feature = {'type': 'Feature',
-        #                'properties': {},
-        #                'geometry': {'type': 'Polygon',
-        #                             'coordinates': []}}
-        #     for _, row in df.iterrows():
-        #         feature['geometry']['coordinates'].append([row[lon], row[lat]])
-        #         for prop in properties:
-        #             feature['properties'][prop] = row[prop]
-        #         geojson['features'] = feature
-        #     return geojson
+        def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
+            geojson = {'type': 'FeatureCollection', 'features': []}
+            feature = {'type': 'Feature',
+                       'properties': {},
+                       'geometry': {'type': 'Polygon',
+                                    'coordinates': []}}
+            for _, row in df.iterrows():
+                feature['geometry']['coordinates'].append([row[lon], row[lat]])
+                for prop in properties:
+                    feature['properties'][prop] = row[prop]
+                geojson['features'] = feature
+            return geojson
 
-        # cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot',
-        #         'ls_indic', 'lotcov_indic', 'lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
-        #         'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
-        #         'parcel_flood', 'parcel_landf', 'parcel_peat',
-        #         'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
-        #         ]
-        # geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
+        cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot',
+                'ls_indic', 'lotcov_indic', 'lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
+                'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
+                'parcel_flood', 'parcel_landf', 'parcel_peat',
+                'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
+                ]
+        geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
@@ -341,10 +327,8 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
         # parcel.add_to(new_map)
 
     new_map.save("map.html")
-    # map.render()
     return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
 
-    # return open("map.html", "r").read()
 # space holder for some features
 
 
@@ -360,8 +344,6 @@ def get_features(value):
     return output
 
 # caculating loans
-
-
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
@@ -369,14 +351,12 @@ def get_features(value):
      Input(component_id='intermediate-value', component_property='children')]
 )
 def loan_calculator(loan, feature):
-    return financials.loan_calculator(loan, feature)
+    return fin.loan_calculator(loan, feature)
 
 # print out
-
-
 @app.callback(
     Output('output_drop', 'children'),
-    [Input('my-dropdown', 'value')])
+    [Input('aduPurposeDropdown', 'value')])
 def update_purpose(value):
     return 'You are builing this ADU for "{}"'.format(value)
 
