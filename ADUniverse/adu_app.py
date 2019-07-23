@@ -6,15 +6,15 @@ import dash_html_components as html
 import dash_daq as daq # requires dash_daq version 0.1.0
 import folium
 import financials as fin
-import geojson
-import json
+# import geojson
+# import json
 import numpy as np
 import pandas as pd
 import sys
-import numpy as np
+# import numpy as np
 
-from dash.dependencies import Input, Output
-from folium.plugins import Search
+from dash.dependencies import Input, Output, State
+# from folium.plugins import Search
 import nltk
 nltk.download('punkt')
 
@@ -288,19 +288,19 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup=folium.Popup("<b><h4>Is this home ADU eligible? </h4></b>" +
+                       popup=folium.Popup("<b><h4>Is this home DADU eligible? </h4></b>" +
                                           str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" +
                                           "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) +
                                           "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
                                           "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) +
-                                          "<br> ls_indic " + str(df.iloc[0]["ls_indic"]) +
-                                          "<br> lotcov_indic " + str(df.iloc[0]["lotcov_indic"]) +
-                                          "<br> lotcoverage " + str(df.iloc[0]["lotcoverage"]) +
-                                          "<br> sm_lotcov_ind " + str(df.iloc[0]["sm_lotcov_ind"]) +
-                                          "<br> sm_lotcov " + str(df.iloc[0]["sm_lotcov"]) +
+                                          "<br> Is this lot large enough to house a DADU? " + str(df.iloc[0]["ls_indic"]) +
+                                          "<br> For lots bigger than 5000 square feet, is lot coverage sufficient for a DADU? " + str(df.iloc[0]["lotcov_indic"]) +
+                                          "<br> For lots bigger than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["lotcoverage"]) +
+                                          "<br> For lots smaller than 5000 square feet, is lot coverage sufficient for a DADU? " + str(df.iloc[0]["sm_lotcov_ind"]) +
+                                          "<br> For lots smaller than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["sm_lotcov"]) +
                                           "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) +
-                                          "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
-                                          "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
+                                          # "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
+                                          # "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
                                           "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
                                           "<br><i>Environmentally Critical Areas assessment</i>" +
                                           "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) +
