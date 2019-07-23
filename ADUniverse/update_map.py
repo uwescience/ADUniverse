@@ -1,6 +1,10 @@
 import folium
 import sys
 import constant as C
+import adusql as ads
+import numpy as np
+import pandas as pd
+
 
 
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
@@ -17,26 +21,26 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         # float max digits is not long enough
         zoom = 18
 
-        def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
-            geojson = {'type': 'FeatureCollection', 'features': []}
-            feature = {'type': 'Feature',
-                       'properties': {},
-                       'geometry': {'type': 'Polygon',
-                                    'coordinates': []}}
-            for _, row in df.iterrows():
-                feature['geometry']['coordinates'].append([row[lon], row[lat]])
-                for prop in properties:
-                    feature['properties'][prop] = row[prop]
-                geojson['features'] = feature
-            return geojson
+        # def df_to_geojson(df, properties, lat='latitude', lon='longitude'):
+        #     geojson = {'type': 'FeatureCollection', 'features': []}
+        #     feature = {'type': 'Feature',
+        #                'properties': {},
+        #                'geometry': {'type': 'Polygon',
+        #                             'coordinates': []}}
+        #     for _, row in df.iterrows():
+        #         feature['geometry']['coordinates'].append([row[lon], row[lat]])
+        #         for prop in properties:
+        #             feature['properties'][prop] = row[prop]
+        #         geojson['features'] = feature
+        #     return geojson
 
-        cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot',
-                'ls_indic', 'lotcov_indic', 'lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
-                'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
-                'parcel_flood', 'parcel_landf', 'parcel_peat',
-                'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
-                ]
-        geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
+        # cols = ['adu_eligible', 's_hood', 'zone_ind', 'sqftlot',
+        #         'ls_indic', 'lotcov_indic', 'lotcoverage', 'sm_lotcov_ind', 'sm_lotcov',
+        #         'yrbuilt', 'daylightbasement', 'sqftfinbasement',  'shoreline_ind',
+        #         'parcel_flood', 'parcel_landf', 'parcel_peat',
+        #         'parcel_poteslide', 'parcel_riparian', 'parcel_steepslope',
+        #         ]
+        # geojson = df_to_geojson(df, cols, lat='coordX', lon='coordY')
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
