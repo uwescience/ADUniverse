@@ -25,9 +25,7 @@ init_zoom = 12
 # data = pd.read_csv(FILE)
 
 adunit = ads.Connection("adunits.db")
-adunit.connect()
-addresses = adunit.manual("select distinct address from Parcels")
-adunit.disconnect()
+addresses = adunit.getAddresses()
 
 # create empty map zoomed in on Seattle
 map = folium.Map(location=SEATTLE_COORDINATES,
@@ -78,7 +76,7 @@ app.layout = html.Div([
     dcc.Dropdown(
         id='addressDropdown',
         options=[
-            {'label': i, 'value': i} for i in addresses.address.unique()
+            {'label': i, 'value': j} for i,j in zip(addresses.address,addresses.PIN)
         ],
         placeholder='Type your house address here...'),
 
@@ -225,21 +223,13 @@ def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
 
     if value != None:
         yearbuilt = 1
-        # long = addresses.loc[addresses.address == value].reset_index()['INTPTLA'][0]
-        # lat = addresses.loc[addresses.address == value].reset_index()['INTPTLO'][0]
         adunit = ads.Connection("adunits.db")
-        adunit.connect()
         # newCoords = adunit.getCoords(value)
-        # print(adunit.getParcelCoords(value))
         df = adunit.getParcelCoords(value)
         # df.to_csv("df.csv")
-        adunit.disconnect()
         # coords = (newCoords.latitude[0], newCoords.longitude[0])
-        # coords = (newCoords.latitude[0], newCoords.longitude[0])
-        # print(coords)
         coords = (df.coordY[0], df.coordX[0])
         # coords = (df.iloc[0]["coordY"]["coordX"])
-        # print(coords)
         # float max digits is not long enough
         zoom = 18
 
