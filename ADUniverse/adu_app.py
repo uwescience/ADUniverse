@@ -1,8 +1,9 @@
 import adusql as ads
+import constant as C
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-import dash_daq as daq
+import dash_daq as daq # requires dash_daq version 0.1.0
 import folium
 import financials as fin
 import geojson
@@ -17,17 +18,12 @@ from folium.plugins import Search
 import nltk
 nltk.download('punkt')
 
-# import navbar
-
-SEATTLE_COORDINATES = (47.6062, -122.3321)
-init_zoom = 12
-
 adunit = ads.Connection("adunits.db")
 addresses = adunit.getAddresses()
 
 # create empty map zoomed in on Seattle
-map = folium.Map(location=SEATTLE_COORDINATES,
-                 zoom_start=12, control_scale=True)
+map = folium.Map(location=C.SEATTLE,
+                 zoom_start=C.INIT_ZOOM, control_scale=True)
 
 
 # regular style of polygons
@@ -50,10 +46,6 @@ def highlight_function(feature):
         'fillOpacity': 0.5,
         'lineOpacity': 1,
     }
-
-
-# for speed purposes
-MAX_RECORDS = 100
 
 map.save("map.html")
 
@@ -205,7 +197,7 @@ def rents(buildSize, neighbor):
      Output('map', 'srcDoc')],
     [Input('addressDropdown', 'value')]
 )
-def update_map(value, coords=SEATTLE_COORDINATES, zoom=init_zoom):
+def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     yearbuilt = 1
 
     if value != None:
