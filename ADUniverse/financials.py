@@ -3,6 +3,7 @@ import numpy as np
 
 # CHANGED: added keyword parameters and documentation for function
 
+
 def loan_calculator(loan, feature, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
     """
     Calculates the monthly payments for a loan over
@@ -18,7 +19,7 @@ def loan_calculator(loan, feature, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY
 
     payment = 0*feature + loan*(apr)*(1+apr)**(maturity)  \
         / ((1+apr)**(maturity)-1)
-    return loan, payment
+    return '{0:6,.0f}'.format(loan), '{0:6,.0f}'.format(payment)
 
 
 # FIXME: add function level comment
@@ -37,4 +38,5 @@ def cost_breakdown(build_dadu, size):
 
     design = float(construction)*C.DESIGN_PERCENTAGE
     total = construction + sewer + design + C.PERMIT
-    return construction, sewer, design, total
+    return '{0:6,.0f}'.format(construction), '{0:6,.0f}'.format(sewer), \
+        '{0:6,.0f}'.format(design), '{0:6,.0f}'.format(total)
