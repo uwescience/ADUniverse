@@ -1,4 +1,5 @@
-#Data Sources
+Data Sources
+============
 
 | Dataset      | Description    | Source | File Type | File Size | Indicators |
 | ------------- |:-------------:| -----:| ----------: | --------:| ----------:|
@@ -6,8 +7,13 @@
 | permits.zip  | All records of permits applied for and issued by King County, including those for accessory dwelling units    | ZKing County Assessor | Comma Separated Values | 15,352 KB | Type of occupancy, state plane coordinates |
 | Residential Buildings.zip | Building and lot dimensions for all residential units in King County | King County Assessor | Comma Separated Values | 24,077 KB | Characteristics of residential dwelling and some accessory structures |
 | Zoning.shp | Spatial data identified at the parcel level that indicates the legal zoning status of all parcels in Seattle | Seattle GeoData | Shapefile | | Zoning Characteristics, Shoreline locations |
+| Neighborhoods.zip | Spatial data outlining the geographic boundaries of major Seattle neighborhoods | Seattle GIS Open Data | Shapefile | | Neighborhoods and subneighborhoods |
+| KingCountyBlockGroupsShapefiles.zip | Spatial data at the Census Block Group level, containing information from the decennial census | King County GIS Open Data | Shapefile | 2 MB | Total population, median household income |
+| washington_latest_free.shp.zip | Spatial data on building footprints across Seattle parcels | Open Street Map | Shapefile | 247 MB | Building footprint | 
+| rental estimation | Housing sales data | Zillow Economic Dataset | Comma Separated Values |  | Median rent
 
-#Data Processing
+Data Processing
+===============
 
 **King County Assessor Files**
 Many of the indicators necessary for historical analysis and user tool creation are readily accessible in the King County Assessor files.  These indicators were linked via the parcel identification number (PIN), or the Major and Minor codes, which constitute the PIN.  Either or both of these identification numbers are available across all King County datasets, thus allowing us to join lot information, residential building characteristics, assessed value, and sales data.
