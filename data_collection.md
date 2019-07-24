@@ -8,7 +8,7 @@ Data Sources
 | Residential Buildings.zip | Building and lot dimensions for all residential units in King County | King County Assessor | Comma Separated Values | 24,077 KB | Characteristics of residential dwelling and some accessory structures |
 | Zoning.shp | Spatial data identified at the parcel level that indicates the legal zoning status of all parcels in Seattle | Seattle GeoData | Shapefile | | Zoning Characteristics, Shoreline locations |
 | Neighborhoods.zip | Spatial data outlining the geographic boundaries of major Seattle neighborhoods | Seattle GIS Open Data | Shapefile | | Neighborhoods and subneighborhoods |
-| KingCountyBlockGroupsShapefiles.zip | Spatial data at the Census Block Group level, containing information from the decennial census | King County GIS Open Data | Shapefile | 2 MB | Total population, median household income |
+| KingCountyBlockGroups.zip | Spatial data at the Census Block Group level, containing information from the decennial census | King County GIS Open Data | Shapefile | 2 MB | Total population, median household income |
 | washington_latest_free.shp.zip | Spatial data on building footprints across Seattle parcels | Open Street Map | Shapefile | 247 MB | Building footprint | 
 | rental estimation | Housing sales data | Zillow Economic Dataset | Comma Separated Values |  | Median rent
 
