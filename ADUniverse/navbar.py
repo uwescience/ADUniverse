@@ -22,6 +22,7 @@ navb = dbc.NavbarSimple(
     dark=True,
     fluid=True,
     id="navbar",
+    className="ml-auto",
 )
 
 app.layout = html.Div(

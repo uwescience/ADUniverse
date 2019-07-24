@@ -1,8 +1,10 @@
+import update_map as update
 import adusql as ads
 import constant as C
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
+import dash_bootstrap_components as dbc
 import dash_daq as daq # requires dash_daq version 0.1.0
 import folium
 import financials as fin
@@ -13,9 +15,6 @@ import sys
 from dash.dependencies import Input, Output, State
 import nltk
 nltk.download('punkt')
-
-import update_map as update
-
 
 
 adunit = ads.Connection("adunits.db")
@@ -36,6 +35,7 @@ def style_function(feature):
     }
 
 # when polygon is selected, its style
+
 def highlight_function(feature):
     return {
         'fillColor': 'blue',
@@ -47,16 +47,37 @@ def highlight_function(feature):
         'lineOpacity': 1,
     }
 
+
 map.save("map.html")
 
 # Dashify
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = [dbc.themes.BOOTSTRAP]
 app = dash.Dash("SeattleADU",
                 external_stylesheets=external_stylesheets)
 
-app.layout = html.Div([
+navb = dbc.NavbarSimple(
+    children=[
+        dbc.NavItem(dbc.NavLink("Map", href="/map")),
+        dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
+        dbc.NavItem(dbc.NavLink("Additional Information", href="/more-info")),
+        dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
 
+    ],
+    brand="Seattle ADU Feasibility",
+    brand_href="http://www.seattle.gov/services-and-information/city-planning-and-development",
+    brand_external_link=True,
+    color="primary",
+    dark=True,
+    fluid=True,
+    id="navbar",
+    style={
+
+    }
+)
+
+app.layout = html.Div([
+    navb,
     html.H1("Seattle ADU Feasibility"),
     # navb,
     # html.Div(id='navb'),
@@ -64,7 +85,7 @@ app.layout = html.Div([
     dcc.Dropdown(
         id='addressDropdown',
         options=[
-            {'label': i, 'value': j} for i,j in zip(addresses.address,addresses.PIN)
+            {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
         ],
         placeholder='Type your house address here...'),
 
@@ -107,12 +128,18 @@ app.layout = html.Div([
                 min=0,
                 max=1000,
                 step=10,
+                marks={
+                    250: '250 SF (Studio)',
+                    500: '500 SF (1 Bed)',
+                    750: '750 SF (2 Bed)',
+                },
                 value=500,),
+            html.H2("  "),
             html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
             html.Table([
                 html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
                 html.Tr([html.Td(['+ Sewer Capacity Charge ']), html.Td(id='SewerCharge')]),
-                html.Tr([html.Td(['+  Permit Fee']), html.Td(4000)]),
+                html.Tr([html.Td(['+  Permit Fee']), html.Td("4,000")]),
                 html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
                 html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])])
         ], className="six columns"),
@@ -122,19 +149,24 @@ app.layout = html.Div([
             dcc.Slider(
                 id='LoanInput',
                 min=100000,
-                max=300000,
+                max=500000,
                 step=5000,
-                value=200000,
+                marks={
+                    150000: '150 K',
+                    300000: '300 K',
+                    450000: '450 K',
+                },
+                value=150000,
             ),
             html.Table([
                 html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
                 html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')])
             ]),
 
-            dcc.Markdown('''
-            Note: We assume APR 6.9% for a 15-year fixed-rate home equity loan.  \
-                    Bank typical requires debt-to-income ratio > 30%.  \
-                    Loan is likely to be approved if monthly income > 3*payment
+            dcc.Markdown('''Assumptions:
+            APR 6.9% for a 15-year fixed-rate home equity loan.
+            Bank typical requires debt-to-income ratio > 30%.
+            Loan is likely to be approved if monthly income > 3*payment
             '''),
 
             html.H3("Where do you live?"),
@@ -148,9 +180,12 @@ app.layout = html.Div([
                 value='3'),
             html.H3("Expected monthly rental income"),
             html.Div(id='rental'),
+            dcc.Markdown('''
+            Be part of the [Solution for Affordable Housing Crisis!](https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
+            '''),
         ], className="six columns"),
 
-    ], className="row"),
+    ], className="row", style={'margin-left': '22px', 'margin-right': '25px',}),
 
     dcc.Markdown('''
     # **Frequently Asked Questions**
@@ -164,6 +199,8 @@ app.layout = html.Div([
 ])
 
 # input slider for square foot
+
+
 @app.callback(
     Output('BuildSizeOutput', 'children'),
     [Input('BuildSizeInput', 'value')])
@@ -171,6 +208,8 @@ def update_output(value):
     return 'Your Future ADU Size: "{}" Square Feet '.format(value)
 
 # calculate cost breakdown
+
+
 @app.callback(
     [Output('ConstructCost', 'children'),
      Output('SewerCharge', 'children'),
@@ -183,12 +222,14 @@ def cost_breakdown(value1, value2):
     return fin.cost_breakdown(value1, value2)
 
 # calculate the rental income
+
+
 @app.callback(
     Output('rental', 'children'),
     [Input('BuildSizeInput', 'value'),
      Input('neighbor_dropdown', 'value')])
 def rents(buildSize, neighbor):
-    return float(buildSize)*float(neighbor)
+    return '{0:4,.0f}'.format(float(buildSize)*float(neighbor))
 
 
 # dynamically updates the map based on the address selected
@@ -215,6 +256,8 @@ def get_features(value):
     return output
 
 # caculating loans
+
+
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
@@ -225,6 +268,8 @@ def loan_calculator(loan, feature):
     return fin.loan_calculator(loan, feature)
 
 # print out
+
+
 @app.callback(
     Output('output_drop', 'children'),
     [Input('aduPurposeDropdown', 'value')])

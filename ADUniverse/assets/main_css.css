@@ -14,6 +14,7 @@
 - Utilities
 - Clearing
 - Media Queries
+- Nav
 */
 
 /* PLotly.js 
@@ -412,3 +413,7 @@ there.
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {}
+
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */

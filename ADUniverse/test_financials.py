@@ -9,13 +9,13 @@ def test_loan_calculator():
     loan = 150000
     feature = 3
     output1, output2 = financials.loan_calculator(loan, feature)
-    assert (output1 != 0)
-    assert (output2 != 0)
+    assert (float(output1) != 0)
+    assert (float(output2) != 0)
 
 
 def test_cost_breakdown():
     construction, sewer, design, total = financials.cost_breakdown(True, 500)
-    assert(isinstance(construction, float))
-    assert(isinstance(sewer, float))
-    assert(isinstance(design, float))
-    assert(isinstance(total, float))
+    assert(isinstance(float(construction), float))
+    assert(isinstance(float(sewer), float))
+    assert(isinstance(float(design), float))
+    assert(isinstance(float(total), float))

@@ -98,8 +98,8 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup=folium.Popup("<b><h4>Is this home DADU eligible? </h4></b>" +
-                                          str(df.iloc[0]["adu_eligible"]) + "<br><i>Details</i>" +
+                       popup=folium.Popup("<b><h4>For a DADU, this home is </h4></b>" +
+                                          "<h4>" + str(df.iloc[0]["adu_eligible"]) + "</h4>" + "<br>For an AADU, this home is Eligible" + "<br><i>Details</i>" +
                                           "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) +
                                           "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
                                           "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) +
@@ -108,7 +108,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                                           "<br> For lots bigger than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["lotcoverage"]) +
                                           "<br> For lots smaller than 5000 square feet, is lot coverage sufficient for a DADU? " + str(df.iloc[0]["sm_lotcov_ind"]) +
                                           "<br> For lots smaller than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["sm_lotcov"]) +
-                                          "<br> Year House Built " + str(df.iloc[0]["yrbuilt"]) +
+                                          "<br> Year House Built: " + str(df.iloc[0]["yrbuilt"]) +
                                           # "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
                                           # "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
                                           "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
