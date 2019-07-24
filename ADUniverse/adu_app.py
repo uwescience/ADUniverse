@@ -5,7 +5,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_daq as daq # requires dash_daq version 0.1.0
+import dash_daq as daq  # requires dash_daq version 0.1.0
 import folium
 import financials as fin
 import numpy as np
@@ -35,6 +35,7 @@ def style_function(feature):
     }
 
 # when polygon is selected, its style
+
 
 def highlight_function(feature):
     return {
@@ -78,7 +79,7 @@ navb = dbc.NavbarSimple(
 
 app.layout = html.Div([
     navb,
-    html.H1("Seattle ADU Feasibility"),
+    html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     # navb,
     # html.Div(id='navb'),
     html.H3("Find your home"),
@@ -93,7 +94,7 @@ app.layout = html.Div([
     html.Div(id='intermediate-value', style={'display': 'none'}),
 
     # Not intuitively named
-    html.Div(id='output-container'),
+    html.Div(id='output-container', style={'display': 'none'}),
 
     html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                 width="100%", height="550"),
@@ -116,13 +117,13 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
+            html.H3('Cost Breakdown', style={'textAlign': 'center'}),
             daq.ToggleSwitch(
                 id='build_dadu',
                 label=['Attached ADU', 'Detached ADU'],
                 style={'width': '350px', 'margin': 'auto'},
                 value=False),
-            html.H3('Cost Breakdown'),
-            html.H4('How large will be your ADU?'),
+            html.H4('What ADU will you build?', style={'textAlign': 'center'}),
             dcc.Slider(
                 id='BuildSizeInput',
                 min=0,
@@ -145,18 +146,18 @@ app.layout = html.Div([
         ], className="six columns"),
 
         html.Div([
-            html.H3("How much will you borrow?"),
+            html.H3("How much will you borrow?", style={'textAlign': 'center'}),
             dcc.Slider(
                 id='LoanInput',
                 min=100000,
                 max=500000,
                 step=5000,
                 marks={
-                    150000: '150 K',
+                    200000: '200 K',
                     300000: '300 K',
-                    450000: '450 K',
+                    400000: '400 K',
                 },
-                value=150000,
+                value=200000,
             ),
             html.Table([
                 html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
@@ -164,12 +165,10 @@ app.layout = html.Div([
             ]),
 
             dcc.Markdown('''Assumptions:
-            APR 6.9% for a 15-year fixed-rate home equity loan.
-            Bank typical requires debt-to-income ratio > 30%.
-            Loan is likely to be approved if monthly income > 3*payment
-            '''),
+                        APR 6.9% for a 15-year fixed-rate home equity loan.
+                        Bank typical requires debt-to-income ratio < 40%.'''),
 
-            html.H3("Where do you live?"),
+            html.H3("Where do you live?", style={'textAlign': 'center'}),
             dcc.Dropdown(
                 id='neighbor_dropdown',
                 options=[  # data from zillow 2019/may rent per square foot
@@ -178,14 +177,17 @@ app.layout = html.Div([
                     {'label': 'Downtown', 'value': '3.861445783'},
                     {'label': 'Fremont', 'value': '3'}, ],
                 value='3'),
-            html.H3("Expected monthly rental income"),
-            html.Div(id='rental'),
+            html.Table(
+                [html.Tr([html.Td(['Expected Monthly Rental (Zillow Estimate)']),
+                          html.Td(id='rental')])], style={'textAlign': 'center'}),
+            html.H2("  "),
             dcc.Markdown('''
-            Be part of the [Solution for Affordable Housing Crisis!](https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
+            Be part of the SOLUTION! check out [Seattle Housing Authority]
+            (https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
             '''),
         ], className="six columns"),
 
-    ], className="row", style={'margin-left': '22px', 'margin-right': '25px',}),
+    ], className="row", style={'margin-left': '25px', 'margin-right': '25px', }),
 
     dcc.Markdown('''
     # **Frequently Asked Questions**
