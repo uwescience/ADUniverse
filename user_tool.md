@@ -8,7 +8,6 @@ Financial
 
 
 ****Limitations****
-What are the shortcomings of your approach?
  - For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs from the City of Seattle (2018). 
  - For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the prevailing market rate accessed from Wells Fargo website for a 15-year fixed-rate loan. Both interest rates and rental income are subjected to future market fluctuations, our analysis doesn’t take this into consideration.
  - The approach taken with the application is dependent on the database being hosted locally. Also, as a prototype, the current structure is not readily suitable for hosting as a functioning web application. A potential improvement to that end would be to find a service to web-host our database to ensure all potential users are referencing the same data. The size of our database eliminates some options as solutions. In consideration of Microsoft Azure as a hosting option, changes would be required to shift to that technology.
