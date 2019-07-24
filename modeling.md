@@ -1,1 +1,2 @@
 
+We produced bivariate correlates of many of the constructed variables to understand the influence they individually had on the construction of an ADU or DADU. Decision trees and random forests have been particularly valuable in understanding factors most influential in building an ADU. We have found that in-depth predictive analytics on our data may not be quite so useful for the user to determine their eligibility for building an ADU, but rather a generalized notion of individual variables’ influence would be somewhat helpful. 
