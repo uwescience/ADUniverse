@@ -1,5 +1,3 @@
-Data Sources
-============
 
 | Dataset      | Description    | Source | File Type | File Size | Indicators |
 | ------------- |:-------------:| -----:| ----------: | --------:| ----------:|
