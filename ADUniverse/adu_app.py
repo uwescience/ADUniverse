@@ -178,7 +178,8 @@ app.layout = html.Div([
                     {'label': 'Fremont', 'value': '3'}, ],
                 value='3'),
             html.Table(
-                [html.Tr([html.Td(['Expected Monthly Rental (Zillow Estimate)']),
+                [html.Tr([html.Td([''], style={'width': '50px'}),
+                          html.Td(['Expected Monthly Rental (Zillow Estimate)']),
                           html.Td(id='rental')])], style={'textAlign': 'center'}),
             html.H2("  "),
             dcc.Markdown('''
