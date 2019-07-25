@@ -185,7 +185,7 @@ app.layout = html.Div([
             Be part of the SOLUTION! check out [Seattle Housing Authority]
             (https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
             '''),
-        ], className="six columns"),
+        ], className="six columns",),
 
     ], className="row", style={'margin-left': '25px', 'margin-right': '25px', }),
 

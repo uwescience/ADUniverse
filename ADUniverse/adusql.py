@@ -106,23 +106,23 @@ class Connection:
         '''
         self.conn.close()
 
-    # def getCoords(self, PIN):
-    #     '''
-    #     Retrieve the long/lat coordinates for a specific address
-    #     '''
-    #     self.connect()
-    #     searchStr = "select latitude, longitude FROM Parcels p WHERE p.PIN = {}".format(PIN)
-    #     data = self.manual(searchStr)
-    #     self.disconnect()
+    def getCoords(self, PIN):
+        '''
+        Retrieve the long/lat coordinates for a specific address
+        '''
+        self.connect()
+        searchStr = "select latitude, longitude FROM Parcels p WHERE p.PIN = {}".format(PIN)
+        data = self.manual(searchStr)
+        self.disconnect()
 
-    #     return data
+        return data
 
     def getParcelCoords(self, PIN):
         '''
         Retrieve the parcel long/lat coordinates for a specific address
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(PIN)
+        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN WHERE p.PIN = {}".format(PIN)
         data = self.manual(searchStr)
         self.disconnect()
         return data
@@ -160,3 +160,65 @@ def keyword_locate(kw, text):
 
     return arr_match
 
+def adu_dadu(types = 'all', data = None):
+    # ADUs/DADUs
+    if types == 'all':
+        return data.type_occ.eq('ADU') | data.type_occ.eq('DADU')
+    elif types == 'adu':
+        return data.type_occ.eq('ADU')
+    elif types == 'dadu':
+        return data.type_occ.eq('DADU')
+
+def excs(types = 'all', data = None):
+    if types == 'all':
+        # all noted exceptions
+        EXCs = data.objectid.eq(72) | data.objectid.eq(117) | data.objectid.eq(595) | data.objectid.eq(622)
+        EXCs = EXCs | data.objectid.eq(726) | data.objectid.eq(998) | data.objectid.eq(1064)
+        EXCs = EXCs | data.objectid.eq(1249) |  data.objectid.eq(10188) | data.objectid.eq(16818)
+    elif types == 'adu':
+        # Specifically noted ADU exceptions
+        EXCs = data.objectid.eq(117) | data.objectid.eq(998) | data.objectid.eq(10188) | data.objectid.eq(16818)
+    elif types == 'dadu':
+        # Specifically noted DADU exceptions
+        EXCs = data.objectid.eq(72) | data.objectid.eq(595) | data.objectid.eq(622) | data.objectid.eq(726)
+        EXCs = EXCs | data.objectid.eq(1064) | data.objectid.eq(1249)
+
+    return EXCs
+
+def sf_adus(types = 'all', data = None):
+    # Units under SF
+    SF = (np.asarray(data.type_occ == 'SF').reshape(-1,1))*1
+
+    if types == 'all':
+        # entries containing "ADU", less those containing "adult"
+        ADU_kw = keyword_locate('ADU', text = data.comments) - keyword_locate('adult', text = data.comments)
+
+        # entries containing "accessory dwelling" in the comments
+        ADU_text = keyword_locate('accessory dwelling', text = data.comments)
+        ADU_kw_text = ((ADU_kw + ADU_text) > 0)*1
+
+        SF = ((SF + ADU_kw_text) > 1)*1
+
+    elif types == 'adu':
+        # entries containing "ADU", less those containing "adult" and "DADU"
+        not_AADU = keyword_locate('adult', text = data.comments) + keyword_locate('DADU', text = data.comments)
+        not_AADU = (not_AADU > 0)*1
+        AADU_kw = keyword_locate('ADU', text = data.comments) - not_AADU
+
+        # entries containing "accessory dwelling" in the comments
+        AADU_text = (keyword_locate('accessory dwelling', text = data.comments) -
+                     keyword_locate('detached accessory dwelling', text = data.comments) > 0)*1
+        AADU_kw_text = ((AADU_kw + AADU_text) > 0)*1
+
+        SF = ((SF + AADU_kw_text) > 1)*1
+    elif types == 'dadu':
+        # entries containing "DADU"
+        DADU_kw = keyword_locate('DADU', text = data.comments)
+
+        # entries containing "detached accessory dwelling" in the comments
+        DADU_text = keyword_locate('detached accessory dwelling', text = data.comments)
+        DADU_kw_text = ((DADU_kw + DADU_text) > 0)*1
+
+        SF = ((SF + DADU_kw_text) > 1)*1
+
+    return pd.Series(SF.ravel())
