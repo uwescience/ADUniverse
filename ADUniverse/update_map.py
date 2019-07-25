@@ -14,7 +14,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         yearbuilt = 1
         adunit = ads.Connection("adunits.db")
         df = adunit.getParcelCoords(value)
-        # df.to_csv("df.csv")
+        df.to_csv("df.csv")
         # coords = (newCoords.latitude[0], newCoords.longitude[0])
         coords = (df.coordY[0], df.coordX[0])
         # coords = (df.iloc[0]["coordY"]["coordX"])
@@ -98,25 +98,15 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup=folium.Popup("<b><h4>For a DADU, this home is </h4></b>" +
-                                          "<h4>" + str(df.iloc[0]["adu_eligible"]) + "</h4>" + "<br>For an AADU, this home is Eligible" + "<br><i>Details</i>" +
-                                          "<br>Neighborhood: " + str(df.iloc[0]["s_hood"]) +
-                                          "<br>Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
-                                          "<br>Square feet of lot: " + str(df.iloc[0]["sqftlot"]) +
-                                          "<br> Is this lot large enough to house a DADU? " + str(df.iloc[0]["ls_indic"]) +
-                                          "<br> For lots bigger than 5000 square feet, is lot coverage sufficient for a DADU? " + str(df.iloc[0]["lotcov_indic"]) +
-                                          "<br> For lots bigger than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["lotcoverage"]) +
-                                          "<br> For lots smaller than 5000 square feet, is lot coverage sufficient for a DADU? " + str(df.iloc[0]["sm_lotcov_ind"]) +
-                                          "<br> For lots smaller than 5000 square feet, what is the lot coverage? " + str(df.iloc[0]["sm_lotcov"]) +
-                                          "<br> Year House Built: " + str(df.iloc[0]["yrbuilt"]) +
-                                          # "<br> Does this home have a daylight basement? " + str(df.iloc[0]["daylightbasement"]) +
-                                          # "<br> Square foot in basement " + str(df.iloc[0]["sqftfinbasement"]) +
-                                          "<br> Does this lot border a shoreline? " + str(df.iloc[0]["shoreline_ind"]) +
-                                          "<br><i>Environmentally Critical Areas assessment</i>" +
-                                          "<br>Is this parcel on a steep slope? " + str(df.iloc[0]["parcel_steepslope"]) +
-                                          "<br>Is this parcel on a previously flooded area? " + str(df.iloc[0]["parcel_flood"]) +
-                                          "<br>Is this parcel on a potential slide area? " +
-                                          str(df.iloc[0]["parcel_poteslide"]),
+                       popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" + 
+                                          str(df.iloc[0]["adu_eligible"]) + "</b></h5>" + "<h5> For an AADU, this home is <b>Eligible</b></h5>" + "<h5><i>Essential Criteria</i></h5>" +
+                                          " Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
+                                          "<br> Is this lot large enough to house a DADU? " + str(df.iloc[0]["ls_indic"]) + 
+                                          "<br> Is lot coverage sufficient for a DADU? " + str(df.iloc[0]["lotcov_indic"]) +
+                                          "<br> Existing ADUs or DADUs on this property " + str(df.iloc[0]["ADU"]) +
+                                          "<br>Potential considerations of concern: <b>None</b>" + 
+                                          "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>",
+
                                           max_width=2000),
                        tooltip='Click me!',).add_to(new_map)
 
