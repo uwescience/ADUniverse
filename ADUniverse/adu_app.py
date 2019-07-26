@@ -1,16 +1,16 @@
-import update_map as update
 import adusql as ads
 import constant as C
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_daq as daq  # requires dash_daq version 0.1.0
+import dash_daq as daq # requires dash_daq version 0.1.0
 import folium
 import financials as fin
 import numpy as np
 import pandas as pd
 import sys
+import update_map as update
 
 from dash.dependencies import Input, Output, State
 import nltk
@@ -56,7 +56,7 @@ map.save("map.html")
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 app = dash.Dash("SeattleADU", external_stylesheets=external_stylesheets)
 
-navb = dbc.NavbarSimple(
+NavigationBar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Map", href="/map")),
         dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
@@ -77,7 +77,13 @@ navb = dbc.NavbarSimple(
 )
 
 app.layout = html.Div([
-    navb,
+    dcc.Location(id='url'),
+    #dcc.Link('Tab 1', href='/'),
+    #html.Br(),
+    #dcc.Link('Tab 2', href='/apps/app1'),
+    html.Div(id="page-content"),
+
+    NavigationBar,
     html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     # navb,
     # html.Div(id='navb'),
@@ -200,18 +206,23 @@ app.layout = html.Div([
     '''),
 ])
 
+@app.callback(dash.dependencies.Output('page-content', 'children'),
+              [dash.dependencies.Input('url', 'pathname')])
+def display_page(path_name):
+    return html.Div([
+        html.H3('You are on page {}'.format(path_name))
+    ])
+
+
 # input slider for square foot
-
-
 @app.callback(
     Output('BuildSizeOutput', 'children'),
     [Input('BuildSizeInput', 'value')])
 def update_output(value):
     return 'Your Future ADU Size: "{}" Square Feet '.format(value)
 
+  
 # calculate cost breakdown
-
-
 @app.callback(
     [Output('ConstructCost', 'children'),
      Output('SewerCharge', 'children'),
@@ -224,8 +235,6 @@ def cost_breakdown(value1, value2):
     return fin.cost_breakdown(value1, value2)
 
 # calculate the rental income
-
-
 @app.callback(
     Output('rental', 'children'),
     [Input('BuildSizeInput', 'value'),
