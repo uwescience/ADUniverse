@@ -1,3 +1,4 @@
+import app_modules as mdl
 import app_pages as page
 import constant as C
 import dash
@@ -14,25 +15,22 @@ external_stylesheets = [dbc.themes.BOOTSTRAP]
 app = dash.Dash("SeattleADU", external_stylesheets=external_stylesheets)
 
 
-#app.layout = page.Original_Page
-app.layout = html.Div(page.Original_Page, id='page_layout')
+app.layout = html.Div(children=[
+    dcc.Location(id='url'),
+    mdl.NavigationBar,
+    html.Div(id='page_content', children = page.Original_Page), ],
+    id='page_layout')
 
-
-@app.callback(dash.dependencies.Output('page-content', 'children'),
-              [dash.dependencies.Input('url', 'pathname')])
+# Code for changing the page
+@app.callback(
+    Output('page_content', 'children'),
+    [Input('url', 'pathname')])
 def display_page(path_name):
-    return html.Div([
-        html.H3('You are on page {}'.format(path_name))
-    ])
+    if path_name == '/test':
+        return page.New_Page
+    else:
+        return page.Original_Page
 
-# Code for changing page. Broken at the moment
-#@app.callback(dash.dependencies.Output('page_layout', 'children'),
-#              [dash.dependencies.Input('url', 'pathname')])
-#def change_page(path_name):
-    #if path_name == '/test':
-    #    return page.New_Page
-    #else:
-#        return page.Original_Page
 
 # input slider for square foot
 @app.callback(
@@ -66,36 +64,21 @@ def rents(buildSize, neighbor):
 
 # dynamically updates the map based on the address selected
 @app.callback(
-    [Output('output-container', 'children'),
-     Output('map', 'srcDoc')],
+    Output('map', 'srcDoc'),
     [Input('addressDropdown', 'value')]
 )
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     return updt.update_map(value, coords=coords, zoom=zoom)
 
 
-# space holder for some features
-@app.callback(
-    Output('intermediate-value', 'children'),
-    [Input('addressDropdown', 'value')]
-)
-def get_features(value):
-    # if value != None:
-        # output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
-        # output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
-    output = 0
-    return output
-
-
 # calculating loans
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
-    [Input(component_id='LoanInput', component_property='value'),
-     Input(component_id='intermediate-value', component_property='children')]
+    [Input(component_id='LoanInput', component_property='value')]
 )
-def loan_calculator(loan, feature):
-    return fin.loan_calculator(loan, feature)
+def loan_calculator(loan):
+    return fin.loan_calculator(loan)
 
 
 # print out

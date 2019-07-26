@@ -8,7 +8,7 @@ import dash_daq as daq # requires dash_daq version 0.1.0
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Map", href="/map")),
+        dbc.NavItem(dbc.NavLink("Map", href="/")),
         dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
         dbc.NavItem(dbc.NavLink("Additional Information", href="/more-info")),
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),

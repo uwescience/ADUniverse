@@ -6,12 +6,9 @@ import numpy as np
 import pandas as pd
 
 
-
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
-    yearbuilt = 1
 
     if value != None:
-        yearbuilt = 1
         adunit = ads.Connection("adunits.db")
         df = adunit.getParcelCoords(value)
         df.to_csv("df.csv")
@@ -98,13 +95,13 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" + 
+                       popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" +
                                           str(df.iloc[0]["adu_eligible"]) + "</b></h5>" + "<h5> For an AADU, this home is <b>Eligible</b></h5>" + "<h5><i>Essential Criteria</i></h5>" +
-                                          " Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) + 
-                                          "<br> Is this lot large enough to house a DADU? " + str(df.iloc[0]["ls_indic"]) + 
+                                          " Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
+                                          "<br> Is this lot large enough to house a DADU? " + str(df.iloc[0]["ls_indic"]) +
                                           "<br> Is lot coverage sufficient for a DADU? " + str(df.iloc[0]["lotcov_indic"]) +
                                           "<br> Existing ADUs or DADUs on this property " + str(df.iloc[0]["ADU"]) +
-                                          "<br>Potential considerations of concern: <b>None</b>" + 
+                                          "<br>Potential considerations of concern: <b>None</b>" +
                                           "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>",
 
                                           max_width=2000),
@@ -119,6 +116,6 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         # parcel.add_to(new_map)
 
     new_map.save("map.html")
-    return 'The home you selected was built in year "{}"'.format(yearbuilt), open("map.html", "r").read()
+    return open("map.html", "r").read()
 
 # space holder for some features

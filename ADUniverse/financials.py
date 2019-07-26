@@ -4,7 +4,7 @@ import numpy as np
 # CHANGED: added keyword parameters and documentation for function
 
 
-def loan_calculator(loan, feature, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
+def loan_calculator(loan, feature = 0, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
     """
     Calculates the monthly payments for a loan over
     the maturity period.
