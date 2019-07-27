@@ -43,9 +43,12 @@ def update_output(value):
 # calculate cost breakdown
 @app.callback(
     [Output('ConstructCost', 'children'),
+     Output('Tax', 'children'),
      Output('SewerCharge', 'children'),
+     Output('PermitFee', 'children'),
      Output('DesignCost', 'children'),
-     Output('TotalCost', 'children')],
+     Output('TotalCost', 'children'),
+     Output('PropertyTax', 'children')],
     [Input('build_dadu', 'value'),
      Input('BuildSizeInput', 'value')])
 def cost_breakdown(value1, value2):
@@ -64,18 +67,30 @@ def rents(buildSize, neighbor):
 
 # dynamically updates the map based on the address selected
 @app.callback(
-    Output('map', 'srcDoc'),
+     Output('map', 'srcDoc'),
     [Input('addressDropdown', 'value')]
 )
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     return updt.update_map(value, coords=coords, zoom=zoom)
 
+# space holder for some features
+#@app.callback(
+#    Output('intermediate-value', 'children'),
+#    [Input('addressDropdown', 'value')]
+#)
+#def get_features(value):
+    # if value != None:
+        # output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
+        # output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
+#    output = 0
+#    return output
 
 # calculating loans
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
     [Input(component_id='LoanInput', component_property='value')]
+    #Input(component_id='intermediate-value', component_property='children')
 )
 def loan_calculator(loan):
     return fin.loan_calculator(loan)

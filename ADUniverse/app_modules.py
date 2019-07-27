@@ -74,25 +74,28 @@ FinFeasibility = html.Div([
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
         html.Table([
             html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
+            html.Tr([html.Td(['+ Sales Tax (10.1%) ']), html.Td(id='Tax')]),
             html.Tr([html.Td(['+ Sewer Capacity Charge ']), html.Td(id='SewerCharge')]),
-            html.Tr([html.Td(['+  Permit Fee']), html.Td("4,000")]),
+            html.Tr([html.Td(['+  Permit Fee']), html.Td(id='PermitFee')]),
             html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
-            html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])])
+            html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')]),
+            html.Tr([html.Td(['Estimated Increase In Property Tax']), html.Td(id='PropertyTax')]),
+            html.Tr([html.Td(['*Actual cost may vary. Estimation is for reference only.'])])])
     ], className="six columns"),
 
     html.Div([
         html.H3("How much will you borrow?", style={'textAlign': 'center'}),
         dcc.Slider(
             id='LoanInput',
-            min=100000,
-            max=500000,
-            step=5000,
+            min=10000,
+            max=400000,
+            step=1000,
             marks={
+                100000: '100 K',
                 200000: '200 K',
                 300000: '300 K',
-                400000: '400 K',
             },
-            value=200000,
+            value=150000,
         ),
         html.Table([
             html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
@@ -113,8 +116,7 @@ FinFeasibility = html.Div([
                 {'label': 'Fremont', 'value': '3'}, ],
             value='3'),
         html.Table(
-            [html.Tr([html.Td([''], style={'width': '50px'}),
-                      html.Td(['Expected Monthly Rental (Zillow Estimate)']),
+            [html.Tr([html.Td(['Expected Monthly Rental (Zillow Estimate)']),
                       html.Td(id='rental')])], style={'textAlign': 'center'}),
         html.H2("  "),
         dcc.Markdown('''

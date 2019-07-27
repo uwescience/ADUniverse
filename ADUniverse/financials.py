@@ -33,10 +33,30 @@ def cost_breakdown(build_dadu, size):
     construction = float(np.array([build_dadu]).astype(int))*C.DADU_FIXED + \
         C.ADU_VAR*float(size)
 
+    construction_min = construction*(1-C.MULTIPLIER)
+
+    construction_max = construction*(1+C.MULTIPLIER)
+
+    tax_min = construction_min*C.SALES_TAX
+
+    tax_max = construction_max*C.SALES_TAX
+
     sewer = float(np.array([build_dadu]).astype(int))*C.DADU_SEWER +  \
         (1-float(np.array([build_dadu]).astype(int)))*C.AADU_SEWER
 
-    design = float(construction)*C.DESIGN_PERCENTAGE
-    total = construction + sewer + design + C.PERMIT
-    return '{0:6,.0f}'.format(construction), '{0:6,.0f}'.format(sewer), \
-        '{0:6,.0f}'.format(design), '{0:6,.0f}'.format(total)
+    permit = C.PERMIT_FIXED + float(size)*C.PERMIT_VAR
+
+    design_min = float(construction_min)*C.DESIGN_PERCENTAGE
+    design_max = float(construction_max)*C.DESIGN_PERCENTAGE
+
+    total_min = construction_min + tax_min + sewer + design_min + permit
+    total_max = construction_max + tax_max + sewer + design_max + permit
+
+    property_tax = (total_min+total_max)/2*C.PROPERTY_TAX
+
+    return '({0:6,.0f} -- {1:6,.0f})'.format(construction_min, construction_max), \
+           '({0:6,.0f} -- {1:6,.0f})'.format(tax_min, tax_max), \
+        '{0:6,.0f}'.format(sewer), '{0:6,.0f}'.format(permit), \
+        '({0:6,.0f} -- {1:6,.0f})'.format(design_min, design_max), \
+        '({0:6,.0f} -- {1:6,.0f})'.format(total_min, total_max), \
+        '{0:6,.0f}'.format(property_tax)
