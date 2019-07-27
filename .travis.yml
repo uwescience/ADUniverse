@@ -12,7 +12,8 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update --quiet conda
   - conda info --all
-  - pip install dash folium nltk dash_daq pytest
+  - pip install dash folium nltk dash_daq pytest pandas geojson
+  - pip install dash_bootstrap_components
 
 script:
   - cd ADUniverse; pytest *.py
