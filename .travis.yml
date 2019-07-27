@@ -16,4 +16,4 @@ install:
   - pip install dash_bootstrap_components
 
 script:
-  - cd ADUniverse; pytest *.py
+  - cd ADUniverse; pytest test_*.py
