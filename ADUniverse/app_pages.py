@@ -24,7 +24,7 @@ Original_Page = [
     mdl.AddressDropdown,
 
     html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
-                width="100%", height="550"),
+                width="50%", height="550", style={'display': 'inline-block'}),
 
     html.H2("Why are you thinking of building an ADU?"),
 
@@ -50,7 +50,7 @@ Original_Page = [
 ]
 
 
-New_Page = [
+Fin_Page = [
 
     #dcc.Link('Tab 1', href='/'),
     #html.Br(),

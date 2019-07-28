@@ -101,7 +101,8 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             elif (df.iloc[0]["zone_ind"]==1):
                 value += "<br><h5> For an AADU, this home is <b>Eligible</b></h5>" 
             value += "<h5> For a DADU, this home is " + "<b>" + str(df.iloc[0]["adu_eligible"]) + "</b></h5>"
-            value += "<h5><i>Potential Problems for DADUs</i></h5>"
+            if (df.iloc[0]["adu_eligible"]=="Ineligible"):
+                value += "<h5><i>Potential Problems for DADUs</i></h5>"
             if (df.iloc[0]["zone_ind"]==0):
                 value += "<br> This is not a single family zoned home"
             if (df.iloc[0]["ls_indic"]==0):
@@ -129,11 +130,11 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             value += "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>"
 
             return value
-            
+
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup = folium.Popup(output(), max_width=2000),
+                       popup = folium.Popup(output(), max_width=2000, fill_color="green"),
                        # popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" +
                        #                    str(df.iloc[0]["adu_eligible"]) + "</b></h5>" + "<h5> For an AADU, this home is <b>Eligible</b></h5>" + "<h5><i>Essential Criteria</i></h5>" +
                        #                    " Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +

@@ -27,7 +27,7 @@ app.layout = html.Div(children=[
     [Input('url', 'pathname')])
 def display_page(path_name):
     if path_name == '/test':
-        return page.New_Page
+        return page.Fin_Page
     else:
         return page.Original_Page
 
