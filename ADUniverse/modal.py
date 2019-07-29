@@ -37,6 +37,21 @@ def toggle_modal(n1, n2, is_open):
         return not is_open
     return is_open
 
+# # hide/show modal
+# @app.callback(Output('modal', 'style'),
+#               [Input('instructions-button', 'n_clicks')])
+# def show_modal(n):
+#     if n > 0:
+#         return {"display": "block"}
+#     return {"display": "none"}
+
+# # Close modal by resetting info_button click to 0
+# @app.callback(Output('instructions-button', 'n_clicks'),
+#               [Input('modal-close-button', 'n_clicks')])
+# def close_modal(n):
+#     return 0
+
+
 
 if __name__ == "__main__":
     app.run_server(debug=True, port=8888)
