@@ -7,7 +7,7 @@ def hello():
     print("Successfully imported adusql")
 
 class Connection:
-    def __init__(self, dbname = "aduniverse.db"):
+    def __init__(self, dbname = "adunits.db"):
         '''
         :string param dbname: the name of the database to connect to.
         '''
