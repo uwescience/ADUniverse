@@ -134,7 +134,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
                        fill_opacity=0.5, fill=True,
-                       popup = folium.Popup(output(), max_width=2000, fill_color="green"),
+                       popup = folium.Popup(output(), max_width=2000, fill_color="green", show=True),
                        # popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" +
                        #                    str(df.iloc[0]["adu_eligible"]) + "</b></h5>" + "<h5> For an AADU, this home is <b>Eligible</b></h5>" + "<h5><i>Essential Criteria</i></h5>" +
                        #                    " Is this a Single Family zoned home? " + str(df.iloc[0]["zone_ind"]) +
