@@ -22,3 +22,9 @@ def test_cost_breakdown():
     assert(isinstance(design, str))
     assert(isinstance(total, str))
     assert(isinstance(p_tax, str))
+
+
+def returns():
+    rental, sales = financials.returns(build_size, zipcode)
+    assert(isinstance(rental, str))
+    assert(isinstance(sales, str))

@@ -3,7 +3,10 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_daq as daq # requires dash_daq version 0.1.0
+import dash_daq as daq  # requires dash_daq version 0.1.0
+
+import pandas as pd
+prices = pd.read_csv("prices_byzipcode.csv")
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
@@ -98,27 +101,28 @@ FinFeasibility = html.Div([
             },
             value=150000,
         ),
+        html.H2("  "),
         html.Table([
             html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
             html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')])
         ]),
 
         dcc.Markdown('''Assumptions:
-                    APR 6.9% for a 15-year fixed-rate home equity loan.
-                    Bank typical requires debt-to-income ratio < 40%.'''),
+                    APR 6.9% for a 15-year fixed-rate home equity loan.'''),
 
         html.H3("Where do you live?", style={'textAlign': 'center'}),
         dcc.Dropdown(
-            id='neighbor_dropdown',
-            options=[  # data from zillow 2019/may rent per square foot
-                {'label': 'Ballard', 'value': '3.277945619'},
-                {'label': 'Capitol Hill', 'value': '3.22537112'},
-                {'label': 'Downtown', 'value': '3.861445783'},
-                {'label': 'Fremont', 'value': '3'}, ],
-            value='3'),
-        html.Table(
-            [html.Tr([html.Td(['Expected Monthly Rental (Zillow Estimate)']),
-                      html.Td(id='rental')])], style={'textAlign': 'center'}),
+            id='zipcode',
+            options=[
+                {'label': i, 'value': i} for i in prices.ZipCode
+            ],
+            value='98103'),
+        html.Table([
+            html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
+                     html.Td(id='rental')]),
+            html.Tr([html.Td(['Estimated Value-Added to Property (Zillow)']),
+                     html.Td(id='sales')])
+        ]),
         html.H2("  "),
         dcc.Markdown('''
         Be part of the SOLUTION! check out [Seattle Housing Authority]

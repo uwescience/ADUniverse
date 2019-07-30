@@ -18,10 +18,12 @@ app = dash.Dash("SeattleADU", external_stylesheets=external_stylesheets)
 app.layout = html.Div(children=[
     dcc.Location(id='url'),
     mdl.NavigationBar,
-    html.Div(id='page_content', children = page.Original_Page), ],
+    html.Div(id='page_content', children=page.Original_Page), ],
     id='page_layout')
 
 # Code for changing the page
+
+
 @app.callback(
     Output('page_content', 'children'),
     [Input('url', 'pathname')])
@@ -51,41 +53,44 @@ def update_output(value):
      Output('PropertyTax', 'children')],
     [Input('build_dadu', 'value'),
      Input('BuildSizeInput', 'value')])
-def cost_breakdown(value1, value2):
-    # 'Total amount of loan is "{0:12,.0f}"'.format(loan)
-    return fin.cost_breakdown(value1, value2)
+def cost_breakdown(build_dadu, BuildSizeInput):
+    return fin.cost_breakdown(build_dadu, BuildSizeInput)
 
 
-# calculate the rental income
+# calculate the returns(rental + value added)
 @app.callback(
-    Output('rental', 'children'),
+    [Output('rental', 'children'),
+     Output('sales', 'children')],
     [Input('BuildSizeInput', 'value'),
-     Input('neighbor_dropdown', 'value')])
-def rents(buildSize, neighbor):
-    return '{0:4,.0f}'.format(float(buildSize)*float(neighbor))
-
+     Input('zipcode', 'value')])
+def returns(buildSize, zipcode):
+    return fin.returns(buildSize, zipcode)
 
 # dynamically updates the map based on the address selected
+
+
 @app.callback(
-     Output('map', 'srcDoc'),
+    Output('map', 'srcDoc'),
     [Input('addressDropdown', 'value')]
 )
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     return updt.update_map(value, coords=coords, zoom=zoom)
 
 # space holder for some features
-#@app.callback(
+# @app.callback(
 #    Output('intermediate-value', 'children'),
 #    [Input('addressDropdown', 'value')]
-#)
-#def get_features(value):
+# )
+# def get_features(value):
     # if value != None:
-        # output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
-        # output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
+    # output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
+    # output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
 #    output = 0
 #    return output
 
 # calculating loans
+
+
 @app.callback(
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],

@@ -1,10 +1,11 @@
 import constant as C
 import numpy as np
+import pandas as pd
 
 # CHANGED: added keyword parameters and documentation for function
 
 
-def loan_calculator(loan, feature = 0, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
+def loan_calculator(loan, feature=0, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
     """
     Calculates the monthly payments for a loan over
     the maturity period.
@@ -60,3 +61,21 @@ def cost_breakdown(build_dadu, size):
         '({0:6,.0f} -- {1:6,.0f})'.format(design_min, design_max), \
         '({0:6,.0f} -- {1:6,.0f})'.format(total_min, total_max), \
         '{0:6,.0f}'.format(property_tax)
+
+
+prices = pd.read_csv("prices_byzipcode.csv")
+
+
+def returns(build_size, zipcode):
+    """
+    Calculates the expeted rental and value-added
+    :param int build_size: size of ADU to build
+    :param string zipcode: zipcode of the ADU
+    """
+    rent_per_fq = prices[prices['ZipCode'] == int(zipcode)].rent
+    rental = float(build_size)*float(rent_per_fq)
+
+    sales_per_fq = prices[prices['ZipCode'] == int(zipcode)].sales
+    sales = float(build_size)*float(sales_per_fq)
+
+    return '{0:6,.0f}'.format(rental), '{0:6,.0f}'.format(sales)

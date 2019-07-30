@@ -8,6 +8,7 @@ __pycache__/
 *.html
 *.db
 *.png
+*.DS_Store
 .DS_Store
 ADUniverse/.DS_Store
 
