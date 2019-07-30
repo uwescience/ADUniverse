@@ -17,5 +17,5 @@ install:
 
 script:
 # FIXME: Get all tests to work
-# - cd ADUniverse; pytest test_*.py
-  - cd ADUniverse; pytest test_update_map.py
+ - cd ADUniverse; pytest test_*.py
+#  - cd ADUniverse; pytest test_update_map.py
