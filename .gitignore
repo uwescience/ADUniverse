@@ -9,6 +9,7 @@ __pycache__/
 *.db
 *.png
 .DS_Store
+ADUniverse/.DS_Store
 
 # C extensions
 *.so
