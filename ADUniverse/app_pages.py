@@ -12,9 +12,9 @@ map = Map(location=C.SEATTLE, zoom_start=C.INIT_ZOOM, control_scale=True)
 map.save("map.html")
 
 Original_Page = [
-    #dcc.Location(id='url'),
+    # dcc.Location(id='url'),
     #dcc.Link('Tab 1', href='/'),
-    #html.Br(),
+    # html.Br(),
     #dcc.Link('Tab 2', href='/apps/app1'),
 
     html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
@@ -25,6 +25,9 @@ Original_Page = [
 
     html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                 width="50%", height="550", style={'display': 'inline-block'}),
+
+    html.H2("Your neighbor built an ADU?", style={'textAlign': 'center'}),
+    html.Div(id='adu_around'),
 
     html.H2("Why are you thinking of building an ADU?"),
 
@@ -53,7 +56,7 @@ Original_Page = [
 Fin_Page = [
 
     #dcc.Link('Tab 1', href='/'),
-    #html.Br(),
+    # html.Br(),
     #dcc.Link('Tab 2', href='/apps/app1'),
 
     html.H1("Test Page", style={'textAlign': 'center'}),

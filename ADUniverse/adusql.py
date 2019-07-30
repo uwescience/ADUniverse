@@ -3,11 +3,13 @@ import pandas as pd
 import re
 import sqlite3
 
+
 def hello():
     print("Successfully imported adusql")
 
+
 class Connection:
-    def __init__(self, dbname = "adunits.db"):
+    def __init__(self, dbname="adunits.db"):
         '''
         :string param dbname: the name of the database to connect to.
         '''
@@ -36,7 +38,7 @@ class Connection:
         Depend
         '''
         self.connect()
-        df.to_sql(tablename, self.conn, if_exists = 'replace', index=False)
+        df.to_sql(tablename, self.conn, if_exists='replace', index=False)
         self.disconnect()
 
     def insert(self, df, tablename):
@@ -52,10 +54,10 @@ class Connection:
         Depend
         '''
         self.connect()
-        df.to_sql(tablename, self.conn, if_exists = 'append', index=False)
+        df.to_sql(tablename, self.conn, if_exists='append', index=False)
         self.disconnect()
 
-    def select(self, tablename, cols = "*"):
+    def select(self, tablename, cols="*"):
         '''
         :string param table: database table to select table from
         :list param cols (optional): list of columns to select from table. Default is * (all columns)
@@ -70,7 +72,7 @@ class Connection:
             cols.reverse()
             last = cols[0]
             tempcols = ""
-            for col in range(0,len(cols)):
+            for col in range(0, len(cols)):
                 colname = cols.pop()
                 if colname == last:
                     tempcols = tempcols + colname
@@ -122,7 +124,26 @@ class Connection:
         Retrieve the parcel long/lat coordinates for a specific address
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(PIN)
+        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
+            PIN)
+        data = self.manual(searchStr)
+        self.disconnect()
+        return data
+
+    def getNeighbor(self, PIN):
+        '''
+        Retrieve the neighbor around a specific coordinates
+        '''
+        self.connect()
+        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
+            PIN)
+        data = self.manual(searchStr)
+        xx = 47.56754
+        # xx = round(data.coordY[0], 1)
+        yy = round(data.coordX[0], 1)
+        searchStr = "SELECT par.address, par.taxpayer \
+                    FROM Permits per LEFT JOIN Parcels par on per.PIN = par.PIN\
+                    where par.latitude like '{}%' ".format(xx)
         data = self.manual(searchStr)
         self.disconnect()
         return data
@@ -138,6 +159,7 @@ class Connection:
 
         return data
 
+
 def keyword_locate(kw, text):
     '''
     This function iterates over entries in the "text" variable, searching for any matches to the "kw" variable.
@@ -146,17 +168,16 @@ def keyword_locate(kw, text):
     text (optional): Pandas series of entries to iterate over.
     '''
     N = len(text)
-    text = text.replace(np.nan, 'None') # Replace NaN values with string 'None'
-    arr_match = np.zeros((N,1)) # define a table of 0s
+    text = text.replace(np.nan, 'None')  # Replace NaN values with string 'None'
+    arr_match = np.zeros((N, 1))  # define a table of 0s
 
     iter = 0
-    for iter in range(0,N):
+    for iter in range(0, N):
 
         if not text[iter] == 'None':
 
             # if any instances of the keyword are located...
-            if len(re.findall(kw,text[iter])) > 0:
-                arr_match[iter] = 1 # indicate a match was found
+            if len(re.findall(kw, text[iter])) > 0:
+                arr_match[iter] = 1  # indicate a match was found
 
     return arr_match
-

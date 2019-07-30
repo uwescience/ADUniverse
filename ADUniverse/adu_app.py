@@ -7,6 +7,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import financials as fin
 import update_map as updt
+import adusql as ads
 
 from dash.dependencies import Input, Output, State
 
@@ -95,7 +96,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
     [Input(component_id='LoanInput', component_property='value')]
-    #Input(component_id='intermediate-value', component_property='children')
+    # Input(component_id='intermediate-value', component_property='children')
 )
 def loan_calculator(loan):
     return fin.loan_calculator(loan)
@@ -107,6 +108,19 @@ def loan_calculator(loan):
     [Input('aduPurposeDropdown', 'value')])
 def update_purpose(value):
     return 'You are builing this ADU for "{}"'.format(value)
+
+
+# if neighbor has an adu
+@app.callback(
+    Output('adu_around', 'children'),
+    [Input('addressDropdown', 'value')])
+def update_purpose(value):
+    if value != None:
+        adunit = ads.Connection("adunits.db")
+        haha = adunit.getNeighbor(value)
+        return haha.head().to_string()
+    else:
+        return 'No Entry So far'
 
 
 if __name__ == '__main__':

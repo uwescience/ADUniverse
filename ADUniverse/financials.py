@@ -53,7 +53,7 @@ def cost_breakdown(build_dadu, size):
     total_min = construction_min + tax_min + sewer + design_min + permit
     total_max = construction_max + tax_max + sewer + design_max + permit
 
-    property_tax = (total_min+total_max)/2*C.PROPERTY_TAX
+    property_tax = (total_min+total_max)/2*C.PROPERTY_TAX/12
 
     return '({0:6,.0f} -- {1:6,.0f})'.format(construction_min, construction_max), \
            '({0:6,.0f} -- {1:6,.0f})'.format(tax_min, tax_max), \

@@ -83,12 +83,12 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['+  Permit Fee']), html.Td(id='PermitFee')]),
             html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
             html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')]),
-            html.Tr([html.Td(['Estimated Increase In Property Tax']), html.Td(id='PropertyTax')]),
             html.Tr([html.Td(['*Actual cost may vary. Estimation is for reference only.'])])])
     ], className="six columns"),
 
     html.Div([
-        html.H3("How much will you borrow?", style={'textAlign': 'center'}),
+        html.H3("Financial Cost", style={'textAlign': 'center'}),
+        html.H5("How much will you borrow?"),
         dcc.Slider(
             id='LoanInput',
             min=10000,
@@ -104,13 +104,15 @@ FinFeasibility = html.Div([
         html.H2("  "),
         html.Table([
             html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
-            html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')])
+            html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')]),
+            html.Tr([html.Td(['Estimated Increase In Property Tax Per Month']), html.Td(id='PropertyTax')])
         ]),
 
         dcc.Markdown('''Assumptions:
                     APR 6.9% for a 15-year fixed-rate home equity loan.'''),
 
-        html.H3("Where do you live?", style={'textAlign': 'center'}),
+        html.H3("Financial Benefits", style={'textAlign': 'center'}),
+        html.H5("Where do you live?"),
         dcc.Dropdown(
             id='zipcode',
             options=[
