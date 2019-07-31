@@ -1,22 +1,21 @@
 import adusql as ads
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_daq as daq  # requires dash_daq version 0.1.0
-
 import pandas as pd
-prices = pd.read_csv("prices_byzipcode.csv")
+
+from constant import SEATTLE, INIT_ZOOM
+from dash_daq import ToggleSwitch # requires dash_daq version 0.1.0
+from folium import Map
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Home", href="/")),
-        dbc.NavItem(dbc.NavLink("Map", href="/map")),
+        #dbc.NavItem(dbc.NavLink("Home", href="/")),
+        dbc.NavItem(dbc.NavLink("Map", href="/")),
         dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
-        dbc.NavItem(dbc.NavLink("Additional Information", href="/more-info")),
-        dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
-        dbc.NavItem(dbc.NavLink("Test Page", href="/test")),
+        dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
+        #dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
     ],
     brand="Seattle ADU Feasibility",
     brand_href="http://www.seattle.gov/services-and-information/city-planning-and-development",
@@ -31,7 +30,7 @@ NavigationBar = dbc.NavbarSimple(
 
 
 # Address addressDropdown
-adunit = ads.Connection("adunits.db")
+adunit = ads.Connection()
 addresses = adunit.getAddresses()
 AddressDropdown = dcc.Dropdown(
     id='addressDropdown',
@@ -41,6 +40,12 @@ AddressDropdown = dcc.Dropdown(
     placeholder='Type your house address here...',
     style={'width': '48%', 'display': 'inline-block', 'vertical-align': 'top'}
 )
+
+# create empty map zoomed in on Seattle
+Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
+
+MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
+            width="50%", height="550", style={'display': 'inline-block'})
 
 
 PurposeDropdown = dcc.Dropdown(
@@ -52,12 +57,12 @@ PurposeDropdown = dcc.Dropdown(
     value='purposes'
 )
 
-
+prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
 FinFeasibility = html.Div([
     html.Div([
         html.H3('Cost Breakdown', style={'textAlign': 'center'}),
-        daq.ToggleSwitch(
+        ToggleSwitch(
             id='build_dadu',
             label=['Attached ADU', 'Detached ADU'],
             style={'width': '350px', 'margin': 'auto'},
@@ -131,3 +136,14 @@ FinFeasibility = html.Div([
     ], className="six columns",),
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
+
+# FAQ Section
+FAQ = dcc.Markdown('''
+## How to be a good landlord?
+Here is some useful information.
+[Rental Housing Association of Washington](https://www.rhawa.org/)
+## More financial information?
+Here is the home equity loan information
+*Disclaimer: We help to gather useful informtion to facilitate your decisions *
+'''
+)
