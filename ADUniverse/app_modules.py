@@ -105,9 +105,9 @@ FinFeasibility = html.Div([
         html.Table([
             html.Tr([html.Td(['Total Loan']), html.Td(id='LoanAmount')]),
             html.Tr([html.Td(['Monthly Payment']), html.Td(id='MonthlyPayment')]),
-            html.Tr([html.Td(['Estimated Increase In Property Tax Per Month']), html.Td(id='PropertyTax')])
+            html.Tr([html.Td(['Monthly Increase In Property Tax']), html.Td(id='PropertyTax')])
         ]),
-
+        html.H2("  "),
         dcc.Markdown('''Assumptions:
                     APR 6.9% for a 15-year fixed-rate home equity loan.'''),
 

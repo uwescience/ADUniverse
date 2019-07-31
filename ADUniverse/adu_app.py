@@ -117,10 +117,14 @@ def update_purpose(value):
 def update_purpose(value):
     if value != None:
         adunit = ads.Connection("adunits.db")
-        haha = adunit.getNeighbor(value)
-        return haha.head().to_string()
+        ngb_data = adunit.getNeighbor(value)
+        if ngb_data.empty == True:
+            return "We didn't find an ADU around you. Be the FIRST!"
+        else:
+            address = ngb_data.loc[0, 'address']
+        return 'Your Neighbor has an ADU! Check it out @ {}'.format(address)
     else:
-        return 'No Entry So far'
+        return 'Please enter your address first'
 
 
 if __name__ == '__main__':

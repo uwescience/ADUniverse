@@ -135,17 +135,23 @@ class Connection:
         Retrieve the neighbor around a specific coordinates
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
-            PIN)
+        searchStr = "select *   \
+            FROM Parcels p  \
+            join ParcelGeo g on p.PIN = g.PIN   \
+            join ParcelDetails d on p.PIN = d.PIN   \
+            left join Permits m on p.PIN = m.PIN    \
+            left join PermitDetails pd on p.PIN = pd.PIN    \
+            WHERE p.PIN = {}".format(PIN)
         data = self.manual(searchStr)
-        xx = 47.56754
-        # xx = round(data.coordY[0], 1)
-        yy = round(data.coordX[0], 1)
-        searchStr = "SELECT par.address, par.taxpayer \
-                    FROM Permits per LEFT JOIN Parcels par on per.PIN = par.PIN\
-                    where par.latitude like '{}%' ".format(xx)
+        lat = round(data.coordY[0], 2)
+        lon = round(data.coordX[0], 2)
+        searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
+                    FROM Permits per \
+                    LEFT JOIN Parcels par on per.PIN = par.PIN  \
+                    LEFT JOIN ParcelGeo pg on per.PIN = pg.PIN  \
+                    where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
+                    and coordNum = 0".format(lat, lon)
         data = self.manual(searchStr)
-        self.disconnect()
         return data
 
     def getAddresses(self):
