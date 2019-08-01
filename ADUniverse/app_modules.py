@@ -8,14 +8,17 @@ from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
 from folium import Map
 
+import base64
+
+
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
-        #dbc.NavItem(dbc.NavLink("Home", href="/")),
-        dbc.NavItem(dbc.NavLink("Map", href="/")),
+        dbc.NavItem(dbc.NavLink("Home", href="/")),
+        dbc.NavItem(dbc.NavLink("Map", href="/map")),
         dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
         dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
-        #dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
+        dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
     ],
     brand="Seattle ADU Feasibility",
     brand_href="http://www.seattle.gov/services-and-information/city-planning-and-development",
@@ -149,3 +152,21 @@ Here is the home equity loan information
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
 '''
                    )
+
+Transparency = dcc.Markdown('''
+## How to be a good landlord?
+Here is some useful information.
+[Rental Housing Association of Washington](https://www.rhawa.org/)
+## More financial information?
+Here is the home equity loan information
+*Disclaimer: We help to gather useful informtion to facilitate your decisions *
+'''
+                   )
+
+image_filename = 'my-image.png' # replace with your own image
+encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+
+
+Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
+    style={'align': 'center', 'width' : '50%' , 'height' : '50%'})
+    )
