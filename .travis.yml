@@ -4,16 +4,16 @@ python:
   - "3.6"
 
 install:
-  - sudo apt-get update
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update --quiet conda
-  - conda info --all
-  - pip install dash folium nltk dash_daq pytest pandas geojson
-  - pip install dash_bootstrap_components
+  - sudo apt-get update  # get most recent installer for linux
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh # downloading miniconda
+  - bash miniconda.sh -b -p $HOME/miniconda   # install miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"   # setup miniconda to the path 
+  - hash -r      # ?
+  - conda config --set always_yes yes --set changeps1 no  # config conda
+  - conda update --quiet conda    # kill message
+  - conda info --all       # yield info
+  - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
+  - pip install dash_bootstrap_components    # 
 
 script:
 # FIXME: Get all tests to work
