@@ -99,9 +99,13 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             if (df.iloc[0]["zone_ind"] == 0):
                 value += "<h5> For an AADU, this home is <b>Ineligible</b></h5> This is not a single family zoned home"
             elif (df.iloc[0]["zone_ind"] == 1):
-                value += "<br><h5> For an AADU, this home is <b>Eligible</b></h5>"
+                value += "<br><h5> For an AADU, this home is <b>Eligible</b></h5> Here are some pre-approved AADU plans to consider."
             value += "<h5> For a DADU, this home is " + "<b>" + \
                 str(df.iloc[0]["adu_eligible"]) + "</b></h5>"
+            if (str(df.iloc[0]["adu_eligible"]) == "Eligible"):
+                value += "Here are some pre-approved DADU plans to consider."
+            if (df.iloc[0]["zone_ind"] == 1 and str(df.iloc[0]["adu_eligible"])=="Eligible" and pd.isna(df.iloc[0]["ADU"])):
+                value += "<br>This home is eligible to build both an ADU AND a DADU!."
             if (df.iloc[0]["adu_eligible"] == "Ineligible"):
                 value += "<h5><i>Potential Problems for DADUs</i></h5>"
             if (df.iloc[0]["zone_ind"] == 0):
@@ -114,19 +118,20 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 value += "<br> There is already at least one existing ADU on this property"
             if (df.iloc[0]["shoreline_ind"] == 1):
                 value += "<br> This home is next to the shoreline. DADUs cannot be built by shorelines"
-            value += "<h5><i>Potential considerations of concern for ADUs and DADUs: </i></h5>"
-            if (df.iloc[0]["parcel_steepslope"] == 1):
-                value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
-            if (df.iloc[0]["parcel_flood"] == 1):
-                value += "<br> Your home may have been flooded in the past. This may make it more costly to permit and build an ADU"
-            if (df.iloc[0]["parcel_poteslide"] == 1):
-                value += "<br> Your home may be a potential slide area. This may make it more costly to permit and build an ADU"
-            if (df.iloc[0]["parcel_landf"] == 1):
-                value += "<br> Your home may be located on (or close to a?) a landfill. This may make it more costly to permit and build an ADU"
-            if (df.iloc[0]["parcel_peat"] == 1):
-                value += "<br> Your home may be a peat settlement. This may make it more costly to permit and build an ADU"
-            if (df.iloc[0]["parcel_riparian"] == 1):
-                value += "<br> Your home may be on a riparian corridor. This may make it more costly to permit and build an ADU"
+            if (df.iloc[0]["zone_ind"] == 1):
+                value += "<h5><i>Potential considerations of concern for ADUs and DADUs: </i></h5>"
+                if (df.iloc[0]["parcel_steepslope"] == 1):
+                    value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
+                if (df.iloc[0]["parcel_flood"] == 1):
+                    value += "<br> Your home may have been flooded in the past. This may make it more costly to permit and build an ADU"
+                if (df.iloc[0]["parcel_poteslide"] == 1):
+                    value += "<br> Your home may be a potential slide area. This may make it more costly to permit and build an ADU"
+                if (df.iloc[0]["parcel_landf"] == 1):
+                    value += "<br> Your home may be located on (or close to a?) a landfill. This may make it more costly to permit and build an ADU"
+                if (df.iloc[0]["parcel_peat"] == 1):
+                    value += "<br> Your home may be a peat settlement. This may make it more costly to permit and build an ADU"
+                if (df.iloc[0]["parcel_riparian"] == 1):
+                    value += "<br> Your home may be on a riparian corridor. This may make it more costly to permit and build an ADU"
 
             value += "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>"
 

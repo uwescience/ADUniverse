@@ -19,6 +19,8 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
         dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
+        dbc.NavItem(dbc.NavLink("Testimonials", href="/testimonials")),
+
     ],
     brand="Seattle ADU Feasibility",
     brand_href="http://www.seattle.gov/services-and-information/city-planning-and-development",
@@ -154,16 +156,52 @@ Here is the home equity loan information
                    )
 
 Transparency = dcc.Markdown('''
-## How to be a good landlord?
-Here is some useful information.
-[Rental Housing Association of Washington](https://www.rhawa.org/)
-## More financial information?
-Here is the home equity loan information
+Here in this PDF is a glossary of terms!
+[Glossary of Terms](https://www.rhawa.org/)
+## Here's all the stuff that goes into making a decision to be eligible for an ADU
+The current legislation states that:
+You can build up to 2 ADUs
+The owner does not have to occupy any of the units
+There is no parking requirements
+You must be in a single family lot to build any sort of ADU
+Your lot size must be at least y
+Your lot width (the side of your home neighboring the street) must be at least xx
+Your lot depth (the adjoining line) must be at least xxx
+You may build a maximum of x sized ADU on your lot
+Your lot coverage including ADUs may be no more than yy
+You can not build any ADU if your home lies along the shoreline. 
+
+Other variables such as your parcel being on environmentally critical areas, sharing side sewers with other parcels, trees and tree roots in your anticipated build site might (or might not!) all affect the cost to permit and build an ADU.
+Some variables such as your home's proximity to well-served transit stops, presence on corner lots or by an alley, ___, __, and others might advantage a built ADU(???) increase market value of your ADU???
+
+Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates. 
+
+Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
+There may be mistakes in this data we are not responsible for. 
+
+## Assumptions Made
+
+
+## Stuff We Haven't Calculated
+Rear coverage
+
+Side sewer
+
+## Stuff In The Works Through the City
+Pre approved plans
+
+low income Homeowner assistance, direct connection to 8 Voucher holder
+
+## Why Do You Post My Neighbors' Addresses?
+So you'll talk to the darn humans around you.
+(Discussions about the issues surrounding this)
+
+
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
 '''
                    )
 
-image_filename = 'my-image.png' # replace with your own image
+image_filename = 'my-image.png' 
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 

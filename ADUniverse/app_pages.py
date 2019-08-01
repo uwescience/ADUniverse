@@ -38,7 +38,6 @@ FAQ_layout = html.Div([
 )
 
 Transparency_layout = html.Div([
-    #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     html.H2("Transparency",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
@@ -47,10 +46,17 @@ Transparency_layout = html.Div([
 )
 
 Home_layout = html.Div([
-    #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     html.H2("Home",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     mdl.Home,
+],
+)
+
+Testimonials_layout = html.Div([
+    html.H2("Stories and Testimonials",
+            style={'textAlign': 'center', 'color': '#7FDBFF'}),
+
+    # mdl.Home,
 ],
 )
