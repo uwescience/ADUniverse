@@ -142,9 +142,9 @@ class Connection:
             left join Permits m on p.PIN = m.PIN    \
             left join PermitDetails pd on p.PIN = pd.PIN    \
             WHERE p.PIN = {}".format(PIN)
-        data = self.manual(searchStr)
-        lat = round(data.coordY[0], 2)
-        lon = round(data.coordX[0], 2)
+        data_xy = self.manual(searchStr)
+        lat = round(data_xy.coordY[0], 2)
+        lon = round(data_xy.coordX[0], 2)
         searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
                     FROM Permits per \
                     LEFT JOIN Parcels par on per.PIN = par.PIN  \
@@ -152,6 +152,9 @@ class Connection:
                     where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
                     and coordNum = 0".format(lat, lon)
         data = self.manual(searchStr)
+        data['dist'] = abs(data['coordY'] - data_xy.coordY[0]) \
+            + abs(data['coordX'] - data_xy.coordX[0])
+        data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
     def getAddresses(self):

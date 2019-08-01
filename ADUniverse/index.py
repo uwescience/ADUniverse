@@ -2,6 +2,7 @@ import callbacks
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
+import pdb
 
 from adu_app import app
 from app_modules import NavigationBar

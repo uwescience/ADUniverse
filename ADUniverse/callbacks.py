@@ -5,7 +5,6 @@ import adusql as ads
 from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
 from dash.dependencies import Input, Output
-
 # input slider for square foot
 
 
