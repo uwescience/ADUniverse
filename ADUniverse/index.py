@@ -6,7 +6,7 @@ import pdb
 
 from adu_app import app
 from app_modules import NavigationBar
-from app_pages import Map_layout, Finance_layout, FAQ_layout, Transparency_layout, Home_layout
+from app_pages import Map_layout, Finance_layout, FAQ_layout, Transparency_layout, Home_layout, Testimonials_layout
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -30,6 +30,8 @@ def display_page(pathname):
         return FAQ_layout
     elif pathname == '/transparency':
         return Transparency_layout
+    elif pathname == '/testimonials':
+        return Testimonials_layout
     else:
         return '404'
 
