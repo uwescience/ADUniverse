@@ -3,14 +3,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
-import plotly
+# import plotly
 # import plotly.plotly as py
-import plotly.graph_objs as go
+# import plotly.graph_objs as go
 
 external_stylesheets =['https://codepen.io/chriddyp/pen/bWLwgP.css', dbc.themes.BOOTSTRAP]
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 app.config.suppress_callback_exceptions = True
-navbar = html.Div(children=[
+Modal_address = html.Div(children=[
         #dbc.Button("BLOG", id="openBlog", size="lg"),
         dbc.Modal(
         [
@@ -22,7 +22,7 @@ navbar = html.Div(children=[
     ],
 )
 
-app.layout = html.Div([navbar], style={'backgroundColor':'black'})
+app.layout = html.Div([Modal_address], style={'backgroundColor':'black'})
 
 def toggle_modal(n1, n2, is_open):
 
