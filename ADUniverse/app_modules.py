@@ -169,15 +169,15 @@ Your lot width (the side of your home neighboring the street) must be at least x
 Your lot depth (the adjoining line) must be at least xxx
 You may build a maximum of x sized ADU on your lot
 Your lot coverage including ADUs may be no more than yy
-You can not build any ADU if your home lies along the shoreline. 
+You can not build any ADU if your home lies along the shoreline.
 
 Other variables such as your parcel being on environmentally critical areas, sharing side sewers with other parcels, trees and tree roots in your anticipated build site might (or might not!) all affect the cost to permit and build an ADU.
 Some variables such as your home's proximity to well-served transit stops, presence on corner lots or by an alley, ___, __, and others might advantage a built ADU(???) increase market value of your ADU???
 
-Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates. 
+Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
 
 Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
-There may be mistakes in this data we are not responsible for. 
+There may be mistakes in this data we are not responsible for.
 
 ## Assumptions Made
 
@@ -199,12 +199,12 @@ So you'll talk to the darn humans around you.
 
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
 '''
-                   )
+                            )
 
-image_filename = 'my-image.png' 
+image_filename = 'my-image.png'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-    style={'align': 'center', 'width' : '50%' , 'height' : '50%'})
-    )
+                         style={'align': 'center', 'width': '50%', 'height': '50%'})
+                )

@@ -16,6 +16,12 @@ Map_layout = html.Div([
     # Purpose output
     html.Div(id='output_purpose'),
 
+    html.H2("What's the Zipcode?"),
+    html.Div(id='zipcode'),
+
+
+
+
 ],
 )
 

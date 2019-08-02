@@ -130,6 +130,17 @@ class Connection:
         self.disconnect()
         return data
 
+    def getZipcode(self, PIN):
+        '''
+        Retrieve the zipcode of an address
+        '''
+        self.connect()
+        searchStr = "select p.zipcode   \
+            FROM Parcels p  \
+            WHERE p.PIN = {}".format(PIN)
+        zipcode = self.manual(searchStr)
+        return zipcode
+
     def getNeighbor(self, PIN):
         '''
         Retrieve the neighbor around a specific coordinates

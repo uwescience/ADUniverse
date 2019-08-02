@@ -9,6 +9,7 @@ from adu_app import app
 from app_modules import NavigationBar
 from app_pages import Map_layout, Finance_layout, FAQ_layout, Transparency_layout, Home_layout, Testimonials_layout
 
+
 app.config.suppress_callback_exceptions = True
 Modal_address = html.Div(children=[
     #dbc.Button("BLOG", id="openBlog", size="lg"),

@@ -101,3 +101,19 @@ def update_purpose(value):
     [Input('aduPurposeDropdown', 'value')])
 def update_purpose(value):
     return 'You are builing this ADU for "{}"'.format(value)
+
+
+@app.callback(
+    Output('zipcode', 'children'),
+    [Input('addressDropdown', 'value')])
+def update_zipcode(value):
+    if value != None:
+        adunit = ads.Connection("adunits.db")
+        zp_data = adunit.getZipcode(value)
+        if zp_data.empty == True:
+            return "We can't find it"
+        else:
+            zp = zp_data.loc[0, 'zipcode']
+        return 'Your zipcode is {}'.format(zp)
+    else:
+        return "Type your address first"
