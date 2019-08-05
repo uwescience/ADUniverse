@@ -25,6 +25,12 @@ def test_cost_breakdown():
 
 
 def returns():
-    rental, sales = financials.returns(build_size, zipcode)
+    rental, sales = fin.returns(build_size, zipcode)
     assert(isinstance(rental, str))
     assert(isinstance(sales, str))
+
+
+def neighbor_adu():
+    PIN = 4177100080
+    nearby = fin.neighbor_adu(PIN)
+    assert(isinstance(nearby, str))

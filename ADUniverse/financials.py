@@ -2,28 +2,22 @@ import constant as C
 import numpy as np
 import pandas as pd
 
-# CHANGED: added keyword parameters and documentation for function
 
-
-def loan_calculator(loan, feature=0, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
+def loan_calculator(loan, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
     """
     Calculates the monthly payments for a loan over
     the maturity period.
     :param number load: amount to borrow
-    #FIXME: put in the correct information for feature
-    :param ?? feature:
     :param float apr: annual interest rate of the loan
     :param int maturity: maturity for the loan
     :
     """
     loan = float(loan)
 
-    payment = 0*feature + loan*(apr)*(1+apr)**(maturity)  \
-        / ((1+apr)**(maturity)-1)
+    payment = loan*(apr)*(1+apr)**(maturity) / ((1+apr)**(maturity)-1)
     return '{0:6,.0f}'.format(loan), '{0:6,.0f}'.format(payment)
 
 
-# FIXME: add function level comment
 def cost_breakdown(build_dadu, size):
     # CHANGED: Use PEP8 convention for variable names
     """
@@ -79,3 +73,20 @@ def returns(build_size, zipcode):
     sales = float(build_size)*float(sales_per_fq)
 
     return '{0:6,.0f}'.format(rental), '{0:6,.0f}'.format(sales)
+
+
+def neighbor_adu(PIN):
+    """
+    Find existing ADU around the entered address
+    :param text PIN: PIN number related to the address entered
+    """
+    if PIN != None:
+        adunit = ads.Connection("adunits.db")
+        ngb_data = adunit.getNeighbor(PIN)
+        if ngb_data.empty == True:
+            return "We didn't find an ADU around you. Be the FIRST!"
+        else:
+            address = ngb_data.loc[0, 'address']
+        return 'Your Neighbor has an ADU! Check it out @ {}'.format(address)
+    else:
+        return 'Please enter your address first'

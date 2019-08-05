@@ -51,18 +51,6 @@ def returns(buildSize, zipcode):
 def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
     return updt.update_map(value, coords=coords, zoom=zoom)
 
-# space holder for some features
-# @app.callback(
-#    Output('intermediate-value', 'children'),
-#    [Input('addressDropdown', 'value')]
-# )
-# def get_features(value):
-    # if value != None:
-    # output = data.loc[data['ADDRESS'] == value].reset_index()['YRBUILT'][0]
-    # output = addresses.loc[addresses.address == value].reset_index()['YRBUILT'][0]
-#    output = 0
-#    return output
-
 # calculating loans
 
 
@@ -75,26 +63,17 @@ def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
 def loan_calculator(loan):
     return fin.loan_calculator(loan)
 
-# if neighbor has an adu
+# find out if neighbor has an adu and where
 
 
 @app.callback(
     Output('adu_around', 'children'),
     [Input('addressDropdown', 'value')])
-def update_purpose(value):
-    if value != None:
-        adunit = ads.Connection("adunits.db")
-        ngb_data = adunit.getNeighbor(value)
-        if ngb_data.empty == True:
-            return "We didn't find an ADU around you. Be the FIRST!"
-        else:
-            address = ngb_data.loc[0, 'address']
-        return 'Your Neighbor has an ADU! Check it out @ {}'.format(address)
-    else:
-        return 'Please enter your address first'
+def neighbor_adu(PIN):
+    return fin.neighbor_adu(PIN)
 
-# print out
 
+# print out the purposes
 
 @app.callback(
     Output('output_purpose', 'children'),
@@ -102,6 +81,8 @@ def update_purpose(value):
 def update_purpose(value):
     return 'You are builing this ADU for "{}"'.format(value)
 
+
+# return zipcode of address
 
 @app.callback(
     Output('zipcode', 'children'),
@@ -111,7 +92,7 @@ def update_zipcode(value):
         adunit = ads.Connection("adunits.db")
         zp_data = adunit.getZipcode(value)
         if zp_data.empty == True:
-            return "We can't find it"
+            return "Sorry, we can't find your zipcode"
         else:
             zp = zp_data.loc[0, 'zipcode']
         return 'Your zipcode is {}'.format(zp)
