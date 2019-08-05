@@ -58,7 +58,6 @@ def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
     [Output(component_id='LoanAmount', component_property='children'),
      Output(component_id='MonthlyPayment', component_property='children')],
     [Input(component_id='LoanInput', component_property='value')]
-    #Input(component_id='intermediate-value', component_property='children')
 )
 def loan_calculator(loan):
     return fin.loan_calculator(loan)

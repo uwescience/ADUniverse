@@ -1,6 +1,7 @@
 import constant as C
 import numpy as np
 import pandas as pd
+import adusql as ads
 
 
 def loan_calculator(loan, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
