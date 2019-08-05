@@ -21,7 +21,7 @@ def test_cost_breakdown():
     assert(isinstance(p_tax, str))
 
 
-def returns():
+def test_returns():
     build_size = 500
     zipcode = 98103
     rental, sales = fin.returns(build_size, zipcode)
@@ -29,7 +29,7 @@ def returns():
     assert(isinstance(sales, str))
 
 
-def neighbor_adu():
+def test_neighbor_adu():
     PIN = 4177100080
     nearby = fin.neighbor_adu(PIN)
     assert(isinstance(nearby, str))
