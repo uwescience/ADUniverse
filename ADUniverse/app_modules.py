@@ -13,6 +13,17 @@ from folium import Map
 import base64
 
 common_data = CommonData()
+Modal_address = html.Div(children=[
+    #dbc.Button("BLOG", id="openBlog", size="lg"),
+    dbc.Modal(
+        [
+            dbc.ModalHeader("BLOG"),
+            dbc.ModalBody("It's the body"),
+            dbc.ModalFooter(dbc.Button("Close", id="closeBlog", className="ml-auto"),),
+        ], id="modalBlog", is_open=True
+    ),
+],
+)
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(

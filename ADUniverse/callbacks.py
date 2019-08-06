@@ -21,8 +21,19 @@ class CommonData(object):
 
 common_data = CommonData()
 
+from dash.dependencies import Input, Output, State
 # input slider for square foot
 
+
+def toggle_modal(n1, n2, is_open):
+
+    # return not is_open
+    return is_open
+app.callback(
+    Output("modalBlog", "is_open"),
+    [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
+    [State("modalBlog", "is_open")],
+)(toggle_modal)
 
 @app.callback(
     Output('BuildSizeOutput', 'children'),
