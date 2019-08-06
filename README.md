@@ -15,5 +15,5 @@ This code works for python 3.6. You have have miniconda installed. Then issue th
 - ``pip install dash folium nltk dash_daq``
 - ``pip install dash_bootstrap_components``
 
-To run the code, change to the ```ADUniverse`` directory and the ``ADUniverse`` subdirectory within the first directory. Then, run the command ``python index.py``.
+To run the code, change to the ``ADUniverse`` directory and the ``ADUniverse`` subdirectory within the first directory. Then, run the command ``python index.py``.
 
