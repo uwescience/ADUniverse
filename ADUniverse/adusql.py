@@ -124,7 +124,7 @@ class Connection:
         Retrieve the parcel long/lat coordinates for a specific address
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p join ParcelGeo g on p.PIN = g.PIN join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
+        searchStr = "select * FROM Parcels p left join ParcelGeo g on p.PIN = g.PIN left join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
             PIN)
         data = self.manual(searchStr)
         self.disconnect()
