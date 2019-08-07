@@ -46,14 +46,14 @@ AddressDropdown = dcc.Dropdown(
         {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
     ],
     placeholder='Type your house address here...',
-    style={'width': '48%', 'display': 'inline-block', 'vertical-align': 'top'}
+    style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
 )
 
 # create empty map zoomed in on Seattle
 Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
 
 MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
-                       width="50%", height="550", style={'display': 'inline-block'})
+                       width="100%", height="550", style={'display': 'inline-block'})
 
 
 PurposeDropdown = dcc.Dropdown(
@@ -96,7 +96,7 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['+  Permit Fee']), html.Td(id='PermitFee')]),
             html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
             html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])]),
-        html.P('* Actual cost may vary. The estimate is for reference only.'),
+        html.P('*Actual cost may vary. The estimate is for reference only.'),
     ], className="six columns"),
 
     html.Div([

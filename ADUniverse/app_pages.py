@@ -3,27 +3,32 @@ import dash_html_components as html
 
 
 Map_layout = html.Div([
-    # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
-    html.H2("Find your home"),
-    mdl.AddressDropdown,
-    mdl.MapBlock,
-    html.H2("Your neighbor built an ADU?", style={'textAlign': 'center'}),
-    html.Div(id='adu_around'),
+    html.Div([
+        # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
+        html.H3("Find your home", style={'textAlign': 'center'}),
+        mdl.AddressDropdown,
+        html.H3(""),
+        html.H3(""),
+        html.H3("Your neighbor built an ADU?", style={'textAlign': 'center'}),
+        html.Div(id='adu_around'),
 
-    # html.H2("Why are you thinking of building an ADU?"),
-    # mdl.PurposeDropdown,
+        # html.H2("Why are you thinking of building an ADU?"),
+        # mdl.PurposeDropdown,
 
-    # # Purpose output
-    # html.Div(id='output_purpose'),
+        # # Purpose output
+        # html.Div(id='output_purpose'),
 
-    html.H2("What's the Zipcode?"),
-    html.Div(id='zip_code'),
+        html.H3(""),
+        html.H3(""),
+        html.H3("What's your Zipcode?", style={'textAlign': 'center'}),
+        html.Div(id='zip_code'),
+    ], className="five columns"),
+    html.Div([
+        mdl.MapBlock,
+    ], className="seven columns"),
 
 
-
-
-],
-)
+], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
 Finance_layout = html.Div([
     #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
