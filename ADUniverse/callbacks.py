@@ -1,6 +1,7 @@
 import financials as fin
 import update_map as updt
 import adusql as ads
+import dash_core_components as dcc
 
 from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
@@ -21,8 +22,19 @@ class CommonData(object):
 
 common_data = CommonData()
 
+from dash.dependencies import Input, Output, State
 # input slider for square foot
 
+
+def toggle_modal(n1, n2, is_open):
+
+    # return not is_open
+    return is_open
+app.callback(
+    Output("modalBlog", "is_open"),
+    [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
+    [State("modalBlog", "is_open")],
+)(toggle_modal)
 
 @app.callback(
     Output('BuildSizeOutput', 'children'),
@@ -91,13 +103,14 @@ def neighbor_adu(PIN):
     return fin.neighbor_adu(PIN)
 
 
-# print out the purposes
+
 
 @app.callback(
-    Output('output_purpose', 'children'),
-    [Input('aduPurposeDropdown', 'value')])
-def update_purpose(value):
-    return 'You are builing this ADU for "{}"'.format(value)
+    Output('next_page', 'children'),
+    [Input('addressDropdown', 'value')])
+def show_new_page(PIN):
+    if PIN != None:
+        return dcc.Link("Figure out your financial options on the next page", href='/financials')
 
 @app.callback(
     Output('zip_code', 'children'),
