@@ -87,7 +87,7 @@ FinFeasibility = html.Div([
                 750: '750 SF (2 Bed)',
             },
             value=500,),
-        html.H2("  "),
+        html.H1("  "),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
         html.Table([
             html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
@@ -95,8 +95,8 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['+ Sewer Capacity Charge ']), html.Td(id='SewerCharge')]),
             html.Tr([html.Td(['+  Permit Fee']), html.Td(id='PermitFee')]),
             html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
-            html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')]),
-            html.Tr([html.Td(['*Actual cost may vary. Estimation is for reference only.'])])])
+            html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])]),
+        html.P('* Actual cost may vary. The estimate is for reference only.'),
     ], className="six columns"),
 
     html.Div([
@@ -121,9 +121,8 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['Monthly Increase In Property Tax']), html.Td(id='PropertyTax')])
         ]),
         html.H2("  "),
-        dcc.Markdown('''Assumptions:
-                    APR 6.9% for a 15-year fixed-rate home equity loan.'''),
-
+        html.P('Assumptions: APR 6.9% for a 15-year fixed-rate home equity loan.'),
+        html.P('Reminder: Your home equity loan interest might be tax deductible.'),
         html.H3("Financial Benefits", style={'textAlign': 'center'}),
         html.H5("Where do you live?"),
         dcc.Dropdown(
@@ -139,10 +138,13 @@ FinFeasibility = html.Div([
                      html.Td(id='sales')])
         ]),
         html.H2("  "),
-        dcc.Markdown('''
-        Be part of the SOLUTION! check out [Seattle Housing Authority]
-        (https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
-        '''),
+        # dcc.Markdown('''
+        # Be part of the SOLUTION! check out [Seattle Housing Authority]
+        # (https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
+        # '''),
+        html.A("Be part of the SOLUTION! (@Seattle.gov)",
+               href='http://www.seattle.gov/rentinginseattle', target="_blank")
+
     ], className="six columns",),
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })

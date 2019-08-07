@@ -71,7 +71,7 @@ def returns(build_size, zipcode):
     rental = float(build_size)*float(rent_per_fq)
 
     sales_per_fq = prices[prices['ZipCode'] == int(zipcode)].sales
-    sales = float(build_size)*float(sales_per_fq)
+    sales = 0.8*float(build_size)*float(sales_per_fq)
 
     return '{0:6,.0f}'.format(rental), '{0:6,.0f}'.format(sales)
 
