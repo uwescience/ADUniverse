@@ -4,7 +4,7 @@ import dash_html_components as html
 
 Map_layout = html.Div([
     html.Div([
-        mdl.Modal_address,
+        #mdl.Modal_address,
         # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
         html.H3("Find your home", style={'textAlign': 'center'}),
         mdl.AddressDropdown,
