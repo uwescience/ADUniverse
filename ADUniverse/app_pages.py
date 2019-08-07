@@ -4,6 +4,7 @@ import dash_html_components as html
 
 Map_layout = html.Div([
     html.Div([
+        mdl.Modal_address,
         # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
         html.H3("Find your home", style={'textAlign': 'center'}),
         mdl.AddressDropdown,
@@ -29,6 +30,8 @@ Map_layout = html.Div([
 
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
+    # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
+
 
 Finance_layout = html.Div([
     #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),

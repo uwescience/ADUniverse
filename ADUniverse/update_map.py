@@ -154,6 +154,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                        #                    "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>",
 
                        #                    max_width=2000),
+                       # popup=folium.Popup(output(), max_width=2000, fill_color="green", show=True),
                        tooltip='Click me!',).add_to(new_map)
 
         # feature = folium.features.GeoJson(geojson["features"]["geometry"],
