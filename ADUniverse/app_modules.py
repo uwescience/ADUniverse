@@ -67,14 +67,6 @@ MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                        width="100%", height="550", style={'display': 'inline-block'})
 
 
-PurposeDropdown = dcc.Dropdown(
-    id='aduPurposeDropdown',
-    options=[
-        {'label': 'Build one more unit for rental income', 'value': 'income'},
-        {'label': 'A Relative needs some housing', 'value': 'support'},
-    ],
-    value='purposes'
-)
 
 prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
