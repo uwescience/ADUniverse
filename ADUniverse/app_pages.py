@@ -29,25 +29,6 @@ Map_layout = html.Div([
 
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
-    # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
-    mdl.Modal_address,
-    html.H2("Find your home"),
-    mdl.AddressDropdown,
-    mdl.MapBlock,
-    html.H2("Your neighbor built an ADU?", style={'textAlign': 'center'}),
-    html.Div(id='adu_around'),
-
-    html.Div(id='next_page'),
-
-    html.H2("What's the Zipcode?"),
-    html.Div(id='zipcode'),
-
-
-
-
-],
-)
->>>>>>> modal
 
 Finance_layout = html.Div([
     #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),

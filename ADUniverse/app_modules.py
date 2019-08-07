@@ -13,17 +13,6 @@ from folium import Map
 import base64
 
 common_data = CommonData()
-Modal_address = html.Div(children=[
-    #dbc.Button("BLOG", id="openBlog", size="lg"),
-    dbc.Modal(
-        [
-            dbc.ModalHeader("BLOG"),
-            dbc.ModalBody("It's the body"),
-            dbc.ModalFooter(dbc.Button("Close", id="closeBlog", className="ml-auto"),),
-        ], id="modalBlog", is_open=True
-    ),
-],
-)
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
@@ -67,6 +56,14 @@ MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                        width="100%", height="550", style={'display': 'inline-block'})
 
 
+PurposeDropdown = dcc.Dropdown(
+    id='aduPurposeDropdown',
+    options=[
+        {'label': 'Build one more unit for rental income', 'value': 'income'},
+        {'label': 'A Relative needs some housing', 'value': 'support'},
+    ],
+    value='purposes'
+)
 
 prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
