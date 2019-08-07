@@ -3,6 +3,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
+from callbacks import CommonData
+
 
 from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
@@ -10,6 +12,7 @@ from folium import Map
 
 import base64
 
+common_data = CommonData()
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
@@ -128,7 +131,7 @@ FinFeasibility = html.Div([
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            value='98103'),
+            value=str(common_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
                      html.Td(id='rental')]),

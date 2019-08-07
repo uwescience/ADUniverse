@@ -5,6 +5,22 @@ import adusql as ads
 from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
 from dash.dependencies import Input, Output
+
+import collections
+
+# Create common data
+
+
+class CommonData(object):
+    def __init__(self):
+        self.zipcode = 98115
+
+    def change(self, value):
+        self.zipcode = value
+
+
+common_data = CommonData()
+
 # input slider for square foot
 
 
@@ -84,9 +100,9 @@ def update_purpose(value):
 # return zipcode of address
 
 @app.callback(
-    Output('zipcode', 'children'),
+    Output('zip_code', 'children'),
     [Input('addressDropdown', 'value')])
-def update_zipcode(value):
+def update_zipcode(value):  #
     if value != None:
         adunit = ads.Connection("adunits.db")
         zp_data = adunit.getZipcode(value)
@@ -94,6 +110,7 @@ def update_zipcode(value):
             return "Sorry, we can't find your zipcode"
         else:
             zp = zp_data.loc[0, 'zipcode']
+            common_data.change(zp)
         return 'Your zipcode is {}'.format(zp)
     else:
         return "Type your address first"

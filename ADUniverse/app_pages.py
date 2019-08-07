@@ -10,14 +10,14 @@ Map_layout = html.Div([
     html.H2("Your neighbor built an ADU?", style={'textAlign': 'center'}),
     html.Div(id='adu_around'),
 
-    html.H2("Why are you thinking of building an ADU?"),
-    mdl.PurposeDropdown,
+    # html.H2("Why are you thinking of building an ADU?"),
+    # mdl.PurposeDropdown,
 
-    # Purpose output
-    html.Div(id='output_purpose'),
+    # # Purpose output
+    # html.Div(id='output_purpose'),
 
     html.H2("What's the Zipcode?"),
-    html.Div(id='zipcode'),
+    html.Div(id='zip_code'),
 
 
 
