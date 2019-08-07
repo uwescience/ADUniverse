@@ -16,7 +16,7 @@ class CommonData(object):
         self.zipcode = 98115
 
     def change(self, value):
-        self.zipcode = value
+        self.zipcode = int(value)
 
 
 common_data = CommonData()
@@ -48,7 +48,7 @@ def cost_breakdown(value1, value2):
 
 # calculate the returns(rental + value added)
 
-
+# Zipcode is changed
 @app.callback(
     [Output('rental', 'children'),
      Output('sales', 'children')],
@@ -56,6 +56,9 @@ def cost_breakdown(value1, value2):
      Input('zipcode', 'value')])
 def returns(buildSize, zipcode):
     return fin.returns(buildSize, zipcode)
+
+def returns(buildSize, zipcode):
+    return fin.returns(buildSize, str(common_data.zipcode))
 
 # dynamically updates the map based on the address selected
 
@@ -95,9 +98,6 @@ def neighbor_adu(PIN):
     [Input('aduPurposeDropdown', 'value')])
 def update_purpose(value):
     return 'You are builing this ADU for "{}"'.format(value)
-
-
-# return zipcode of address
 
 @app.callback(
     Output('zip_code', 'children'),
