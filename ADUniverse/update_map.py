@@ -104,7 +104,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 str(df.iloc[0]["adu_eligible"]) + "</b></h5>"
             if (str(df.iloc[0]["adu_eligible"]) == "Eligible"):
                 value += "Here are some pre-approved DADU plans to consider."
-            if (df.iloc[0]["zone_ind"] == 1 and str(df.iloc[0]["adu_eligible"])=="Eligible" and pd.isna(df.iloc[0]["ADU"])):
+            if (df.iloc[0]["zone_ind"] == 1 and str(df.iloc[0]["adu_eligible"]) == "Eligible" and pd.isna(df.iloc[0]["ADU"])):
                 value += "<br>This home is eligible to build both an ADU AND a DADU!."
             if (df.iloc[0]["adu_eligible"] == "Ineligible"):
                 value += "<h5><i>Potential Problems for DADUs</i></h5>"
@@ -138,11 +138,11 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             return value
 
         # FIXME: fill_color is bad keyword
-        #folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
+        # folium.Polygon(locations=locations, color='blue', weight=6, fill_color='red',
         folium.Polygon(locations=locations, color='blue', weight=6,
                        fill_opacity=0.5, fill=True,
                        # FIXME: fill_color is bad keyword
-                       #popup=folium.Popup(output(), max_width=2000, fill_color="green", show=True),
+                       # popup=folium.Popup(output(), max_width=2000, fill_color="green", show=True),
                        popup=folium.Popup(output(), max_width=2000, show=True),
                        # popup=folium.Popup("<h5> For a DADU, this home is " + "<b>" +
                        #                    str(df.iloc[0]["adu_eligible"]) + "</b></h5>" + "<h5> For an AADU, this home is <b>Eligible</b></h5>" + "<h5><i>Essential Criteria</i></h5>" +
@@ -157,9 +157,24 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                        # popup=folium.Popup(output(), max_width=2000, fill_color="green", show=True),
                        tooltip='Click me!',).add_to(new_map)
 
+        neighbor = folium.map.FeatureGroup(name="neighbor",
+                                           overlay=True, control=True, show=True,)
+        df_ngb = pd.read_csv("neighbor.csv")
+        # import pdb
+        # pdb.set_trace()
+
+        for i in range(0, len(df_ngb)):
+            folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
+                          popup=folium.Popup(df_ngb.iloc[i]["address"], max_width=2000)
+                          ).add_to(neighbor)
+
+        neighbor.add_to(new_map)
+        folium.LayerControl().add_to(new_map)
+
         # feature = folium.features.GeoJson(geojson["features"]["geometry"],
         #     name=None, style_function=style_function, highlight_function=highlight_function,)
         # folium.Popup("Square feet of lot: " + str(geojson["features"]["properties"]["sqftlot"]), max_width=300).add_to(feature)
+
         # parcel.add_child(feature)
         # feature.add_to(new_map)
 

@@ -88,7 +88,7 @@ def neighbor_adu(PIN):
             return "We didn't find an ADU around you. Be the FIRST!"
         else:
             address = ngb_data.loc[0, 'address']
-        return ("Your Neighbor has an ADU! \
-                Check it out @ {}".format(address))
+        return ("Your neighbor got one! Zoom out to see more on map!\
+                The closest one @ {}".format(address))
     else:
         return "Please enter your address first"

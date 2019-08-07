@@ -162,6 +162,7 @@ class Connection:
         data = self.manual(searchStr)
         data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
                                (data['coordX'] - data_xy.coordX[0])**2)
+        data.to_csv("neighbor.csv")
         data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
