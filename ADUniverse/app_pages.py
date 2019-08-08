@@ -13,11 +13,9 @@ Map_layout = html.Div([
         html.H3("Your neighbor built an ADU?", style={'textAlign': 'center'}),
         html.Div(id='adu_around'),
 
-        # html.H2("Why are you thinking of building an ADU?"),
-        # mdl.PurposeDropdown,
+        html.Div(id='next_page'),
 
-        # # Purpose output
-        # html.Div(id='output_purpose'),
+
 
         html.H3(""),
         html.H3(""),
@@ -72,5 +70,13 @@ Testimonials_layout = html.Div([
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     # mdl.Home,
+],
+)
+
+Analysis_layout = html.Div([
+    html.H2("Citywide Analysis",
+            style={'textAlign': 'center', 'color': '#7FDBFF'}),
+
+    mdl.Analysis,
 ],
 )

@@ -14,6 +14,18 @@ import base64
 
 common_data = CommonData()
 
+Modal_address = html.Div(children=[
+    #dbc.Button("BLOG", id="openBlog", size="lg"),
+    dbc.Modal(
+        [
+            dbc.ModalHeader("BLOG"),
+            dbc.ModalBody("It's the body"),
+            dbc.ModalFooter(dbc.Button("Close", id="closeBlog", className="ml-auto"),),
+        ], id="modalBlog", is_open=True
+    ),
+],
+)
+
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
@@ -23,6 +35,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
         dbc.NavItem(dbc.NavLink("Testimonials", href="/testimonials")),
+        dbc.NavItem(dbc.NavLink("Analysis", href="/analysis")),
 
     ],
     brand="Seattle ADU Feasibility",
@@ -56,14 +69,6 @@ MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                        width="100%", height="550", style={'display': 'inline-block'})
 
 
-PurposeDropdown = dcc.Dropdown(
-    id='aduPurposeDropdown',
-    options=[
-        {'label': 'Build one more unit for rental income', 'value': 'income'},
-        {'label': 'A Relative needs some housing', 'value': 'support'},
-    ],
-    value='purposes'
-)
 
 prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
@@ -213,3 +218,5 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                          style={'align': 'center', 'width': '50%', 'height': '50%'})
                 )
+Analysis = html.Div(html.Iframe(src='https://10ay.online.tableau.com/t/adriantullock/views/ADU_Demographics/SeattleMap?iframeSizedToWindow=true&:embed=y&:showAppBanner=false&:display_count=no&:showVizHome=no&:origin=viz_share_link',
+                        style = {'display': 'inline-block', 'width': '100%', 'height': '800px'}))
