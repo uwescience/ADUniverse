@@ -55,7 +55,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             if (df.iloc[0]["zone_ind"] == 1):
                 value += "<h5><i>Potential considerations of concern for ADUs and DADUs: </i></h5>"
                 if (df.iloc[0]["tree_canopy_prct"] > 30):
-                    value += "Your home may have a significant tree canopy percentage that may restrict your ability to build a DADU. "
+                    value += "Based upon the amount of tree canopy in your rear yard the location and size of a detached accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link)."
                 if (df.iloc[0]["parcel_steepslope"] == 1):
                     value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_flood"] == 1):
