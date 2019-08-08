@@ -160,8 +160,6 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
         df_ngb = pd.read_csv("neighbor.csv")
-        # import pdb
-        # pdb.set_trace()
 
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
