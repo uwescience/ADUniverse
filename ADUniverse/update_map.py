@@ -4,6 +4,7 @@ import constant as C
 import adusql as ads
 import numpy as np
 import pandas as pd
+from common_data import app_data
 
 
 def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
@@ -11,11 +12,11 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     if value != None:
         adunit = ads.Connection("adunits.db")
         df = adunit.getParcelCoords(value)
-        df.to_csv("df.csv")
+        # df.to_csv("df.csv")
+        app_data.parcel_coords = df
         coords = (df.coordY[0], df.coordX[0])
 
         zoom = 18
-
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
@@ -73,7 +74,6 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
             return value
 
-
         folium.Polygon(locations=locations, color='blue', weight=6,
                        fill_opacity=0.5, fill=True,
                        popup=folium.Popup(output(), max_width=2000, show=True),
@@ -81,7 +81,8 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
-        df_ngb = pd.read_csv("neighbor.csv")
+        # df_ngb = pd.read_csv("neighbor.csv")
+        df_ngb = app_data.neighbor
 
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
@@ -91,8 +92,5 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         neighbor.add_to(new_map)
         folium.LayerControl().add_to(new_map)
 
-
-
     new_map.save("map.html")
     return open("map.html", "r").read()
-

@@ -9,18 +9,6 @@ import dash_core_components as dcc
 
 import collections
 
-# Create common data
-
-
-class CommonData(object):
-    def __init__(self):
-        self.zipcode = 98115
-
-    def change(self, value):
-        self.zipcode = int(value)
-
-
-common_data = CommonData()
 
 # input slider for square foot
 
@@ -28,6 +16,8 @@ def toggle_modal(n1, n2, is_open):
 
     # return not is_open
     return is_open
+
+
 app.callback(
     Output("modalBlog", "is_open"),
     [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
@@ -60,6 +50,8 @@ def cost_breakdown(value1, value2):
 # calculate the returns(rental + value added)
 
 # Zipcode is changed
+
+
 @app.callback(
     [Output('rental', 'children'),
      Output('sales', 'children')],
@@ -68,8 +60,9 @@ def cost_breakdown(value1, value2):
 def returns(buildSize, zipcode):
     return fin.returns(buildSize, zipcode)
 
-def returns(buildSize, zipcode):
-    return fin.returns(buildSize, str(common_data.zipcode))
+
+# def returns(buildSize, zipcode):
+#     return fin.returns(buildSize, str(common_data.zipcode))
 
 # dynamically updates the map based on the address selected
 
@@ -121,7 +114,7 @@ def update_zipcode(value):  #
             return "Sorry, we can't find your zipcode"
         else:
             zp = zp_data.loc[0, 'zipcode']
-            common_data.change(zp)
+            # common_data.change(zp)
         return 'Your zipcode is {}'.format(zp)
     else:
         return "Type your address first"
