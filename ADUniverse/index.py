@@ -1,3 +1,4 @@
+import app_pages as ap
 import callbacks
 import dash_core_components as dcc
 import dash_html_components as html
@@ -6,9 +7,6 @@ import pdb
 
 from adu_app import app
 from app_modules import NavigationBar
-from app_pages import Map_layout, Finance_layout, FAQ_layout, Transparency_layout, Home_layout, Testimonials_layout
-
-
 
 
 app.layout = html.Div([
@@ -25,17 +23,19 @@ app.layout = html.Div([
               [Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/':
-        return Home_layout
+        return ap.Home_layout
     elif pathname == '/map':
-        return Map_layout
+        return ap.Map_layout
     elif pathname == '/finances':
-        return Finance_layout
+        return ap.Finance_layout
     elif pathname == '/faq':
-        return FAQ_layout
+        return ap.FAQ_layout
     elif pathname == '/transparency':
-        return Transparency_layout
+        return ap.Transparency_layout
     elif pathname == '/testimonials':
-        return Testimonials_layout
+        return ap.Testimonials_layout
+    elif pathname == '/analysis':
+        return ap.Analysis_layout
     else:
         return '404'
 

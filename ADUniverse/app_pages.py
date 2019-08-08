@@ -72,3 +72,11 @@ Testimonials_layout = html.Div([
     # mdl.Home,
 ],
 )
+
+Analysis_layout = html.Div([
+    html.H2("Citywide Analysis",
+            style={'textAlign': 'center', 'color': '#7FDBFF'}),
+
+    mdl.Analysis,
+],
+)

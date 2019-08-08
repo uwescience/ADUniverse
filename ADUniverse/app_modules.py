@@ -35,6 +35,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
         dbc.NavItem(dbc.NavLink("Testimonials", href="/testimonials")),
+        dbc.NavItem(dbc.NavLink("Analysis", href="/analysis")),
 
     ],
     brand="Seattle ADU Feasibility",
@@ -217,3 +218,5 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                          style={'align': 'center', 'width': '50%', 'height': '50%'})
                 )
+Analysis = html.Div(html.Iframe(src='https://10ay.online.tableau.com/t/adriantullock/views/ADU_Demographics/SeattleMap?iframeSizedToWindow=true&:embed=y&:showAppBanner=false&:display_count=no&:showVizHome=no&:origin=viz_share_link',
+                        style = {'display': 'inline-block', 'width': '100%', 'height': '800px'}))
