@@ -218,5 +218,5 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                          style={'align': 'center', 'width': '50%', 'height': '50%'})
                 )
-Analysis = html.Div(html.Iframe(src='https://10ay.online.tableau.com/t/adriantullock/views/ADU_Demographics/SeattleMap?iframeSizedToWindow=true&:embed=y&:showAppBanner=false&:display_count=no&:showVizHome=no&:origin=viz_share_link',
+Analysis = html.Div(html.Iframe(src='https://public.tableau.com/profile/adrian.tullock#!/vizhome/ADU_Demographics/SeattleMap?publish=yes',
                         style = {'display': 'inline-block', 'width': '100%', 'height': '800px'}))
