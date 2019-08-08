@@ -21,4 +21,6 @@ install:
   - git lfs install
 
 script:
+ - which pip
+ - which conda
  - cd ADUniverse; ls -l test_*.py; pytest test_*.py
