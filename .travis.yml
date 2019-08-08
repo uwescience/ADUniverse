@@ -14,7 +14,7 @@ install:
   - conda info --all       # yield info
   # pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
   # pip install dash_bootstrap_components    # 
-  - pip insall -r requirements.txt
+  - pip install -r requirements.txt
   # Install support for large files
   - sudo apt-get install curl
   - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
