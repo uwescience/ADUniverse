@@ -3,9 +3,6 @@ language: python
 python:
   - "3.6"
 
-virtualenv:
-  system_site_packages: true
-
 install:
   - sudo apt-get update  # get most recent installer for linux
   - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh # downloading miniconda
@@ -16,16 +13,12 @@ install:
   - conda update --quiet conda    # kill message
   - conda info --all       # yield info
   - conda install pip
-  # pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
-  # pip install dash_bootstrap_components    # 
-  - pip install -r requirements.txt
+  - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
+  - pip install dash_bootstrap_components    # 
   # Install support for large files
   - sudo apt-get install curl
   - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
   - git lfs install
 
 script:
- - which pip
- - which conda
- - echo $PYTHONPATH
  - cd ADUniverse; ls -l test_*.py; pytest test_*.py
