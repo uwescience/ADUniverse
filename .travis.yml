@@ -30,5 +30,4 @@ install:
   - git lfs install
   
 script:
-#  - cd ADUniverse; ls -l test_*.py; pytest test_*.py
- - ls -l ADUniverse/test_*.py; pytest ADUniverse/test_*.py
+ - cd ADUniverse; ls -l test_*.py; pytest test_*.py
