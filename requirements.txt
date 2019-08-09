@@ -1,0 +1,9 @@
+
+googlemaps
+dash
+folium
+nltk
+dash_daq
+pandas
+numpy
+dash_bootstrap_components

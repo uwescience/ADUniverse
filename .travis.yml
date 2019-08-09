@@ -12,6 +12,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no  # config conda
   - conda update --quiet conda    # kill message
   - conda info --all       # yield info
+  - conda install pip
   - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
   - pip install dash_bootstrap_components    # 
   # Install support for large files

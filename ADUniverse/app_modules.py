@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-from callbacks import CommonData
+from common_data import app_data
 
 
 from constant import SEATTLE, INIT_ZOOM
@@ -12,7 +12,7 @@ from folium import Map
 
 import base64
 
-common_data = CommonData()
+SQFTLOT = 10000
 
 Modal_address = html.Div(children=[
     #dbc.Button("BLOG", id="openBlog", size="lg"),
@@ -52,7 +52,7 @@ NavigationBar = dbc.NavbarSimple(
 
 # Address addressDropdown
 adunit = ads.Connection()
-addresses = adunit.getAddresses()
+addresses = adunit.getAddresses(sqftlot=SQFTLOT)
 AddressDropdown = dcc.Dropdown(
     id='addressDropdown',
     options=[
@@ -67,7 +67,6 @@ Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
 
 MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
                        width="100%", height="550", style={'display': 'inline-block'})
-
 
 
 prices = pd.read_csv("prices_byzipcode.csv")
@@ -92,7 +91,8 @@ FinFeasibility = html.Div([
                 750: '750 SF (2 Bed)',
             },
             value=500,),
-        html.H1("  "),
+        html.H2("  "),
+        html.H2("  "),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
         html.Table([
             html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
@@ -135,7 +135,7 @@ FinFeasibility = html.Div([
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            value=str(common_data.zipcode)),
+            value=str(app_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
                      html.Td(id='rental')]),
@@ -218,6 +218,5 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                          style={'align': 'center', 'width': '50%', 'height': '50%'})
                 )
-Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
-                        style = {'display': 'inline-block', 'width': '100%', 'height': '800px'})
-
+Analysis = html.Div(html.Iframe(src='https://public.tableau.com/profile/adrian.tullock#!/vizhome/ADU_Demographics/SeattleMap?publish=yes',
+                                style={'display': 'inline-block', 'width': '100%', 'height': '800px'}))

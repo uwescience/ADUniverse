@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 import sqlite3
+from common_data import app_data
 
 
 def hello():
@@ -162,17 +163,23 @@ class Connection:
         data = self.manual(searchStr)
         data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
                                (data['coordX'] - data_xy.coordX[0])**2)
-        data.to_csv("neighbor.csv")
+        # data.to_csv("neighbor.csv")
+        app_data.neighbor = data
         data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
-    def getAddresses(self):
+    def getAddresses(self, sqftlot=0):
         '''
         Retrieve addresses for drop down list population
+        :param int zoneid: integer describing zone ID
         '''
         self.connect()
-        searchStr = "select address, PIN FROM Parcels group by address"
-        data = self.manual(searchStr)
+        # searchStr = "select address, PIN FROM Parcels group by address"
+        # data = self.manual(searchStr)
+        query1 = "select address, PIN FROM Parcels"
+        query2 = "group by address"
+        query = "%s where sqftlot > %d %s" % (query1, sqftlot, query2)
+        data = self.manual(query)
         self.disconnect()
 
         return data
