@@ -12,13 +12,17 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     if value != None:
         adunit = ads.Connection("adunits.db")
         df = adunit.getParcelCoords(value)
-        # df.to_csv("df.csv")
-        app_data.parcel_coords = df
+        df.to_csv("df.csv")
+        # app_data.parcel_coords = df
         coords = (df.coordY[0], df.coordX[0])
 
         zoom = 18
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
+
+    # Based upon the amount of tree canopy in your rear yard the location and size of a detached
+    #accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach
+    # at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).
 
     if value != None:
         # parcel = folium.map.FeatureGroup(name="parcel",
@@ -55,7 +59,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
             if (df.iloc[0]["zone_ind"] == 1):
                 value += "<h5><i>Potential considerations of concern for ADUs and DADUs: </i></h5>"
                 if (df.iloc[0]["tree_canopy_prct"] > 30):
-                    value += "Based upon the amount of tree canopy in your rear yard the location and size of a detached accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link)."
+                    value += "Your home may have a significant tree canopy percentage that may restrict your ability to build a DADU"
                 if (df.iloc[0]["parcel_steepslope"] == 1):
                     value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_flood"] == 1):
@@ -81,8 +85,8 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
-        # df_ngb = pd.read_csv("neighbor.csv")
         df_ngb = app_data.neighbor
+        df_ngb = adunit.getNeighbors(value)
 
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
@@ -94,3 +98,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
     new_map.save("map.html")
     return open("map.html", "r").read()
+
+def update_neighbors(new_map):
+    print("yes")
+    return new_map

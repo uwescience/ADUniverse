@@ -58,7 +58,21 @@ def cost_breakdown(value1, value2):
     [Input('BuildSizeInput', 'value'),
      Input('zipcode', 'value')])
 def returns(buildSize, zipcode):
-    return fin.returns(buildSize, zipcode)
+    # print("attempted zip ", zp)
+    # print("dropdown zipcode ", zipcode)
+    if (zipcode is None):
+        try:
+            format(zp)
+        except NameError:
+            return fin.returns(buildSize, format(98103))
+        else:
+            print(zp)
+            print(type(zp))
+            print(type(float(format(zp))))
+            print(type(buildSize))
+            return fin.returns(buildSize, float(format(zp)))
+    else:
+        return fin.returns(buildSize, format(zipcode))
 
 
 # def returns(buildSize, zipcode):
@@ -110,11 +124,15 @@ def update_zipcode(value):  #
     if value != None:
         adunit = ads.Connection("adunits.db")
         zp_data = adunit.getZipcode(value)
+
         if zp_data.empty == True:
             return "Sorry, we can't find your zipcode"
         else:
+            global zp
             zp = zp_data.loc[0, 'zipcode']
+            print(zp)
+            print(type(zp))
             # common_data.change(zp)
-        return 'Your zipcode is {}'.format(zp)
+            return 'Your zipcode is {}'.format(zp)
     else:
         return "Type your address first"

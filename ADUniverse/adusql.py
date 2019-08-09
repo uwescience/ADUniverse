@@ -4,6 +4,7 @@ import re
 import sqlite3
 from common_data import app_data
 
+zipcode = 0
 
 def hello():
     print("Successfully imported adusql")
@@ -125,8 +126,9 @@ class Connection:
         Retrieve the parcel long/lat coordinates for a specific address
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p left join ParcelGeo g on p.PIN = g.PIN left join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = {}".format(
-            PIN)
+        searchStr = "select * FROM Parcels p left join ParcelGeo g on p.PIN = g.PIN \
+            left join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN \
+            left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = '{}'".format(PIN)
         data = self.manual(searchStr)
         self.disconnect()
         return data
@@ -138,11 +140,39 @@ class Connection:
         self.connect()
         searchStr = "select p.zipcode   \
             FROM Parcels p  \
-            WHERE p.PIN = {}".format(PIN)
+            WHERE p.PIN = '{}'".format(PIN)
+        global zipcode
         zipcode = self.manual(searchStr)
         return zipcode
 
     def getNeighbor(self, PIN):
+        '''
+        Retrieve the neighbor around a specific coordinates
+        '''
+        self.connect()
+        searchStr = "select g.coordY, g.coordX   \
+            FROM Parcels p  \
+            join ParcelGeo g on p.PIN = g.PIN   \
+            WHERE p.PIN = '{}'".format(PIN)
+        data_xy = self.manual(searchStr)
+        lat = round(data_xy.coordY[0], 2)
+        lon = round(data_xy.coordX[0], 2)
+        searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
+                    FROM Permits per \
+                    LEFT JOIN Parcels par on per.PIN = par.PIN  \
+                    LEFT JOIN ParcelGeo pg on per.PIN = pg.PIN  \
+                    where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
+                    and coordNum = 0".format(lat, lon)
+        data = self.manual(searchStr)
+        data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
+                               (data['coordX'] - data_xy.coordX[0])**2)
+        # data.to_csv("neighbor.csv")
+        app_data.neighbor = data
+        data = data.sort_values(by=['dist']).head(1).reset_index()
+        return data
+
+
+    def getNeighbors(self, PIN):
         '''
         Retrieve the neighbor around a specific coordinates
         '''
@@ -161,11 +191,9 @@ class Connection:
                     where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
                     and coordNum = 0".format(lat, lon)
         data = self.manual(searchStr)
-        data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
-                               (data['coordX'] - data_xy.coordX[0])**2)
+        # data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
+        #                        (data['coordX'] - data_xy.coordX[0])**2)
         # data.to_csv("neighbor.csv")
-        app_data.neighbor = data
-        data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
     def getAddresses(self, sqftlot=0):
