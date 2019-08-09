@@ -3,7 +3,7 @@ googlemaps
 dash
 folium
 nltk
-dash_daq
+dash-daq
 pandas
 numpy
-dash_bootstrap_components
+dash-bootstrap-components
