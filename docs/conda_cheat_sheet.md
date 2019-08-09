@@ -1,5 +1,8 @@
 # Conda Cheat Sheet
 
+Note that these commands apply **only to the terminal session in
+which they are issued**. So, if you want to use multiple terminal sessions, you must make sure that each is in the same virtual environment.
+
 - Create an empty environment (just python)
   - ``conda create --name <name of enviornment> python=3.6``
 
@@ -18,7 +21,6 @@
 
 - Deactivate environment
   - ``conda deactivate``
-  - Note that this gives a deprecation warning
 
 - Remove an environment
   - ``conda env remove -name <name of environment>``
