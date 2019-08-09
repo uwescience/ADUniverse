@@ -18,6 +18,10 @@ which they are issued**. So, if you want to use multiple terminal sessions, you 
 
 - Install packages
   - ``conda install -n <name of environment> <package>``
+  - Some packages may not be found by your conda channels. You
+should do a google search "conda install <package name>" to
+find out how to do it. For example, google maps is installed
+using ``conda install -c conda-forge googlemaps``.
 
 - Deactivate environment
   - ``conda deactivate``
