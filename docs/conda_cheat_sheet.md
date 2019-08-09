@@ -8,13 +8,16 @@
   - The environment with an asterik is your current environment
 
 - Activate an environment
-  - ``activate <name of environment>``
+  - ``conda activate <name of environment>``
 
 - List packages in environment
   - ``conda list --name <name of environment>``
 
+- Install packages
+  - ``conda install -n <name of environment> <package>``
+
 - Deactivate environment
-  - ``deactivate``
+  - ``conda deactivate``
   - Note that this gives a deprecation warning
 
 - Remove an environment
