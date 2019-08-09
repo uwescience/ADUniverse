@@ -12,13 +12,20 @@ install:
   - conda config --set always_yes yes --set changeps1 no  # config conda
   - conda update --quiet conda    # kill message
   - conda info --all       # yield info
+  
+#   - conda install pip
+#   - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
+#   - pip install dash_bootstrap_components    # 
+  
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION 
+  - source activate test-environment
   - conda install pip
-  - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
-  - pip install dash_bootstrap_components    # 
-  # Install support for large files
+  - pip install -r requirements.txt
+  
+#     Install support for large files
   - sudo apt-get install curl
   - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
   - git lfs install
-
+  
 script:
  - cd ADUniverse; ls -l test_*.py; pytest test_*.py
