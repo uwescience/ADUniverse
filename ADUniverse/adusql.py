@@ -180,7 +180,7 @@ class Connection:
         searchStr = "select g.coordY, g.coordX   \
             FROM Parcels p  \
             join ParcelGeo g on p.PIN = g.PIN   \
-            WHERE p.PIN = {}".format(PIN)
+            WHERE p.PIN = '{}'".format(PIN)
         data_xy = self.manual(searchStr)
         lat = round(data_xy.coordY[0], 2)
         lon = round(data_xy.coordX[0], 2)
