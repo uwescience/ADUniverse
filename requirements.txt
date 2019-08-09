@@ -5,3 +5,4 @@ dash-daq
 pandas
 numpy
 dash-bootstrap-components
+pytest
