@@ -18,12 +18,11 @@ install:
 #   - pip install dash_bootstrap_components    # 
   
   - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION 
-  - conda install pip
-
   - source activate test-environment
-  - conda install pip
-#   - conda install -f -y -q --name py37 -c conda-forge --file requirements.txt
-  - pip install -r requirements.txt
+#   - conda install pip
+#   - pip install -r requirements.txt
+  - conda install -f -y -q --name test-environment -c conda-forge --file requirements.txt
+
   
 #     Install support for large files
   - sudo apt-get install curl
