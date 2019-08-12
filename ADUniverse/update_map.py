@@ -101,6 +101,6 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     new_map.save("map.html")
     return open("map.html", "r").read()
 
-def update_neighbors(new_map):
-    print("yes")
-    return new_map
+# def update_neighbors(new_map):
+#     print("yes")
+#     return new_map
