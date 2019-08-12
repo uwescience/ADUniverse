@@ -64,13 +64,13 @@ def returns(buildSize, zipcode):
         try:
             format(zp)
         except NameError:
-            return fin.returns(buildSize, format(98103))
+            return fin.returns(buildSize, format('98100'))
         else:
             print(zp)
             print(type(zp))
             print(type(float(format(zp))))
             print(type(buildSize))
-            return fin.returns(buildSize, float(format(zp)))
+            return fin.returns(buildSize, format(zp))
     else:
         return fin.returns(buildSize, format(zipcode))
 
@@ -114,7 +114,7 @@ def neighbor_adu(PIN):
     [Input('addressDropdown', 'value')])
 def show_new_page(PIN):
     if PIN != None:
-        return dcc.Link("Figure out your financial options on the next page", href='/financials')
+        return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
 @app.callback(
