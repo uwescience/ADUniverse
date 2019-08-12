@@ -25,9 +25,10 @@ install:
 
   
 #     Install support for large files
-  - sudo apt-get install curl
-  - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-  - git lfs install
+#     Niu thinks we don't need LFS if we just try to run it in the terminal without push anything back to git repo
+#   - sudo apt-get install curl
+#   - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+#   - git lfs install
   
 script:
  - cd ADUniverse; ls -l test_*.py; pytest test_*.py

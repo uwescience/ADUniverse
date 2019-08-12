@@ -1,4 +1,3 @@
-
 # create the virtual environment
 conda create -q -n test-environment python=3.6
 source activate test-environment
