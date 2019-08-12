@@ -20,6 +20,7 @@ def loan_calculator(loan, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
 
 
 def cost_breakdown(build_dadu, size):
+
     # CHANGED: Use PEP8 convention for variable names
     """
     Calculates various cost for ADU construction

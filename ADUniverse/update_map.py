@@ -7,12 +7,13 @@ import pandas as pd
 from common_data import app_data
 
 
-def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
+def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
-    if value != None:
-        adunit = ads.Connection("adunits.db")
-        df = adunit.getParcelCoords(value)
-        df.to_csv("df.csv")
+
+    if not(df.empty):
+        #adunit = ads.Connection("adunits.db")
+        #df = adunit.getParcelCoords(value)
+        #df.to_csv("df.csv")
         # app_data.parcel_coords = df
         coords = (df.coordY[0], df.coordX[0])
 
@@ -24,7 +25,7 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     #accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach
     # at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).
 
-    if value != None:
+    if not(df.empty):
         # parcel = folium.map.FeatureGroup(name="parcel",
         #                                  overlay=True, control=True, show=True,)
 
@@ -86,7 +87,8 @@ def update_map(value, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
         df_ngb = app_data.neighbor
-        df_ngb = adunit.getNeighbors(value)
+        # adunit = ads.Connection("adunits.db")
+        # df_ngb = adunit.getNeighbors(value)
 
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
