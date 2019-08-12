@@ -67,12 +67,13 @@ def returns(build_size, zipcode):
     :param int build_size: size of ADU to build
     :param string zipcode: zipcode of the ADU
     """
-
+    # import pdb
+    # pdb.set_trace()
     # FIXME zipcode is not updated right
-    if int(zipcode) in prices['ZipCode'] is False:
-        print('before', zipcode)
-        zipcode = '98105'
-        print('after', zipcode)
+    # if int(zipcode) in prices['ZipCode'] is False:
+    #     print('before', zipcode)
+    #     zipcode = '98105'
+    #     print('after', zipcode)
 
     print('xxxx', zipcode)
     rent_per_fq = prices[prices['ZipCode'] == int(zipcode)].rent.values[0]

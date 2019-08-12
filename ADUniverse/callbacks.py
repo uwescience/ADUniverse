@@ -64,7 +64,7 @@ def returns(buildSize, zipcode):
         try:
             format(zp)
         except NameError:
-            return fin.returns(buildSize, format('98105'))
+            return fin.returns(buildSize, format('98100'))
         else:
             print(zp)
             print(type(zp))
