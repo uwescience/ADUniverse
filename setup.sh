@@ -22,6 +22,9 @@ cd /Users/NiuYuanhao/documents/test/ADUniverse
 conda install -f -y -q --name test-environment -c conda-forge --file requirements.txt
 
 # Install support for large files
-# sudo apt-get install curl
-# curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-# git lfs install
+sudo apt-get install curl
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+git lfs install
+
+# FIXME clone agin the large file?
+git clone https://github.com/uwescience/ADUniverse
