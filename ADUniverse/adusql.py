@@ -158,12 +158,6 @@ class Connection:
         data_xy = self.manual(searchStr)
         lat = round(data_xy.coordY[0], 2)
         lon = round(data_xy.coordX[0], 2)
-        # searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
-        #             FROM Permits per \
-        #             LEFT JOIN Parcels par on per.PIN = par.PIN  \
-        #             LEFT JOIN ParcelGeo pg on per.PIN = pg.PIN  \
-        #             where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
-        #             and coordNum = 0".format(lat, lon)
         searchStr = "SELECT per.pin, par.address, par.latitude, par.longitude \
                     FROM Permits per \
                     LEFT JOIN Parcels par on per.PIN = par.PIN  \
@@ -172,7 +166,7 @@ class Connection:
         data = self.manual(searchStr)
         data['dist'] = np.sqrt((data['latitude'] - data_xy.coordY[0])**2 +
                                (data['longitude'] - data_xy.coordX[0])**2)
-        app_data.neighbor = data.sort_values(by=['dist']).head()
+        # app_data.neighbor = data.sort_values(by=['dist']).head()
         data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
@@ -188,16 +182,16 @@ class Connection:
         data_xy = self.manual(searchStr)
         lat = round(data_xy.coordY[0], 2)
         lon = round(data_xy.coordX[0], 2)
-        searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
+        searchStr = "SELECT per.pin, par.address, par.latitude, par.longitude \
                     FROM Permits per \
                     LEFT JOIN Parcels par on per.PIN = par.PIN  \
-                    LEFT JOIN ParcelGeo pg on per.PIN = pg.PIN  \
-                    where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
-                    and coordNum = 0".format(lat, lon)
+                    where par.latitude like '{0}%' AND par.longitude like '{1}%' \
+                    ".format(lat, lon)
+
         data = self.manual(searchStr)
-        # data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
-        #                        (data['coordX'] - data_xy.coordX[0])**2)
-        # data.to_csv("neighbor.csv")
+        data['dist'] = np.sqrt((data['latitude'] - data_xy.coordY[0])**2 +
+                               (data['longitude'] - data_xy.coordX[0])**2)
+        data = data.sort_values(by=['dist']).head()
         return data
 
     def getAddresses(self, sqftlot=0):
@@ -221,7 +215,6 @@ class Connection:
         query = "drop table if exists %s" % table_name
         self.conn.executescript(query)
         self.disconnect()
-        
 
 
 def keyword_locate(kw, text):

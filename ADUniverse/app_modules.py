@@ -75,7 +75,6 @@ prices = pd.read_csv("prices_byzipcode.csv")
 def zipPlaceholder():
     from common_data import app_data
     import callbacks
-    print(app_data.zipcode)
     if app_data.zipcode != 0:
         return str(app_data.zipcode)
     elif app_data.zipcode == 0:

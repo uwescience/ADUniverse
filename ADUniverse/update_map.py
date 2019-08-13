@@ -29,7 +29,6 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         #                                  overlay=True, control=True, show=True,)
 
         locations = np.asarray(df[pd.Index(['coordY', 'coordX'])])
-        # print(locations)
 
         # re implement this using switch case
         def output():
@@ -85,7 +84,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
-        df_ngb = app_data.neighbor
+        # df_ngb = app_data.neighbor
         # adunit = ads.Connection("adunits.db")
         # df_ngb = adunit.getNeighbors(value)
 
