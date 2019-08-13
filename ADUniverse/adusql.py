@@ -216,6 +216,13 @@ class Connection:
 
         return data
 
+    def drop(self, table_name):
+        self.connect()
+        query = "drop table if exists %s" % table_name
+        self.conn.executescript(query)
+        self.disconnect()
+        
+
 
 def keyword_locate(kw, text):
     '''
