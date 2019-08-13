@@ -145,7 +145,7 @@ FinFeasibility = html.Div([
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            placeholder=zipPlaceholder()),
+            placeholder='Find your zipcode here...'),
         # value=str(app_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
@@ -198,7 +198,7 @@ OutputDetails = html.Div([
 
 
 
-], style={'margin-left': '15px', 'margin-right': '15px', })
+], id='eligibilityDetails', style={'margin-left': '15px', 'margin-right': '15px', })
 
 
 AdditionalDetails = html.Div([
