@@ -55,7 +55,11 @@ def cost_breakdown(value1, value2):
 
 # Zipcode is changed
 
-
+# Checks to see first if you got anything from zipcode dropdown
+# If there's nothing, next it checks if anything came out of address dropdown
+# If nothing there either, it feeds a default value to fin functions
+# If something there, it uses the map address zipcode
+# User can override map zip with self-selected zip
 @app.callback(
     [Output('rental', 'children'),
      Output('sales', 'children')],
@@ -139,6 +143,7 @@ def show_new_page(PIN):
         return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
+# Zip code lookup
 @app.callback(
     Output('zip_code', 'children'),
     [Input('addressDropdown', 'value')])

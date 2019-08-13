@@ -72,14 +72,14 @@ prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
 
 
-def zipPlaceholder():
-    from common_data import app_data
-    import callbacks
-    print(app_data.zipcode)
-    if app_data.zipcode != 0:
-        return str(app_data.zipcode)
-    elif app_data.zipcode == 0:
-        return 'Find your zipcode here...'
+# def zipPlaceholder():
+#     from common_data import app_data
+#     import callbacks
+#     print(app_data.zipcode)
+#     if app_data.zipcode != 0:
+#         return str(app_data.zipcode)
+#     elif app_data.zipcode == 0:
+#         return 'Find your zipcode here...'
 
 
 FinFeasibility = html.Div([
@@ -146,7 +146,7 @@ FinFeasibility = html.Div([
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            placeholder=zipPlaceholder()),
+            placeholder='Find your zipcode here...'),
         # value=str(app_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
@@ -199,7 +199,7 @@ OutputDetails = html.Div([
 
 
 
-], style={'margin-left': '15px', 'margin-right': '15px', })
+], id='eligibilityDetails', style={'margin-left': '15px', 'margin-right': '15px', })
 
 
 AdditionalDetails = html.Div([
