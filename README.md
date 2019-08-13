@@ -17,8 +17,8 @@ Your machione should have the following installed already:
 First, clone ADU repository repository by using ``git clone https://github.com/uwescience/ADUniverse``.
 
 You will be working in a "virtual environment".
-- ``conda create -n test\_adu python=3.6``
-- ``conda activate test\_adu``
+- ``conda create -n test_adu python=3.6``
+- ``conda activate test_adu``
 
 This code works for python 3.6. You should have miniconda installed. Then issue the following commands:
 - ``conda install -f -y -q --name test_adu -c conda-forge --file requirements.txt``
