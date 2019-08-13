@@ -7,4 +7,4 @@ import pandas as pd
 
 def test_update_map():
     result = update_map.update_map(pd.DataFrame(), pd.DataFrame())
-    isinstance(result, object)
+    assert(isinstance(result, object))
