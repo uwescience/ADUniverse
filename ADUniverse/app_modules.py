@@ -3,7 +3,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-from common_data import app_data
 
 
 from constant import SEATTLE, INIT_ZOOM
@@ -66,11 +65,23 @@ AddressDropdown = dcc.Dropdown(
 Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
 
 MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
-                       width="100%", height="550", style={'display': 'inline-block'})
+                       width="100%", height="75%", style={'display': 'inline-block'})  # height="550"
 
 
 prices = pd.read_csv("prices_byzipcode.csv")
 # Financial Feasibility section
+
+
+def zipPlaceholder():
+    from common_data import app_data
+    import callbacks
+    print(app_data.zipcode)
+    if app_data.zipcode != 0:
+        return str(app_data.zipcode)
+    elif app_data.zipcode == 0:
+        return 'Find your zipcode here...'
+
+
 FinFeasibility = html.Div([
     html.Div([
         html.H3('Cost Breakdown', style={'textAlign': 'center'}),
@@ -135,7 +146,8 @@ FinFeasibility = html.Div([
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            value=str(app_data.zipcode)),
+            placeholder=zipPlaceholder()),
+        # value=str(app_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
                      html.Td(id='rental')]),
@@ -154,20 +166,63 @@ FinFeasibility = html.Div([
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
+OutputDetails = html.Div([
+    html.H4("Eligibility Details", style={'textAlign': 'center'}),
+    html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
+              html.Div(["Your home must be in a single family lot to build an AADU or DADU"], style={}),
+              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+
+              ], style={'border': '2px solid #4C3C1B', 'font-size': '12px', 'font-family': 'Arial',
+                        'padding': '12px', 'border-width': 'thin', 'border-radius': '5px'}),
+    html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
+              html.Div(["Your home must be at least __ for a DADU"], style={}),
+              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+
+              ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                        'font-size': '12px', 'font-family': 'Arial', }),
+    html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
+              html.Div(["Your home must be at least __ for a DADU"], style={}),
+              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+              ], style={'border': '2px solid #4C3C1B',
+                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                        'font-size': '12px', 'font-family': 'Arial', }),
+    html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
+              html.Div(["Your home must not border a shoreline to build an AADU or a DADU"], style={}),
+              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+              ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                        'font-size': '12px', 'font-family': 'Arial', }),
+
+    html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
+             'textAlign': 'center'}),
+
+
+
+], style={'margin-left': '15px', 'margin-right': '15px', })
+
+
+AdditionalDetails = html.Div([
+
+    html.Div("Here are some additional details to consider", style={'textAlign': 'center'}),
+
+
+], style={'margin-left': '15px', 'margin-right': '15px', })
+
 # FAQ Section
 FAQ = dcc.Markdown('''
-## How to be a good landlord?
-Here is some useful information.
-[Rental Housing Association of Washington](https://www.rhawa.org/)
 ## More financial information?
 Here is the home equity loan information
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
 '''
                    )
 
-Transparency = dcc.Markdown('''
-Here in this PDF is a glossary of terms!
-[Glossary of Terms](https://www.rhawa.org/)
+Transparency = html.Div([
+
+    html.A("Here in this PDF is a glossary of terms!",
+           href='https://www.rhawa.org/', target="_blank"),
+
+    dcc.Markdown('''
 ## Here's all the stuff that goes into making a decision to be eligible for an ADU
 The current legislation states that:
 You can build up to 2 ADUs
@@ -208,8 +263,9 @@ So you'll talk to the darn humans around you.
 
 
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
-'''
-                            )
+''')
+
+])
 
 image_filename = 'my-image.png'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
@@ -218,5 +274,5 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                          style={'align': 'center', 'width': '50%', 'height': '50%'})
                 )
-Analysis = html.Div(html.Iframe(src='https://public.tableau.com/profile/adrian.tullock#!/vizhome/ADU_Demographics/SeattleMap?publish=yes',
-                                style={'display': 'inline-block', 'width': '100%', 'height': '800px'}))
+Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
+                       style={'display': 'inline-block', 'width': '100%', 'height': '800px'})

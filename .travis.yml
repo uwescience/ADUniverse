@@ -12,14 +12,16 @@ install:
   - conda config --set always_yes yes --set changeps1 no  # config conda
   - conda update --quiet conda    # kill message
   - conda info --all       # yield info
-  - conda install pip
-  - pip install dash folium nltk dash_daq pytest pandas geojson  # conda version of pip
-  - pip install dash_bootstrap_components    # 
-  # Install support for large files
-  - sudo apt-get install curl
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION 
+  - source activate test-environment
+#   - conda install pip
+#   - pip install -r requirements.txt
+  - conda install -f -y -q --name test-environment -c conda-forge --file requirements.txt
   - conda install -c conda-forge git-lfs 
-  # curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
   - git lfs install
 
+  
+#     Niu thinks we don't need LFS if we just try to run it in the terminal without push anything back to git repo
+  
 script:
  - cd ADUniverse; ls -l test_*.py; pytest test_*.py

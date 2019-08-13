@@ -5,7 +5,7 @@ import pandas as pd
 
 class AppData(object):
     def __init__(self):
-        self.zipcode = 98115
+        self.zipcode = 0
         self.parcel_coords = None
         self.neighbor = pd.DataFrame()
 

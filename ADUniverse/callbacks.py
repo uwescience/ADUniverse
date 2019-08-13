@@ -9,6 +9,10 @@ import dash_core_components as dcc
 
 import collections
 
+from common_data import app_data
+
+import pandas as pd
+
 
 # input slider for square foot
 
@@ -58,7 +62,21 @@ def cost_breakdown(value1, value2):
     [Input('BuildSizeInput', 'value'),
      Input('zipcode', 'value')])
 def returns(buildSize, zipcode):
-    return fin.returns(buildSize, zipcode)
+    # print("attempted zip ", zp)
+    # print("dropdown zipcode ", zipcode)
+    if (zipcode is None):
+        try:
+            format(zp)
+        except NameError:
+            return fin.returns(buildSize, format('98105'))
+        else:
+            print("later zp ", zp)
+            print(type(zp))
+            print(type(float(format(zp))))
+            print(type(buildSize))
+            return fin.returns(buildSize, format(zp))
+    else:
+        return fin.returns(buildSize, format(zipcode))
 
 
 # def returns(buildSize, zipcode):
@@ -72,7 +90,18 @@ def returns(buildSize, zipcode):
     [Input('addressDropdown', 'value')]
 )
 def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
-    return updt.update_map(value, coords=coords, zoom=zoom)
+    global df
+    df = pd.DataFrame()
+    global neighbors
+    neighbors = pd.DataFrame()
+    if value != None:
+        print("True")
+        adunit = ads.Connection("adunits.db")
+        df = adunit.getParcelCoords(value)
+        df.to_csv("df.csv")
+        neighbors = adunit.getNeighbors(value)
+
+    return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
 
 # calculating loans
 
@@ -84,6 +113,13 @@ def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
 )
 def loan_calculator(loan):
     return fin.loan_calculator(loan)
+
+
+@app.callback(
+    Output('showDets', 'children'),
+    [Input('addressDropdown', 'value')])
+def show_eligDetails(PIN):
+    return 0
 
 # find out if neighbor has an adu and where
 
@@ -100,7 +136,7 @@ def neighbor_adu(PIN):
     [Input('addressDropdown', 'value')])
 def show_new_page(PIN):
     if PIN != None:
-        return dcc.Link("Figure out your financial options on the next page", href='/financials')
+        return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
 @app.callback(
@@ -110,11 +146,17 @@ def update_zipcode(value):  #
     if value != None:
         adunit = ads.Connection("adunits.db")
         zp_data = adunit.getZipcode(value)
+
         if zp_data.empty == True:
             return "Sorry, we can't find your zipcode"
         else:
+            global zp
             zp = zp_data.loc[0, 'zipcode']
+            print("original zp ", zp)
+            print(type(zp))
+            app_data.zipcode = zp
+            print("original app_data zp ", app_data.zipcode)
             # common_data.change(zp)
-        return 'Your zipcode is {}'.format(zp)
+            return 'Your zipcode is {}'.format(zp)
     else:
         return "Type your address first"
