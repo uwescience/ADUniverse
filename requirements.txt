@@ -5,4 +5,5 @@ dash-daq
 pandas
 numpy
 dash-bootstrap-components
+git-lfs 
 pytest
