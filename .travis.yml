@@ -17,7 +17,8 @@ install:
   - pip install dash_bootstrap_components    # 
   # Install support for large files
   - sudo apt-get install curl
-  - curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+  - conda install -c conda-forge git-lfs 
+  # curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
   - git lfs install
 
 script:
