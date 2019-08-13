@@ -9,11 +9,10 @@ from common_data import app_data
 
 def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
-
     if not(df.empty):
         #adunit = ads.Connection("adunits.db")
         #df = adunit.getParcelCoords(value)
-        #df.to_csv("df.csv")
+        # df.to_csv("df.csv")
         # app_data.parcel_coords = df
         coords = (df.coordY[0], df.coordX[0])
 
@@ -22,7 +21,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
     # Based upon the amount of tree canopy in your rear yard the location and size of a detached
-    #accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach
+    # accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach
     # at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).
 
     if not(df.empty):
@@ -91,7 +90,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         # df_ngb = adunit.getNeighbors(value)
 
         for i in range(0, len(df_ngb)):
-            folium.Marker(location=[df_ngb.iloc[i]['coordY'], df_ngb.iloc[i]['coordX']],
+            folium.Marker(location=[df_ngb.iloc[i]['latitude'], df_ngb.iloc[i]['longitude']],
                           popup=folium.Popup(df_ngb.iloc[i]["address"], max_width=2000)
                           ).add_to(neighbor)
 

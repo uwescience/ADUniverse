@@ -65,7 +65,7 @@ AddressDropdown = dcc.Dropdown(
 Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
 
 MapBlock = html.Iframe(id='map', srcDoc=open("map.html", "r").read(),
-                       width="100%", height="550", style={'display': 'inline-block'})
+                       width="100%", height="75%", style={'display': 'inline-block'})  # height="550"
 
 
 prices = pd.read_csv("prices_byzipcode.csv")
