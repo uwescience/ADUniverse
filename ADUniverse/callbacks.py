@@ -171,6 +171,9 @@ def update_zipcode(value):  #
     # else:
     #     return "Type your address first"
 
+def default_zipcode(value):
+    if value != None:
+        return value
 
 # Master Callback!
 @app.callback(
@@ -179,7 +182,8 @@ def update_zipcode(value):  #
      Output('zip_code', 'children'),
 #    Output('eligibilityDetails', 'children'),
      Output('adu_around', 'children'),
-     Output('next_page', 'children')
+     Output('next_page', 'children'),
+     Output('zipcode', 'placeholder')
      ],
     [Input('addressDropdown', 'value')])
 def master_callback(value):
@@ -199,6 +203,7 @@ def master_callback(value):
        update_zipcode(zipc), 
 #        update_page1(value), 
         neighbor_adu(value, df, neighbors), 
-        show_new_page(value)
+        show_new_page(value),
+        default_zipcode(zipc)
         ]
 
