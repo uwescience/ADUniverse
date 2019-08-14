@@ -57,6 +57,8 @@ def cost_breakdown(value1, value2):
 # If nothing there either, it feeds a default value to fin functions
 # If something there, it uses the map address zipcode
 # User can override map zip with self-selected zip
+
+
 @app.callback(
     [Output('rental', 'children'),
      Output('sales', 'children')],
@@ -94,7 +96,6 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
     #     df.to_csv("df.csv")
     #     neighbors = adunit.getNeighbors(value)
 
-
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
 
 # @app.callback(
@@ -104,11 +105,10 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 # def update_page1(value):
 #     global df
 #     df = pd.DataFrame()
-    
+
 #     if value != None:
 #         adunit = ads.Connection("adunits.db")
 #         df = adunit.getParcelCoords(value)
-
 
     # return update_page(outpt)
 
@@ -157,17 +157,17 @@ def update_zipcode(value):  #
         # adunit = ads.Connection("adunits.db")
         # zp_data = adunit.getZipcode(value)
 
-        if value == None:
-            return "Type your address first"
-        else:
-            # global zp
-            # zp = zp_data.loc[0, 'zipcode']
-            # print("original zp ", zp)
-            # print(type(zp))
-            # app_data.zipcode = zp
-            # print("original app_data zp ", app_data.zipcode)
-            # # common_data.change(zp)
-            return 'Your zipcode is {}'.format(value)
+    if value == None:
+        return "Type your address first"
+    else:
+        # global zp
+        # zp = zp_data.loc[0, 'zipcode']
+        # print("original zp ", zp)
+        # print(type(zp))
+        # app_data.zipcode = zp
+        # print("original app_data zp ", app_data.zipcode)
+        # # common_data.change(zp)
+        return 'Your zipcode is {}'.format(value)
     # else:
     #     return "Type your address first"
 
@@ -175,12 +175,12 @@ def update_zipcode(value):  #
 # Master Callback!
 @app.callback(
     [
-     Output('map', 'srcDoc'),
-     Output('zip_code', 'children'),
-#    Output('eligibilityDetails', 'children'),
-     Output('adu_around', 'children'),
-     Output('next_page', 'children')
-     ],
+        Output('map', 'srcDoc'),
+        Output('zip_code', 'children'),
+        #    Output('eligibilityDetails', 'children'),
+        Output('adu_around', 'children'),
+        Output('next_page', 'children')
+    ],
     [Input('addressDropdown', 'value')])
 def master_callback(value):
     df = pd.DataFrame()
@@ -195,10 +195,9 @@ def master_callback(value):
         neighbors.to_csv("neighbors.csv")
         zipc = df.iloc[0]["zipcode"]
     return [
-       update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM), 
-       update_zipcode(zipc), 
-#        update_page1(value), 
-        neighbor_adu(value, df, neighbors), 
+        update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
+        update_zipcode(zipc),
+        #        update_page1(value),
+        neighbor_adu(value, df, neighbors),
         show_new_page(value)
-        ]
-
+    ]
