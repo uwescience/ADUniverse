@@ -195,7 +195,7 @@ class Connection:
         data = self.manual(searchStr)
         # data['dist'] = np.sqrt((data['latitude'] - data_xy.coordY[0])**2 +
         #                        (data['longitude'] - data_xy.coordX[0])**2)
-        # data = data.sort_values(by=['dist']).head()
+        data = data.sort_values(by=['dist']).head()
         return data
 
     def getAddresses(self, sqftlot=0):
