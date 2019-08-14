@@ -8,7 +8,7 @@ See [project web page](https://uwescience.github.io/ADUniverse/).
 
 By using the dataset (adunits.db) from this repository, you agree to the City of Seattle's [Terms of Use and Policy](https://data.seattle.gov/stories/s/Data-Policy/6ukr-wvup/), as well as to the [King County Assessors'](https://info.kingcounty.gov/assessor/DataDownload/default.aspx), the US Census Bureau's and Zillow's, from whom this data was acquired. 
 
-## Installation
+## Installation and Running
 1. Your machione should have the following installed already:
    - python 3
    - [miniconda for python 3](https://docs.conda.io/en/latest/miniconda.html)
