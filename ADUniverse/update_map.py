@@ -84,6 +84,8 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['latitude'], df_ngb.iloc[i]['longitude']],
                           popup=folium.Popup("Type: " + df_ngb.iloc[i]["ADU_type"] + "<br>"
+                                             "Permitted in: " +
+                                             str(int(df_ngb.iloc[i]["year_issue"])) + "<br>"
                                              + "Address: " + df_ngb.iloc[i]["address"],  max_width=2000)
                           ).add_to(neighbor)
 
