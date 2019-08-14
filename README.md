@@ -46,6 +46,6 @@ By using the dataset (adunits.db) from this repository, you agree to the City of
 - You should have python 3.7 installed already.
 - Open a gitbash command prompt from the search bar. You will do the ``git clone`` from this prompt. Then close it.
 - Install the 64 bit version of miniconda for python 3. This will run an installer. When this finishes, you will have an anaconda prompt available to you from the command search. 
-- Open the Anaconda prompt as administrator. Change directories to the clone of the ADUniverse. This should be in c:\Users\<user name>\ADUniverse
+- Open the Anaconda prompt as administrator. Change directories to the clone of the ADUniverse. This should be in c:\Users\\<user name>\ADUniverse
 - Resume with item (3) above.
 - In step 6, you will use ``move`` instead of ``mv``.
