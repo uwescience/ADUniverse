@@ -18,7 +18,7 @@ Value-added analysis of parcels with and without ADUs was carried out using sale
 
 Hedonic panel regression, controlling for all measured marketable housing criteria (i.e. home and lot square footage, bedrooms, building condition and age) reveals that these trends are only very recent.  There appears to be no statistically significant difference in sale price or assessed value between parcels with DADU and comparable parcels without until 2016.  The recent increases in value over comparables has abated slightly in the intervening years, but between 2017 and the present, home owners can expect to see an approximate 12-15% increase in the market value of their home.  These trends are illustrated in Figure [X] below:
 
-_Figure to go here_
+<img src="chg_sp_time.png" alt="av_chg" width="200"/>
 
 Attached ADUs, on the other hand, are negatively associated with both market and assessed value relative to comparable homes.  Although the value gap has closed over time and continues to close, there is still a sizeable difference.  
 
