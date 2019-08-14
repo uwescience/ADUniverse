@@ -51,7 +51,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 value += "<br> This home is next to the shoreline. DADUs cannot be built by shorelines"
             if (df.iloc[0]["zone_ind"] == 1):
                 value += "<h5><i>Potential considerations of concern for ADUs and DADUs: </i></h5>"
-                if (df.iloc[0]["tree_canopy_prct"] > 30): #treecanopy_prct
+                if (df.iloc[0]["treecanopy_prct"] > 30):
                     value += "Your home may have a significant tree canopy percentage that may restrict your ability to build a DADU"
                 if (df.iloc[0]["parcel_steepslope"] == 1):
                     value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
@@ -65,8 +65,8 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                     value += "<br> Your home may be a peat settlement. This may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_riparian"] == 1):
                     value += "<br> Your home may be on a riparian corridor. This may make it more costly to permit and build an ADU"
-                #if (df.iloc[0]["side_sewer_conflict"] == 1):
-                #    value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
+                if (df.iloc[0]["side_sewer_conflict"] == 1):
+                   value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
 
             value += "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>"
             value += "<br>Check for neighborhood covenants"
