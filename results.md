@@ -24,6 +24,8 @@ Attached ADUs, on the other hand, are negatively associated with both market and
 
 Taken together, these findings indicate a continuing increase in the desirability of AADUs and DADUs for potential buyers, but they also suggest that interventions may be needed in order to more accurately approximate the value added to a parcel through ADU construction.  Qualitative evidence, for instance, points to the fact that neither private home appraisers nor county assessors have the frameworks or capacities to value ADUs.  Increasing communication and collaboration between Seattle Department of Planning and Community Development and the King County Assessor’s office to better quantify ADU value may ameliorate these issues and increase the profitability of ADU for the homeowners.
 
+The four primary criteria we evaluated against a land parcel being eligible for a detached ADU were lot size, lot coverage, shore line conflicts, and neighborhood zoning. A parcel is preliminarily found ineligible if the lot size is not large enough, the lot coverage percentage is too high, it is too close to a shoreline, or the parcel is outside of single family zoning.
+In regards to determining the most likely regulatory hinderances to ADU proliferation at the neighborhood level, our analysis revealed that parcel lot size is the leading concern. There was not as significant of an impact by shoreline conflicts as initially expected. In fact, it was not the leading concern for any neighborhood. 
 
 **Deliverables**
 
@@ -38,3 +40,9 @@ We will transfer our code (available on GitHub) to the Seattle IT Department. Th
 
 How have your stakeholders responded to your deliverables? 
 What impact has your project had, or do you anticipate it having? 
+
+The City of Seattle's planning commission will look to our prototype application as a model for the tool they intend to develop. The research and analysis will aid the Seattle government in determining the most effective strategy for making ADUs a viable solution to the city's growing affordable housing crisis. 
+
+The tool, intended for educational and advocacy purposes, will play a key role in advancing the awareness of ADUs to the population. It will also serve prospective ADU owners by providing a high-level view of the process from construction to landlordship, their parcel eligiblity, and a sense of how popular ADUs are in their neighborhood. As the final version of the tool takes shape, it will be a platform for the city to communicate policy initiatives, clarify housing code concerns, and help ADU renters navigate their landlord responsibilities.
+
+Our immediate and extended stakeholders have expressed a high degree of interest in the application we have developed. The current outlook is that this will be an important first step on impacting neighborhood density via ADUs to increase housing affordability in Seattle. If the strategy proves effective, future iterations of the tool and the analysis results may serve other cities as a model framework to employ similar measures.
