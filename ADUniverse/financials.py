@@ -94,7 +94,7 @@ def neighbor_adu(PIN, df, neighbors):
     :param text PIN: PIN number related to the address entered
     """
     if PIN != None:
-        
+
         # adunit = ads.Connection("adunits.db")
         # ngb_data = adunit.getNeighbor(PIN)
         if neighbors.empty == True:
