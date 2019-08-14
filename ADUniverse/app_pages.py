@@ -17,8 +17,8 @@ Map_layout = html.Div([
 
         html.Div(id='next_page'),
 
-        html.H4("What's your Zipcode?", style={'textAlign': 'center'}),
-        html.Div(id='zip_code'),  # style={'display': 'none'}
+        #html.H4("What's your Zipcode?", style={'textAlign': 'center'}),
+        #html.Div(id='zip_code'),  # style={'display': 'none'}
     ], className="five columns"),
     html.Div([
         mdl.MapBlock,

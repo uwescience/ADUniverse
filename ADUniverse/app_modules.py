@@ -166,39 +166,39 @@ FinFeasibility = html.Div([
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
 OutputDetails = html.Div([
-    html.H4("Eligibility Details", style={'textAlign': 'center'}),
-    html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
-              html.Div(["Your home must be in a single family lot to build an AADU or DADU"], style={}),
-              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+    #html.H4("Eligibility Details", style={'textAlign': 'center'}),
+    # html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
+    #           html.Div(["Your home must be in a single family lot to build an AADU or DADU"], style={}),
+    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
 
-              ], style={'border': '2px solid #4C3C1B', 'font-size': '12px', 'font-family': 'Arial',
-                        'padding': '12px', 'border-width': 'thin', 'border-radius': '5px'}),
-    html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
-              html.Div(["Your home must be at least __ for a DADU"], style={}),
-              html.Div(["Your home qualifies!/does not qualify :("], style={}),
+    #           ], style={'border': '2px solid #4C3C1B', 'font-size': '12px', 'font-family': 'Arial',
+    #                     'padding': '12px', 'border-width': 'thin', 'border-radius': '5px'}),
+    # html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
+    #           html.Div(["Your home must be at least __ for a DADU"], style={}),
+    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
 
-              ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
-                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-                        'font-size': '12px', 'font-family': 'Arial', }),
-    html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
-              html.Div(["Your home must be at least __ for a DADU"], style={}),
-              html.Div(["Your home qualifies!/does not qualify :("], style={}),
-              ], style={'border': '2px solid #4C3C1B',
-                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-                        'font-size': '12px', 'font-family': 'Arial', }),
-    html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
-              html.Div(["Your home must not border a shoreline to build an AADU or a DADU"], style={}),
-              html.Div(["Your home qualifies!/does not qualify :("], style={}),
-              ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
-                        'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-                        'font-size': '12px', 'font-family': 'Arial', }),
+    #           ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+    #                     'font-size': '12px', 'font-family': 'Arial', }),
+    # html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
+    #           html.Div(["Your home must be at least __ for a DADU"], style={}),
+    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
+    #           ], style={'border': '2px solid #4C3C1B',
+    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+    #                     'font-size': '12px', 'font-family': 'Arial', }),
+    # html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
+    #           html.Div(["Your home must not border a shoreline to build an AADU or a DADU"], style={}),
+    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
+    #           ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+    #                     'font-size': '12px', 'font-family': 'Arial', }),
 
-    html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
-             'textAlign': 'center'}),
+    # html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
+    #          'textAlign': 'center'}),
 
 
 
-], id='eligibilityDetails', style={'margin-left': '15px', 'margin-right': '15px', })
+], id='eligibilityDetails', style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
 
 
 AdditionalDetails = html.Div([
