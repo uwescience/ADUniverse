@@ -10,9 +10,9 @@ By using the dataset (adunits.db) from this repository, you agree to the City of
 
 ## Installation
 1. Your machione should have the following installed already:
-  - python 3
-  - [miniconda for python 3](https://docs.conda.io/en/latest/miniconda.html)
-  - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+   - python 3
+   - [miniconda for python 3](https://docs.conda.io/en/latest/miniconda.html)
+   - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 1. First, clone ADU repository repository by using ``git clone https://github.com/uwescience/ADUniverse``.
 1. You will be working in a "virtual environment".
   - ``conda create -n test_adu python=3.6``
