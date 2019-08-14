@@ -100,9 +100,7 @@ def neighbor_adu(PIN, df, neighbors):
         if neighbors.empty == True:
             return "We didn't find an ADU around you. Be the FIRST!"
         else:
-            neighbors['dist'] = np.sqrt((neighbors['latitude'] - df['latitude'])**2 + 
-                (neighbors['longitude'] - df['longitude'])**2)
-            neighbors = neighbors.sort_values(by=['dist']).head(1).reset_index()
+            neighbors = neighbors.head(1).reset_index()
             address = neighbors.loc[0, 'address']
         return ("Your neighbor got one! Zoom out to see more on map!\
                 The closest one @ {}".format(address))

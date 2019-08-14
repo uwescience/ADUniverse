@@ -6,6 +6,7 @@ from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
+import dash_html_components as html
 
 import collections
 
@@ -98,10 +99,12 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
 
+
 # @app.callback(
 #     Output('eligibilityDetails', 'children'),
 #     [Input('addressDropdown', 'value')]
 # )
+<< << << < HEAD
 # def update_page1(value):
 #     global df
 #     df = pd.DataFrame()
@@ -110,7 +113,51 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 #         adunit = ads.Connection("adunits.db")
 #         df = adunit.getParcelCoords(value)
 
-    # return update_page(outpt)
+# return update_page(outpt)
+== == == =
+
+
+def update_page1(df):
+
+    if not df.empty:
+        output = html.Div([
+            html.H4("Eligibility Details", style={'textAlign': 'center'}),
+            html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
+                      html.Div(
+                          ["Your home must be in a single family lot to build an AADU or DADU"], style={}),
+                      html.Div(["Your home qualifies!/does not qualify :("], style={}),
+
+                      ], style={'border': '2px solid #4C3C1B', 'font-size': '12px', 'font-family': 'Arial',
+                                'padding': '12px', 'border-width': 'thin', 'border-radius': '5px'}),
+            html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
+                      html.Div(["Your home must be at least __ for a DADU"], style={}),
+                      html.Div(["Your home qualifies!/does not qualify :("], style={}),
+
+                      ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+                                'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                                'font-size': '12px', 'font-family': 'Arial', }),
+            html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
+                      html.Div(["Your home must be at least __ for a DADU"], style={}),
+                      html.Div(["Your home qualifies!/does not qualify :("], style={}),
+                      ], style={'border': '2px solid #4C3C1B',
+                                'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                                'font-size': '12px', 'font-family': 'Arial', }),
+            html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
+                      html.Div(
+                          ["Your home must not border a shoreline to build an AADU or a DADU"], style={}),
+                      html.Div(["Your home qualifies!/does not qualify :("], style={}),
+                      ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
+                                'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
+                                'font-size': '12px', 'font-family': 'Arial', }),
+
+            html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
+                'textAlign': 'center'}),
+        ])
+
+    return output
+
+
+>>>>>> > f3a4163555d1e82d276c9622eff2005870d82601
 
 # calculating loans
 
@@ -172,7 +219,13 @@ def update_zipcode(value):  #
     #     return "Type your address first"
 
 
+def default_zipcode(value):
+    if value != None:
+        return str(value)
+
 # Master Callback!
+
+
 @app.callback(
     [
         Output('map', 'srcDoc'),
