@@ -9,11 +9,10 @@ layout: default
 
 ## The Team
 
-**Project Lead/s: Rick Mohler, Nick Welch
+Project Leads: Rick Mohler, Nick Welch
 
-**Data Science Lead: Joseph Hellerstein
+Data Science Lead: Joseph Hellerstein
 
-**DSSG Fellows: Emily Finchum-Mason, 
-Yuanhao Niu, Adrian Tullock, Anagha Uppal
+DSSG Fellows: Emily Finchum-Mason, Yuanhao Niu, Adrian Tullock, Anagha Uppal
 
 # Abstract or executive summary
