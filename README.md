@@ -13,18 +13,25 @@ By using the dataset (adunits.db) from this repository, you agree to the City of
    - python 3
    - [miniconda for python 3](https://docs.conda.io/en/latest/miniconda.html)
    - [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+
 1. First, clone ADU repository repository by using ``git clone https://github.com/uwescience/ADUniverse``.
+
 1. You will be working in a "virtual environment".
-  - ``conda create -n test_adu python=3.6``
-  - ``conda activate test_adu``
+   - ``conda create -n test_adu python=3.6``
+   - ``conda activate test_adu``
+
 1. This code works for python 3.6. You should have miniconda installed. Then issue the following commands:
-  - ``conda install -f -y -q --name test_adu -c conda-forge --file requirements.txt``
+   - ``conda install -f -y -q --name test_adu -c conda-forge --file requirements.txt``
+
 1. You just installed all the necessary dependencies needed but LFS (large file system). Now let's install lfs with the following commands:
-  - ``git lfs install``
+   - ``git lfs install``
+
 1. Clone again to include the large database by using ``git clone https://github.com/uwescience/ADUniverse``
+
 1. To run the code, change to the ``ADUniverse`` directory and the ``ADUniverse`` subdirectory within the first directory. Then, run the command ``python index.py``.
+
 1. When you are done,
-  - ``conda deactivate``
+   - ``conda deactivate``
 
 ### Notes for Windows 10 users
 - You should have python 3.7 installed already.
