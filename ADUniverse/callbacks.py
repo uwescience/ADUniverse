@@ -104,7 +104,6 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 #     Output('eligibilityDetails', 'children'),
 #     [Input('addressDropdown', 'value')]
 # )
-<< << << < HEAD
 # def update_page1(value):
 #     global df
 #     df = pd.DataFrame()
@@ -114,7 +113,6 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 #         df = adunit.getParcelCoords(value)
 
 # return update_page(outpt)
-== == == =
 
 
 def update_page1(df):
@@ -155,9 +153,6 @@ def update_page1(df):
         ])
 
     return output
-
-
->>>>>> > f3a4163555d1e82d276c9622eff2005870d82601
 
 # calculating loans
 
