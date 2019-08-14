@@ -37,6 +37,7 @@ By using the dataset (adunits.db) from this repository, you agree to the City of
 1. To run the code
    - Change directories to the subfolder within ``ADUniverse`` by doing ``cd ADUniverse``
    - Run the application. ``python index.py``.
+   - You will see a URL like ``http://127.0.0.1:8050``. Browse to this URL and the application will load.
 
 1. When you are done,
    - ``conda deactivate``
