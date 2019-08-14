@@ -13,20 +13,17 @@ from common_data import app_data
 
 import pandas as pd
 
+# def toggle_modal(n1, n2, is_open):
+#
+#     # return not is_open
+#     return is_open
+# app.callback(
+#     Output("modalBlog", "is_open"),
+#     [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
+#     [State("modalBlog", "is_open")],
+# )(toggle_modal)
 
 # input slider for square foot
-
-def toggle_modal(n1, n2, is_open):
-
-    # return not is_open
-    return is_open
-
-
-app.callback(
-    Output("modalBlog", "is_open"),
-    [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
-    [State("modalBlog", "is_open")],
-)(toggle_modal)
 
 
 @app.callback(
@@ -66,25 +63,17 @@ def cost_breakdown(value1, value2):
     [Input('BuildSizeInput', 'value'),
      Input('zipcode', 'value')])
 def returns(buildSize, zipcode):
-    # print("attempted zip ", zp)
-    # print("dropdown zipcode ", zipcode)
     if (zipcode is None):
         try:
             format(zipc)
         except NameError:
             return fin.returns(buildSize, format('98105'))
         else:
-            print("later zp ", zipc)
-            print(type(zipc))
-            print(type(float(format(zipc))))
-            print(type(buildSize))
             return fin.returns(buildSize, format(zipc))
+
     else:
         return fin.returns(buildSize, format(zipcode))
 
-
-# def returns(buildSize, zipcode):
-#     return fin.returns(buildSize, str(common_data.zipcode))
 
 # dynamically updates the map based on the address selected
 
@@ -104,6 +93,7 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
     #     df = adunit.getParcelCoords(value)
     #     df.to_csv("df.csv")
     #     neighbors = adunit.getNeighbors(value)
+
 
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
 
@@ -126,9 +116,9 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 
 
 @app.callback(
-    [Output(component_id='LoanAmount', component_property='children'),
-     Output(component_id='MonthlyPayment', component_property='children')],
-    [Input(component_id='LoanInput', component_property='value')]
+    [Output('LoanAmount', 'children'),
+     Output('MonthlyPayment', 'children')],
+    [Input('LoanInput', 'value')]
 )
 def loan_calculator(loan):
     return fin.loan_calculator(loan)
@@ -211,5 +201,4 @@ def master_callback(value):
         neighbor_adu(value, df, neighbors), 
         show_new_page(value)
         ]
-
 
