@@ -102,6 +102,8 @@ class Connection:
         '''
         self.connect()
         data = pd.read_sql_query(query, self.conn)
+        #new_query = "%s and sqftlot > %d" % (query, sqftlot)
+        #data = pd.read_sql_query(new_query, self.conn)
         self.disconnect()
         return data
 
@@ -127,9 +129,9 @@ class Connection:
         Retrieve the parcel long/lat coordinates for a specific address
         '''
         self.connect()
-        searchStr = "select * FROM Parcels p left join ParcelGeo g on p.PIN = g.PIN \
+        searchStr = "select p.*,g.*,d.*,m.ADU FROM Parcels p left join ParcelGeo g on p.PIN = g.PIN \
             left join ParcelDetails d on p.PIN = d.PIN left join Permits m on p.PIN = m.PIN \
-            left join PermitDetails pd on p.PIN = pd.PIN WHERE p.PIN = '{}'".format(PIN)
+            WHERE p.PIN = '{}'".format(PIN)
         data = self.manual(searchStr)
         self.disconnect()
         return data
@@ -172,28 +174,27 @@ class Connection:
         data = self.manual(searchStr)
         data['dist'] = np.sqrt((data['latitude'] - data_xy.coordY[0])**2 +
                                (data['longitude'] - data_xy.coordX[0])**2)
-        app_data.neighbor = data.sort_values(by=['dist']).head()
+        #app_data.neighbor = data.sort_values(by=['dist']).head()
         data = data.sort_values(by=['dist']).head(1).reset_index()
         return data
 
-    def getNeighbors(self, PIN):
+    def getNeighbors(self, df):
         '''
         Retrieve the neighbor around a specific coordinates
         '''
         self.connect()
-        searchStr = "select g.coordY, g.coordX   \
-            FROM Parcels p  \
-            join ParcelGeo g on p.PIN = g.PIN   \
-            WHERE p.PIN = '{}'".format(PIN)
-        data_xy = self.manual(searchStr)
-        lat = round(data_xy.coordY[0], 2)
-        lon = round(data_xy.coordX[0], 2)
-        searchStr = "SELECT per.pin, par.address, pg.coordY, pg.coordX \
+        # searchStr = "select g.coordY, g.coordX   \
+        #     FROM Parcels p  \
+        #     join ParcelGeo g on p.PIN = g.PIN   \
+        #     WHERE p.PIN = '{}'".format(PIN)
+        # data_xy = self.manual(searchStr)
+        lat = round(df.coordY[0], 2)
+        lon = round(df.coordX[0], 2)
+        searchStr = "SELECT per.pin, par.address, par.latitude, par.longitude \
                     FROM Permits per \
                     LEFT JOIN Parcels par on per.PIN = par.PIN  \
-                    LEFT JOIN ParcelGeo pg on per.PIN = pg.PIN  \
-                    where pg.coordY like '{0}%' AND pg.coordX like '{1}%' \
-                    and coordNum = 0".format(lat, lon)
+                    where par.latitude like '{0}%' AND par.longitude like '{1}%' \
+                    ".format(lat, lon)
         data = self.manual(searchStr)
         # data['dist'] = np.sqrt((data['coordY'] - data_xy.coordY[0])**2 +
         #                        (data['coordX'] - data_xy.coordX[0])**2)

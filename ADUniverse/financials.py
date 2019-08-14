@@ -85,18 +85,22 @@ def returns(build_size, zipcode):
     return '{0:6,.0f}'.format(rental), '{0:6,.0f}'.format(sales)
 
 
-def neighbor_adu(PIN):
+def neighbor_adu(PIN, df, neighbors):
     """
     Find existing ADU around the entered address
     :param text PIN: PIN number related to the address entered
     """
     if PIN != None:
-        adunit = ads.Connection("adunits.db")
-        ngb_data = adunit.getNeighbor(PIN)
-        if ngb_data.empty == True:
+        
+        # adunit = ads.Connection("adunits.db")
+        # ngb_data = adunit.getNeighbor(PIN)
+        if neighbors.empty == True:
             return "We didn't find an ADU around you. Be the FIRST!"
         else:
-            address = ngb_data.loc[0, 'address']
+            neighbors['dist'] = np.sqrt((neighbors['latitude'] - df['latitude'])**2 + 
+                (neighbors['longitude'] - df['longitude'])**2)
+            neighbors = neighbors.sort_values(by=['dist']).head(1).reset_index()
+            address = neighbors.loc[0, 'address']
         return ("Your neighbor got one! Zoom out to see more on map!\
                 The closest one @ {}".format(address))
     else:

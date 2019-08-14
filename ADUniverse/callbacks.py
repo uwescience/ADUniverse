@@ -70,15 +70,15 @@ def returns(buildSize, zipcode):
     # print("dropdown zipcode ", zipcode)
     if (zipcode is None):
         try:
-            format(zp)
+            format(zipc)
         except NameError:
             return fin.returns(buildSize, format('98105'))
         else:
-            print("later zp ", zp)
-            print(type(zp))
-            print(type(float(format(zp))))
+            print("later zp ", zipc)
+            print(type(zipc))
+            print(type(float(format(zipc))))
             print(type(buildSize))
-            return fin.returns(buildSize, format(zp))
+            return fin.returns(buildSize, format(zipc))
     else:
         return fin.returns(buildSize, format(zipcode))
 
@@ -89,23 +89,38 @@ def returns(buildSize, zipcode):
 # dynamically updates the map based on the address selected
 
 
-@app.callback(
-    Output('map', 'srcDoc'),
-    [Input('addressDropdown', 'value')]
-)
-def update_map(value, coords=SEATTLE, zoom=INIT_ZOOM):
-    global df
-    df = pd.DataFrame()
-    global neighbors
-    neighbors = pd.DataFrame()
-    if value != None:
-        print("True")
-        adunit = ads.Connection("adunits.db")
-        df = adunit.getParcelCoords(value)
-        df.to_csv("df.csv")
-        neighbors = adunit.getNeighbors(value)
+# @app.callback(
+#     Output('map', 'srcDoc'),
+#     [Input('addressDropdown', 'value')]
+# )
+def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
+    # global df
+    # df = pd.DataFrame()
+    # global neighbors
+    # neighbors = pd.DataFrame()
+    # if value != None:
+    #     print("True")
+    #     adunit = ads.Connection("adunits.db")
+    #     df = adunit.getParcelCoords(value)
+    #     df.to_csv("df.csv")
+    #     neighbors = adunit.getNeighbors(value)
 
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
+
+# @app.callback(
+#     Output('eligibilityDetails', 'children'),
+#     [Input('addressDropdown', 'value')]
+# )
+# def update_page1(value):
+#     global df
+#     df = pd.DataFrame()
+    
+#     if value != None:
+#         adunit = ads.Connection("adunits.db")
+#         df = adunit.getParcelCoords(value)
+
+
+    # return update_page(outpt)
 
 # calculating loans
 
@@ -119,49 +134,82 @@ def loan_calculator(loan):
     return fin.loan_calculator(loan)
 
 
-@app.callback(
-    Output('showDets', 'children'),
-    [Input('addressDropdown', 'value')])
-def show_eligDetails(PIN):
-    return 0
+# @app.callback(
+#     Output('showDets', 'children'),
+#     [Input('addressDropdown', 'value')])
+# def show_eligDetails(PIN):
+#     return 0
 
-# find out if neighbor has an adu and where
-
-
-@app.callback(
-    Output('adu_around', 'children'),
-    [Input('addressDropdown', 'value')])
-def neighbor_adu(PIN):
-    return fin.neighbor_adu(PIN)
+# # find out if neighbor has an adu and where
 
 
-@app.callback(
-    Output('next_page', 'children'),
-    [Input('addressDropdown', 'value')])
+# @app.callback(
+#     Output('adu_around', 'children'),
+#     [Input('addressDropdown', 'value')])
+def neighbor_adu(PIN, df, neighbors):
+    return fin.neighbor_adu(PIN, df, neighbors)
+
+
+# @app.callback(
+#     Output('next_page', 'children'),
+#     [Input('addressDropdown', 'value')])
 def show_new_page(PIN):
     if PIN != None:
         return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
 # Zip code lookup
-@app.callback(
-    Output('zip_code', 'children'),
-    [Input('addressDropdown', 'value')])
+# @app.callback(
+#     Output('zip_code', 'children'),
+#     [Input('addressDropdown', 'value')])
 def update_zipcode(value):  #
+    # if value != None:
+        # adunit = ads.Connection("adunits.db")
+        # zp_data = adunit.getZipcode(value)
+
+        if value == None:
+            return "Type your address first"
+        else:
+            # global zp
+            # zp = zp_data.loc[0, 'zipcode']
+            # print("original zp ", zp)
+            # print(type(zp))
+            # app_data.zipcode = zp
+            # print("original app_data zp ", app_data.zipcode)
+            # # common_data.change(zp)
+            return 'Your zipcode is {}'.format(value)
+    # else:
+    #     return "Type your address first"
+
+
+# Master Callback!
+@app.callback(
+    [
+     Output('map', 'srcDoc'),
+     Output('zip_code', 'children'),
+#    Output('eligibilityDetails', 'children'),
+     Output('adu_around', 'children'),
+     Output('next_page', 'children')
+     ],
+    [Input('addressDropdown', 'value')])
+def master_callback(value):
+    df = pd.DataFrame()
+    neighbors = pd.DataFrame()
+    global zipc
+    zipc = None
     if value != None:
         adunit = ads.Connection("adunits.db")
-        zp_data = adunit.getZipcode(value)
+        df = adunit.getParcelCoords(value)
+        df.to_csv("df.csv")
+        neighbors = adunit.getNeighbors(df)
+        neighbors.to_csv("neighbors.csv")
+        zipc = df.iloc[0]["zipcode"]
+    return [
+       update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM), 
+       update_zipcode(zipc), 
+#        update_page1(value), 
+        neighbor_adu(value, df, neighbors), 
+        show_new_page(value)
+        ]
 
-        if zp_data.empty == True:
-            return "Sorry, we can't find your zipcode"
-        else:
-            global zp
-            zp = zp_data.loc[0, 'zipcode']
-            print("original zp ", zp)
-            print(type(zp))
-            app_data.zipcode = zp
-            print("original app_data zp ", app_data.zipcode)
-            # common_data.change(zp)
-            return 'Your zipcode is {}'.format(zp)
-    else:
-        return "Type your address first"
+
