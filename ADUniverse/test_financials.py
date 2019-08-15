@@ -27,9 +27,3 @@ def test_returns():
     rental, sales = fin.returns(build_size, zipcode)
     assert(isinstance(rental, str))
     assert(isinstance(sales, str))
-
-
-def test_neighbor_adu():
-    PIN = 4177100080
-    nearby = fin.neighbor_adu(PIN)
-    assert(isinstance(nearby, str))

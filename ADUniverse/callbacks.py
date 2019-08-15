@@ -58,6 +58,8 @@ def cost_breakdown(value1, value2):
 # If nothing there either, it feeds a default value to fin functions
 # If something there, it uses the map address zipcode
 # User can override map zip with self-selected zip
+
+
 @app.callback(
     [Output('rental', 'children'),
      Output('sales', 'children')],
@@ -95,8 +97,8 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
     #     df.to_csv("df.csv")
     #     neighbors = adunit.getNeighbors(value)
 
-
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
+
 
 # @app.callback(
 #     Output('eligibilityDetails', 'children'),
@@ -138,6 +140,7 @@ def update_criteria_details(df):
     else:
         value_adu = "There are no existing ADUs on this property. You are good to go."
 
+
     if not df.empty:
         output = html.Div([
             html.H4("Eligibility Details", style={'textAlign': 'center'}),
@@ -156,8 +159,9 @@ def update_criteria_details(df):
             html.Div([html.Div(["Existing ADUs"], style={'textAlign': 'center'}),
               html.Div(["You may build upto 2 ADUs on a single property"]),
               html.Div(value_adu) ], className='white-box'),
+
             html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
-             'textAlign': 'center'}),
+                'textAlign': 'center'}),
         ])
 
     return output
@@ -273,30 +277,33 @@ def show_new_page(PIN):
 # @app.callback(
 #     Output('zip_code', 'children'),
 #     [Input('addressDropdown', 'value')])
-# def update_zipcode(value):  #
-#     # if value != None:
-#         # adunit = ads.Connection("adunits.db")
-#         # zp_data = adunit.getZipcode(value)
+def update_zipcode(value):  #
+    # if value != None:
+        # adunit = ads.Connection("adunits.db")
+        # zp_data = adunit.getZipcode(value)
 
-#         if value == None:
-#             return "Type your address first"
-#         else:
-#             # global zp
-#             # zp = zp_data.loc[0, 'zipcode']
-#             # print("original zp ", zp)
-#             # print(type(zp))
-#             # app_data.zipcode = zp
-#             # print("original app_data zp ", app_data.zipcode)
-#             # # common_data.change(zp)
-#             return 'Your zipcode is {}'.format(value)
+    if value == None:
+        return "Type your address first"
+    else:
+        # global zp
+        # zp = zp_data.loc[0, 'zipcode']
+        # print("original zp ", zp)
+        # print(type(zp))
+        # app_data.zipcode = zp
+        # print("original app_data zp ", app_data.zipcode)
+        # # common_data.change(zp)
+        return 'Your zipcode is {}'.format(value)
     # else:
     #     return "Type your address first"
+
 
 def default_zipcode(value):
     if value != None:
         return str(value)
 
 # Master Callback!
+
+
 @app.callback(
     [
      Output('map', 'srcDoc'),

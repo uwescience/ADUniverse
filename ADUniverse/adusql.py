@@ -186,9 +186,10 @@ class Connection:
         lat = round(df.coordY[0], 2)
         lon = round(df.coordX[0], 2)
 
-        searchStr = "SELECT per.pin, par.address, par.latitude, par.longitude \
+        searchStr = "SELECT per.pin, per.adu_type, pd.year_issue, par.address, par.latitude, par.longitude \
                     FROM Permits per \
                     LEFT JOIN Parcels par on per.PIN = par.PIN  \
+                    LEFT JOIN PermitDetails pd on per.PIN = pd.PIN \
                     where par.latitude like '{0}%' AND par.longitude like '{1}%' \
                     ".format(lat, lon)
 

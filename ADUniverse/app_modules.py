@@ -38,7 +38,7 @@ NavigationBar = dbc.NavbarSimple(
 
     ],
     brand="Seattle ADU Feasibility",
-    brand_href="http://www.seattle.gov/services-and-information/city-planning-and-development",
+    brand_href="/",
     brand_external_link=True,
     color="primary",
     dark=True,
@@ -154,10 +154,6 @@ FinFeasibility = html.Div([
                      html.Td(id='sales')])
         ]),
         html.H2("  "),
-        # dcc.Markdown('''
-        # Be part of the SOLUTION! check out [Seattle Housing Authority]
-        # (https://www.seattlehousing.org/housing/housing-choice-vouchers/landlords)
-        # '''),
         html.A("Be part of the SOLUTION! (@Seattle.gov)",
                href='http://www.seattle.gov/rentinginseattle', target="_blank")
 

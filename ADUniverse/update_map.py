@@ -66,7 +66,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 if (df.iloc[0]["parcel_riparian"] == 1):
                     value += "<br> Your home may be on a riparian corridor. This may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["side_sewer_conflict"] == 1):
-                   value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
+                    value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
 
             value += "<br><br>More details on the eligibility criteria and your home's eligibility below"
             value += "<br>Check for neighborhood covenants"
@@ -81,10 +81,12 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         neighbor = folium.map.FeatureGroup(name="neighbor",
                                            overlay=True, control=True, show=True,)
 
-
         for i in range(0, len(df_ngb)):
             folium.Marker(location=[df_ngb.iloc[i]['latitude'], df_ngb.iloc[i]['longitude']],
-                          popup=folium.Popup(df_ngb.iloc[i]["address"], max_width=2000)
+                          popup=folium.Popup("Type: " + df_ngb.iloc[i]["ADU_type"] + "<br>"
+                                             "Permitted in: " +
+                                             str(int(df_ngb.iloc[i]["year_issue"])) + "<br>"
+                                             + "Address: " + df_ngb.iloc[i]["address"],  max_width=2000)
                           ).add_to(neighbor)
 
         neighbor.add_to(new_map)
@@ -92,4 +94,3 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
     new_map.save("map.html")
     return open("map.html", "r").read()
-
