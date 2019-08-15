@@ -9,6 +9,8 @@ from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
 from folium import Map
 
+import dash_table
+
 import base64
 
 SQFTLOT = 10000
@@ -246,7 +248,20 @@ Home = html.Div([
 
     **Links to the Pages**
 
-    ''') ], className = "six columns", style={'padding': '5%'}),
+
+
+    '''),
+
+     ], className = "six columns", style={'padding': '5%'}),
+    dash_table.DataTable(
+    id='table',
+    columns=[
+    {'name': 'Column 1', 'id': 'column1'},
+    {'name': 'Column 2', 'id': 'column2'},],
+    data = [
+     {'column1': 'Find My Home', 'column2': 'What the Money'},
+     {'column1': 'Behind the Scenes', 'column2': 'City-Wide Analysis'}
+    ], style_table={'width': '90%', 'float': 'center', 'padding': '5%'}),
 
                 ])
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),

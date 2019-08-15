@@ -193,7 +193,6 @@ def update_advantage_details(df):
                 html.H5("Here are potential advantages of your lot", style={'textAlign': 'center'}), 
                 value1, value2, value3, value4, value5, value6,
             ])
-        # side sewer ?? 
         return output
 
 def update_dis_details(df):
@@ -201,7 +200,6 @@ def update_dis_details(df):
         value1 = value3 = value4 = None
         value2 = ""
             # Year built? Before 1950s?????
-                # side sewer ?? 
 
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
@@ -226,14 +224,14 @@ def update_dis_details(df):
                 for a DADU. Additionally, being a landlocked parcel, you may have \
                 to run a new side sewer through another's lot while constructing an ADU. \
                 You may need to talk to your neighbor about your options."], className='white-box')
-            else:
-                if (df.iloc[0]["intersecting_sewer"] == 1):
-                    value3 = html.Div(["Your home has a side sewer that crosses another lot. \
+        else:
+            if (df.iloc[0]["intersecting_sewer"] == 1):
+                value3 = html.Div(["Your home has a side sewer that crosses another lot. \
                     You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
-                if (df.iloc[0]["landlocked_parcel"] == 1):
-                    value4 = html.Div(["Being a landlocked parcel, you may have to \
-                        run a new side sewer through another's lot while constructing an ADU. \
-                        You may need to talk to your neighbor about your options"], className='white-box')
+            if (df.iloc[0]["landlocked_parcel"] == 1):
+                value4 = html.Div(["Being a landlocked parcel, you may have to \
+                    run a new side sewer through another's lot while constructing an ADU. \
+                    You may need to talk to your neighbor about your options"], className='white-box')
 
             # Landfills?
         if not df.empty:
