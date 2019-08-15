@@ -28,7 +28,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         def output():
             value = "<center><h4>Your home's ADU Eligibility</h4></center>"
             if (df.iloc[0]["zone_ind"] == 0):
-                value += "<h5> For an AADU, this home is <b>Ineligible</b></h5> This is not a single family zoned home"
+                value += "<h5> For an AADU, this home is <b>Not Eligible</b></h5> This is not a single family zoned home"
             elif (df.iloc[0]["zone_ind"] == 1):
                 value += "<br><h5> For an AADU, this home is <b>Eligible</b></h5> Here are some pre-approved AADU plans to consider."
             value += "<h5> For a DADU, this home is " + "<b>" + \
