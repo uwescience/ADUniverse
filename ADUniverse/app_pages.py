@@ -14,7 +14,6 @@ Map_layout = html.Div([
         html.H4("Does your neighbor have an ADU?", style={'textAlign': 'center'}),
         html.Div(id='adu_around'),
         mdl.OutputDetails,
-
         html.Div(id='next_page'),
 
         #html.H4("What's your Zipcode?", style={'textAlign': 'center'}),
@@ -22,7 +21,8 @@ Map_layout = html.Div([
     ], className="five columns"),
     html.Div([
         mdl.MapBlock,
-        mdl.AdditionalDetails,
+        mdl.AdditionalGoodDetails,
+        mdl.AdditionalBadDetails,
 
     ], className="seven columns"),
 
@@ -58,8 +58,8 @@ Transparency_layout = html.Div([
 )
 
 Home_layout = html.Div([
-    html.H2("Home",
-            style={'textAlign': 'center', 'color': '#7FDBFF'}),
+    # html.H2("Home",
+    #         style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     mdl.Home,
 ],

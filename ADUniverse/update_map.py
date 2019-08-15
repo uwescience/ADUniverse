@@ -68,7 +68,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 if (df.iloc[0]["side_sewer_conflict"] == 1):
                    value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
 
-            value += "<br><br><a href="">More details on the eligibility criteria and your home's eligibility here</a>"
+            value += "<br><br>More details on the eligibility criteria and your home's eligibility below"
             value += "<br>Check for neighborhood covenants"
 
             return value

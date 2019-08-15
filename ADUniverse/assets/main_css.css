@@ -388,6 +388,18 @@ hr {
   display: table;
   clear: both; }
 
+.white-box {
+  border: 2px solid #4C3C1B;
+  font-size: 12px;
+  font-family: Arial;
+  padding: 12px;
+  border-width: thin;
+  border-radius: 5px; }
+
+.yellow-box {
+  background-color: #EFEECB; 
+}
+
 
 /* Media Queries
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

@@ -165,48 +165,14 @@ FinFeasibility = html.Div([
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
-OutputDetails = html.Div([
-    #html.H4("Eligibility Details", style={'textAlign': 'center'}),
-    # html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
-    #           html.Div(["Your home must be in a single family lot to build an AADU or DADU"], style={}),
-    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
+OutputDetails = html.Div([], id='eligibilityDetails', 
+    style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
 
-    #           ], style={'border': '2px solid #4C3C1B', 'font-size': '12px', 'font-family': 'Arial',
-    #                     'padding': '12px', 'border-width': 'thin', 'border-radius': '5px'}),
-    # html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
-    #           html.Div(["Your home must be at least __ for a DADU"], style={}),
-    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
+AdditionalGoodDetails = html.Div([], id='addGoodDetails', 
+    style={'margin-left': '10px', 'margin-right': '10px',})
 
-    #           ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
-    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-    #                     'font-size': '12px', 'font-family': 'Arial', }),
-    # html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
-    #           html.Div(["Your home must be at least __ for a DADU"], style={}),
-    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
-    #           ], style={'border': '2px solid #4C3C1B',
-    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-    #                     'font-size': '12px', 'font-family': 'Arial', }),
-    # html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
-    #           html.Div(["Your home must not border a shoreline to build an AADU or a DADU"], style={}),
-    #           html.Div(["Your home qualifies!/does not qualify :("], style={}),
-    #           ], style={'border': '2px solid #4C3C1B', 'background-color': '#EFEECB',
-    #                     'padding': '10px', 'border-width': 'thin', 'border-radius': '5px',
-    #                     'font-size': '12px', 'font-family': 'Arial', }),
-
-    # html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
-    #          'textAlign': 'center'}),
-
-
-
-], id='eligibilityDetails', style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
-
-
-AdditionalDetails = html.Div([
-
-    html.Div("Here are some additional details to consider", style={'textAlign': 'center'}),
-
-
-], style={'margin-left': '15px', 'margin-right': '15px', })
+AdditionalBadDetails = html.Div([], id='addBadDetails', 
+    style={'margin-left': '10px', 'margin-right': '10px',})
 
 # FAQ Section
 FAQ = dcc.Markdown('''
@@ -270,8 +236,22 @@ image_filename = 'my-image.png'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 
-Home = html.Div(html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-                         style={'align': 'center', 'width': '50%', 'height': '50%'})
-                )
+Home = html.Div([
+    html.Div([html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
+                         style={'align': 'center', 'width': '50%', 'height': '50%'}), ], className = "six columns", 
+    style={'padding': '5%', 'float': 'center'}),
+    html.Div([
+    dcc.Markdown('''
+    **What is an ADU?**
+    Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house. 
+    
+    **What is the ADUniverse?**
+    Stuff and Things
+
+    **Links to the Pages**
+
+    ''') ], className = "six columns", style={'padding': '5%'}),
+
+                ])
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
