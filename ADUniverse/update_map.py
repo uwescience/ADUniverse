@@ -56,7 +56,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 if (df.iloc[0]["parcel_steepslope"] == 1):
                     value += "<br> Your home may have some steep areas that may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_flood"] == 1):
-                    value += "<br> Your home may have been flooded in the past. This may make it more costly to permit and build an ADU"
+                    value += "<br> Your home may be prone to floods. This may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_poteslide"] == 1):
                     value += "<br> Your home may be a potential slide area. This may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["parcel_landf"] == 1):
