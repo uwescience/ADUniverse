@@ -119,48 +119,49 @@ def update_criteria_details(df):
 
     if (df.iloc[0]["sqftlot"] >= 5000):
         if (df.iloc[0]["lotcoverage"] <= 0.35):
-            value3 = "Your {} square foot lot with a lot coverage of {} qualifies!".format(df.iloc[0]["sqftlot"], df.iloc[0]["lotcoverage"])
+            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% qualifies!".format(
+                df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
         else:
-            value3 = "Your {} square foot lot with a lot coverage of {} does not qualify.".format(df.iloc[0]["sqftlot"], df.iloc[0]["lotcoverage"])
+            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% does not qualify.".format(
+                df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
     else:
         if (df.iloc[0]["lotcoverage"] <= df.iloc[0]["sm_lotcov"]):
-            value3 = "Your {} square foot lot with a lot coverage of {} is less than the threshold of {} \
-                and therefore qualifies!".format(df.iloc[0]["sqftlot"], df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
+            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% is less than the threshold of {} \
+                and therefore qualifies!".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
         else:
-            value3 = "Your {} square foot lot with a lot coverage of {} is greater than the threshold of {} \
-             and therefore does not qualify.".format(df.iloc[0]["sqftlot"], df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
-    
+            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% is greater than the threshold of {} \
+             and therefore does not qualify.".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
+
     if (df.iloc[0]["shoreline_ind"] == 1):
         value4 = "Your lot borders a shoreline. Unfortunately, no DADU can be built here."
     else:
         value4 = "Your lot does not border a shoreline. You are good to go."
-    
+
     if (not pd.isna(df.iloc[0]["ADU"])):
         value_adu = "There is already at least one existing ADU on this \
         property. You may build upto one more."
     else:
         value_adu = "There are no existing ADUs on this property. You are good to go."
 
-
     if not df.empty:
         output = html.Div([
             html.H4("Eligibility Details", style={'textAlign': 'center'}),
             html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
-              html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
-              html.Div(value1), ], className='white-box'),
+                      html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
+                      html.Div(value1), ], className='white-box'),
             html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
-              html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
-              html.Div(value2) ], className='white-box yellow-box'),
+                      html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
+                      html.Div(value2)], className='white-box yellow-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
-              html.Div(["If lot is larger than 5000 feet, no more than 35% \
+                      html.Div(["If lot is larger than 5000 feet, no more than 35% \
                 should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
-              html.Div(value3) ], className='white-box'),
+                      html.Div(value3)], className='white-box'),
             html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
-              html.Div(["Your home must not border a shoreline to build a DADU"]),
-              html.Div(value4) ], className='white-box yellow-box'),
+                      html.Div(["Your home must not border a shoreline to build a DADU"]),
+                      html.Div(value4)], className='white-box yellow-box'),
             html.Div([html.Div(["Existing ADUs"], style={'textAlign': 'center'}),
-              html.Div(["You may build upto 2 ADUs on a single property"]),
-              html.Div(value_adu) ], className='white-box'),
+                      html.Div(["You may build upto 2 ADUs on a single property"]),
+                      html.Div(value_adu)], className='white-box'),
 
             html.Div("Want even more information? Please see the Transparency \
                 section for more details on these terms", style={
@@ -169,41 +170,43 @@ def update_criteria_details(df):
 
     return output
 
+
 def update_advantage_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
         value1 = value2 = value3 = value4 = value5 = value6 = None
         if (df.iloc[0]["alley_lot"] == 1):
             value1 = html.Div(["Your home in on a lot neighboring an alley. Renters, being able to enter through \
             a separate entrance, would consider this advantageous."], className='white-box')
-        
+
         # if (df.iloc[0]["corner_lot"] == 1)
-        
+
         if (not pd.isna(df.iloc[0]["sqftfinbasement"])):
             value2 = html.Div(["You have a sizable basement that could be converted to an AADU. \
                 It is a finished basement r home in on a lot neighboring an alley. Renters, being able to enter through \
             a separate entrance, would consider this advantageous."], className='white-box')
-            # Basement (presence, size, year built, finished/unfinished, daylight) ## GARAGES 
-        
+            # Basement (presence, size, year built, finished/unfinished, daylight) ## GARAGES
+
         if (not pd.isna(df.iloc[0]["miles_nearest_bus"]) == 1):
             value3 = html.Div(["Your home is near a frequent transit stop, making it attractive \
                 to renters."], className='white-box')
 
         if not df.empty:
             output = html.Div([
-                html.H5("Here are potential advantages of your lot", style={'textAlign': 'center'}), 
+                html.H5("Here are potential advantages of your lot", style={'textAlign': 'center'}),
                 value1, value2, value3, value4, value5, value6,
             ])
         return output
+
 
 def update_dis_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
         value1 = value3 = value4 = None
         value2 = ""
-            # Year built? Before 1950s?????
-
+        # Year built? Before 1950s?????
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
-            value1 = html.Div(["Your home may have significant tree canopy cover that may restrict your ability to build a DADU"], className='white-box')
+            value1 = html.Div(
+                ["Your home may have significant tree canopy cover that may restrict your ability to build a DADU"], className='white-box')
 
         if (df.iloc[0]["parcel_steepslope"] == 1):
             value2 += "Steep slopes; "
@@ -236,18 +239,18 @@ def update_dis_details(df):
             # Landfills?
         if not df.empty:
             output = html.Div([
-                html.H5("Here are potential disadvantages of your lot", style={'textAlign': 'center'}), 
-                value1, 
+                html.H5("Here are potential disadvantages of your lot",
+                        style={'textAlign': 'center'}),
+                value1,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
-                html.Div(["Your parcel lies on the following environmentally critical areas that \
+                          html.Div(["Your parcel lies on the following environmentally critical areas that \
                     may make it more costly to permit and build an ADU: (If list empty, there are none)"]),
-                value2 ], className='white-box'), 
-                value3, 
-                value4, 
+                          value2], className='white-box'),
+                value3,
+                value4,
             ])
 
         return output
-
 
 
 # calculating loans
@@ -319,15 +322,15 @@ def default_zipcode(value):
 
 @app.callback(
     [
-     Output('map', 'srcDoc'),
-     #Output('zip_code', 'children'),
-     Output('eligibilityDetails', 'children'),
-     Output('addGoodDetails', 'children'),
-     Output('addBadDetails', 'children'),
-     Output('adu_around', 'children'),
-     Output('next_page', 'children'),
-     #Output('zipcode', 'label')
-     ],
+        Output('map', 'srcDoc'),
+        #Output('zip_code', 'children'),
+        Output('eligibilityDetails', 'children'),
+        Output('addGoodDetails', 'children'),
+        Output('addBadDetails', 'children'),
+        Output('adu_around', 'children'),
+        Output('next_page', 'children'),
+        #Output('zipcode', 'label')
+    ],
     [Input('addressDropdown', 'value')])
 def master_callback(value):
     df = pd.DataFrame()
@@ -342,13 +345,12 @@ def master_callback(value):
         neighbors.to_csv("neighbors.csv")
         zipc = df.iloc[0]["zipcode"]
     return [
-       update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM), 
-       #update_zipcode(zipc), 
-       update_criteria_details(df), 
-       update_advantage_details(df),
-       update_dis_details(df),
-        neighbor_adu(value, df, neighbors), 
+        update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
+        # update_zipcode(zipc),
+        update_criteria_details(df),
+        update_advantage_details(df),
+        update_dis_details(df),
+        neighbor_adu(value, df, neighbors),
         show_new_page(value),
-        #default_zipcode(zipc)
-        ]
-
+        # default_zipcode(zipc)
+    ]
