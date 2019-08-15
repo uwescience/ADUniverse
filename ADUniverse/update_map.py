@@ -66,8 +66,13 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 if (df.iloc[0]["parcel_riparian"] == 1):
                     value += "<br> Your home may be on a riparian corridor. This may make it more costly to permit and build an ADU"
                 if (df.iloc[0]["side_sewer_conflict"] == 1):
-                    value += "<br> Your home may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
-
+                    value += "<br> Your home has a conflicting side sewer crossing You may have a conflicting side sewer with a neighbor or may need additional side sewer construction"
+                else:
+                    if (df.iloc[0]["intersecting_sewer"] == 1):
+                        value += "<br> Your home has a side sewer that crosses another lot. You may need to reroute or construct a new side sewer for a DADU"
+                    if (df.iloc[0]["landlocked_parcel"] == 1):
+                        value += "<br> Being a landlocked parcel, you may have to run a new side sewer through another's lot while constructing an ADU."
+                
             value += "<br><br>More details on the eligibility criteria and your home's eligibility below"
             value += "<br>Check for neighborhood covenants"
 

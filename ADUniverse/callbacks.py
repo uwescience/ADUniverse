@@ -136,7 +136,8 @@ def update_criteria_details(df):
         value4 = "Your lot does not border a shoreline. You are good to go."
     
     if (not pd.isna(df.iloc[0]["ADU"])):
-        value_adu = "There is already at least one existing ADU on this property. You may build upto one more."
+        value_adu = "There is already at least one existing ADU on this \
+        property. You may build upto one more."
     else:
         value_adu = "There are no existing ADUs on this property. You are good to go."
 
@@ -151,7 +152,8 @@ def update_criteria_details(df):
               html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
               html.Div(value2) ], className='white-box yellow-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
-              html.Div(["If lot is larger than 5000 feet, no more than 35% should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
+              html.Div(["If lot is larger than 5000 feet, no more than 35% \
+                should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
               html.Div(value3) ], className='white-box'),
             html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
               html.Div(["Your home must not border a shoreline to build a DADU"]),
@@ -160,7 +162,8 @@ def update_criteria_details(df):
               html.Div(["You may build upto 2 ADUs on a single property"]),
               html.Div(value_adu) ], className='white-box'),
 
-            html.Div("Want even more information? Please see the Transparency section for more details on these terms", style={
+            html.Div("Want even more information? Please see the Transparency \
+                section for more details on these terms", style={
                 'textAlign': 'center'}),
         ])
 
@@ -195,7 +198,7 @@ def update_advantage_details(df):
 
 def update_dis_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
-        value1 = value3 = None
+        value1 = value3 = value4 = None
         value2 = ""
             # Year built? Before 1950s?????
                 # side sewer ?? 
@@ -218,19 +221,31 @@ def update_dis_details(df):
             value2 += "Riparian corridor; "
 
         if (df.iloc[0]["side_sewer_conflict"] == 1):
-            value3 = html.Div(["Your home may have a conflicting side sewer with a neighbor \
-                or may need additional side sewer construction"], className='white-box')
+            value3 = html.Div(["Your home has a conflicting side sewer crossing \
+                another lot. You may need to reroute or construct a new side sewer \
+                for a DADU. Additionally, being a landlocked parcel, you may have \
+                to run a new side sewer through another's lot while constructing an ADU. \
+                You may need to talk to your neighbor about your options."], className='white-box')
+            else:
+                if (df.iloc[0]["intersecting_sewer"] == 1):
+                    value3 = html.Div(["Your home has a side sewer that crosses another lot. \
+                    You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
+                if (df.iloc[0]["landlocked_parcel"] == 1):
+                    value4 = html.Div(["Being a landlocked parcel, you may have to \
+                        run a new side sewer through another's lot while constructing an ADU. \
+                        You may need to talk to your neighbor about your options"], className='white-box')
 
             # Landfills?
         if not df.empty:
             output = html.Div([
                 html.H5("Here are potential disadvantages of your lot", style={'textAlign': 'center'}), 
                 value1, 
-                value3, 
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
                 html.Div(["Your parcel lies on the following environmentally critical areas that \
                     may make it more costly to permit and build an ADU: (If list empty, there are none)"]),
                 value2 ], className='white-box'), 
+                value3, 
+                value4, 
             ])
 
         return output
