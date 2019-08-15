@@ -200,6 +200,7 @@ def update_dis_details(df):
         value1 = value3 = value4 = None
         value2 = ""
             # Year built? Before 1950s?????
+            # Size of house? 
 
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
