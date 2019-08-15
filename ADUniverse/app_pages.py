@@ -2,22 +2,21 @@ import app_modules as mdl
 import dash_html_components as html
 
 
-
 Map_layout = html.Div([
     html.Div([
         # mdl.Modal_address,
         # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
-        html.H3("Find your home", style={'textAlign': 'center'}),
+        html.H3("Help us find your home:", style={'textAlign': 'center'}),
         mdl.AddressDropdown,
         html.H3(""),
         html.H3(""),
-        html.H4("Does your neighbor have an ADU?", style={'textAlign': 'center'}),
+        html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
         html.Div(id='adu_around'),
         mdl.OutputDetails,
         html.Div(id='next_page'),
 
         #html.H4("What's your Zipcode?", style={'textAlign': 'center'}),
-        #html.Div(id='zip_code'),  # style={'display': 'none'}
+        # html.Div(id='zip_code'),  # style={'display': 'none'}
     ], className="five columns"),
     html.Div([
         mdl.MapBlock,

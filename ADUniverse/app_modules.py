@@ -85,13 +85,13 @@ def zipPlaceholder():
 
 FinFeasibility = html.Div([
     html.Div([
-        html.H3('Cost Breakdown', style={'textAlign': 'center'}),
+        html.H3('What ADU will you build?', style={'textAlign': 'center'}),
         ToggleSwitch(
             id='build_dadu',
             label=['Attached ADU', 'Detached ADU'],
             style={'width': '350px', 'margin': 'auto'},
             value=False),
-        html.H4('What ADU will you build?', style={'textAlign': 'center'}),
+        dcc.Markdown('''&nbsp; '''),
         dcc.Slider(
             id='BuildSizeInput',
             min=0,
@@ -103,9 +103,10 @@ FinFeasibility = html.Div([
                 750: '750 SF (2 Bed)',
             },
             value=500,),
-        html.H2("  "),
-        html.H2("  "),
+        # html.H2("  "),
+        dcc.Markdown('''&nbsp; '''),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
+        html.H4('Cost Breakdown:', style={'textAlign': 'center'}),
         html.Table([
             html.Tr([html.Td(['Construction Cost']), html.Td(id='ConstructCost')]),
             html.Tr([html.Td(['+ Sales Tax (10.1%) ']), html.Td(id='Tax')]),
@@ -114,11 +115,15 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['+  Architecture Fee']), html.Td(id='DesignCost')]),
             html.Tr([html.Td(['=  Estimated Cost']), html.Td(id='TotalCost')])]),
         html.P('*Actual cost may vary. The estimate is for reference only.'),
+        html.A("Be part of the SOLUTION! (@Seattle.gov)",
+               href='http://www.seattle.gov/rentinginseattle', target="_blank")
+
     ], className="six columns"),
 
     html.Div([
         html.H3("Financial Cost", style={'textAlign': 'center'}),
         html.H5("How much will you borrow?"),
+        html.H1("  "),
         dcc.Slider(
             id='LoanInput',
             min=10000,
@@ -155,22 +160,18 @@ FinFeasibility = html.Div([
             html.Tr([html.Td(['Estimated Value-Added to Property (Zillow)']),
                      html.Td(id='sales')])
         ]),
-        html.H2("  "),
-        html.A("Be part of the SOLUTION! (@Seattle.gov)",
-               href='http://www.seattle.gov/rentinginseattle', target="_blank")
-
     ], className="six columns",),
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
-OutputDetails = html.Div([], id='eligibilityDetails', 
-    style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
+OutputDetails = html.Div([], id='eligibilityDetails',
+                         style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
 
-AdditionalGoodDetails = html.Div([], id='addGoodDetails', 
-    style={'margin-left': '10px', 'margin-right': '10px',})
+AdditionalGoodDetails = html.Div([], id='addGoodDetails',
+                                 style={'margin-left': '10px', 'margin-right': '10px', })
 
-AdditionalBadDetails = html.Div([], id='addBadDetails', 
-    style={'margin-left': '10px', 'margin-right': '10px',})
+AdditionalBadDetails = html.Div([], id='addBadDetails',
+                                style={'margin-left': '10px', 'margin-right': '10px', })
 
 # FAQ Section
 FAQ = dcc.Markdown('''
@@ -236,33 +237,30 @@ encoded_image = base64.b64encode(open(image_filename, 'rb').read())
 
 Home = html.Div([
     html.Div([html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-                         style={'align': 'center', 'width': '50%', 'height': '50%'}), ], className = "six columns", 
-    style={'padding': '5%', 'float': 'center'}),
+                       style={'align': 'center', 'width': '100%', 'height': '100%'}), ], className="six columns",
+             style={'padding': '5%', 'float': 'center'}),
     html.Div([
-    dcc.Markdown('''
+        dcc.Markdown('''
     **What is an ADU?**
-    Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house. 
-    
+    Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
+
     **What is the ADUniverse?**
     Stuff and Things
 
     **Links to the Pages**
-
-
-
     '''),
+        dash_table.DataTable(
+            id='table',
+            columns=[
+                {'name': 'Column 1', 'id': 'column1'},
+                {'name': 'Column 2', 'id': 'column2'}, ],
+            data=[
+                {'column1': 'Find My Home', 'column2': 'What the Money'},
+                {'column1': 'Behind the Scenes', 'column2': 'City-Wide Analysis'}
+            ], style_table={'width': '100%', 'float': 'center', 'padding': '5%'}),
+    ], className="six columns", style={'padding': '5%'}),
 
-     ], className = "six columns", style={'padding': '5%'}),
-    dash_table.DataTable(
-    id='table',
-    columns=[
-    {'name': 'Column 1', 'id': 'column1'},
-    {'name': 'Column 2', 'id': 'column2'},],
-    data = [
-     {'column1': 'Find My Home', 'column2': 'What the Money'},
-     {'column1': 'Behind the Scenes', 'column2': 'City-Wide Analysis'}
-    ], style_table={'width': '90%', 'float': 'center', 'padding': '5%'}),
 
-                ])
+])
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
