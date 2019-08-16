@@ -327,13 +327,13 @@ def default_zipcode(value):
 @app.callback(
     [
         Output('map', 'srcDoc'),
-        #Output('zip_code', 'children'),
+        # Output('zip_code', 'children'),
         Output('eligibilityDetails', 'children'),
         Output('addGoodDetails', 'children'),
         Output('addBadDetails', 'children'),
         Output('adu_around', 'children'),
         Output('next_page', 'children'),
-        #Output('zipcode', 'label')
+        # Output('zipcode', 'label')
     ],
     [Input('addressDropdown', 'value')])
 def master_callback(value):
@@ -359,23 +359,6 @@ def master_callback(value):
         # default_zipcode(zipc)
     ]
 
-# try dynamically change dataset
-
-
-# global SQFTLOT
-SQFTLOT = 1000
-
-# FIXME this is the wrong callbacks
-
-
-# @app.callback(
-#     Output('demo_output', 'children'),
-#     [Input('demo', 'value')])
-# def demo_activation(value):
-#     SQFTLOT = float(np.array([value]).astype(int))*1000 + \
-#         (1-float(np.array([value]).astype(int)))*5000
-#     return SQFTLOT
-
 # print the zipcode currently in the system
 
 
@@ -384,3 +367,40 @@ SQFTLOT = 1000
     [Input('zipcode', 'value')])
 def print_zipcode(value):
     return 'Calculating gains for zipcode: "{}" '.format(value)
+
+
+# try dynamically change dataset
+
+SQFTLOT = 1000
+
+
+@app.callback(
+    Output('addressDropdown', 'children'),
+    [Input('demo', 'value')])
+def demo_activation(value):
+    if value == 'False':
+        print("demo database")
+        adunit = ads.Connection()
+        addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+        AddressDropdown = dcc.Dropdown(
+            id='address_Dropdown',
+            options=[
+                {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
+            ],
+            placeholder='Type your house address here...',
+            style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
+        )
+    else:
+        print("full database")
+        adunit = ads.Connection()
+        addresses = adunit.getAddresses(sqftlot=0)
+        AddressDropdown = dcc.Dropdown(
+            id='address_Dropdown',
+            options=[
+                {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
+            ],
+            placeholder='Type your house address here...',
+            style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
+        )
+
+    return AddressDropdown

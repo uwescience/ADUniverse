@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-import callbacks
+
 
 from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
@@ -51,16 +51,17 @@ NavigationBar = dbc.NavbarSimple(
 
 
 # Address addressDropdown
-adunit = ads.Connection()
-addresses = adunit.getAddresses(sqftlot=callbacks.SQFTLOT)
-AddressDropdown = dcc.Dropdown(
-    id='addressDropdown',
-    options=[
-        {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
-    ],
-    placeholder='Type your house address here...',
-    style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
-)
+# adunit = ads.Connection()
+# addresses = adunit.getAddresses()
+# addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+# AddressDropdown = dcc.Dropdown(
+#     id='addressDropdown',
+#     options=[
+#         {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
+#     ],
+#     placeholder='Type your house address here...',
+#     style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
+# )
 
 # create empty map zoomed in on Seattle
 Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
@@ -242,11 +243,7 @@ Home = html.Div([
                        style={'align': 'center', 'width': '100%', 'height': '100%'}), ], className="six columns",
              style={'padding': '5%', 'float': 'center'}),
     html.Div([
-        ToggleSwitch(
-            id='demo',
-            label=['Demo', 'Full'],
-            style={'width': '350px', 'margin': 'auto'},
-            value=False),
+
         dcc.Markdown('''
     **What is an ADU?**
     Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
@@ -266,8 +263,6 @@ Home = html.Div([
                 {'column1': 'Behind the Scenes', 'column2': 'City-Wide Analysis'}
             ], style_table={'width': '100%', 'float': 'center', 'padding': '5%'}),
     ], className="six columns", style={'padding': '5%'}),
-
-
 ])
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})

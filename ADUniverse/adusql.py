@@ -3,7 +3,6 @@ import pandas as pd
 import re
 import sqlite3
 from common_data import app_data
-
 zipcode = 0
 
 

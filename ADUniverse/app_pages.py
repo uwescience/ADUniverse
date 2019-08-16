@@ -1,15 +1,31 @@
 import app_modules as mdl
 import dash_html_components as html
-
+from dash_daq import ToggleSwitch
+import dash_core_components as dcc
 
 Map_layout = html.Div([
     html.Div([
+        dcc.Dropdown(
+            id='demo',
+            options=[
+                {'label': 'Demonstration', 'value': 'False'},
+                {'label': 'Full Database', 'value': 'True'},
+            ],
+            value='False'
+        ),
         # mdl.Modal_address,
         # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
         html.H3("Help us find your home:", style={'textAlign': 'center'}),
-        mdl.AddressDropdown,
+        html.Div(id='addressDropdown'),
+        # mdl.AddressDropdown,
         html.H3(""),
         html.H3(""),
+        # ToggleSwitch(
+        #     id='demo',
+        #     label=['Demo', 'Full'],
+        #     style={'width': '350px', 'margin': 'auto'},
+        #     value=False),
+
         html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
         html.Div(id='adu_around'),
         mdl.OutputDetails,
