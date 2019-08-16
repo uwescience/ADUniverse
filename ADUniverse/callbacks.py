@@ -147,7 +147,7 @@ def update_criteria_details(df):
 
     if not df.empty:
         output = html.Div([
-            html.H4("Eligibility Details", style={'textAlign': 'center'}),
+            html.H4("Core Eligibility Details", style={'textAlign': 'center'}),
             html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
                       html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
                       html.Div(value1), ], className='white-box'),
@@ -190,7 +190,7 @@ def update_advantage_details(df):
 
         if (not pd.isna(df.iloc[0]["miles_nearest_bus"]) == 1):
             value3 = html.Div(["Your home is near a frequent transit stop, making it attractive \
-                to renters."], className='white-box')
+                to renters of AADUs and DADUs."], className='white-box')
 
         if not df.empty:
             output = html.Div([
@@ -204,7 +204,9 @@ def update_dis_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
         value1 = value3 = value4 = None
         value2 = ""
-        # Year built? Before 1950s?????
+            # Year built? Before 1950s????? find an inspector 1959 # could change
+            # Size of house? 
+
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
             value1 = html.Div(
@@ -213,7 +215,7 @@ def update_dis_details(df):
         if (df.iloc[0]["parcel_steepslope"] == 1):
             value2 += "Steep slopes; "
         if (df.iloc[0]["parcel_flood"] == 1):
-            value2 += "Past flooded area; "
+            value2 += "Flood prone areas; "
         if (df.iloc[0]["parcel_poteslide"] == 1):
             value2 += "Potential slide area; "
         if (df.iloc[0]["parcel_landf"] == 1):
@@ -233,6 +235,7 @@ def update_dis_details(df):
             if (df.iloc[0]["intersecting_sewer"] == 1):
                 value3 = html.Div(["Your home has a side sewer that crosses another lot. \
                     You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
+                # 
             if (df.iloc[0]["landlocked_parcel"] == 1):
                 value4 = html.Div(["Being a landlocked parcel, you may have to \
                     run a new side sewer through another's lot while constructing an ADU. \
@@ -246,7 +249,7 @@ def update_dis_details(df):
                 value1,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
                           html.Div(["Your parcel lies on the following environmentally critical areas that \
-                    may make it more costly to permit and build an ADU: (If list empty, there are none)"]),
+                    may make it more costly to permit and build a DADU: (If list empty, there are none)"]),
                           value2], className='white-box'),
                 value3,
                 value4,

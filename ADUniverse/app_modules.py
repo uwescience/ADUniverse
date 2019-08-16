@@ -38,7 +38,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Analysis", href="/analysis")),
 
     ],
-    brand="Seattle ADU Feasibility",
+    brand="ADUniverse",
     brand_href="/",
     brand_external_link=True,
     color="primary",
