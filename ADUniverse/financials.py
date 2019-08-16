@@ -16,7 +16,7 @@ def loan_calculator(loan, apr=C.MONTHLY_APR, maturity=C.ANNUAL_MATURITY):
     loan = float(loan)
 
     payment = loan*(apr)*(1+apr)**(maturity) / ((1+apr)**(maturity)-1)
-    return '{0:6,.0f}'.format(loan), '{0:6,.0f}'.format(payment)
+    return '${0:6,.0f}'.format(loan), '${0:5,.0f}'.format(payment)
 
 
 def cost_breakdown(build_dadu, size):
@@ -50,12 +50,12 @@ def cost_breakdown(build_dadu, size):
 
     property_tax = (total_min+total_max)/2*C.PROPERTY_TAX/12
 
-    return '({0:6,.0f} -- {1:6,.0f})'.format(construction_min, construction_max), \
-           '({0:6,.0f} -- {1:6,.0f})'.format(tax_min, tax_max), \
-        '{0:6,.0f}'.format(sewer), '{0:6,.0f}'.format(permit), \
-        '({0:6,.0f} -- {1:6,.0f})'.format(design_min, design_max), \
-        '({0:6,.0f} -- {1:6,.0f})'.format(total_min, total_max), \
-        '{0:6,.0f}'.format(property_tax)
+    return '(${0:6,.0f} -- ${1:6,.0f})'.format(construction_min, construction_max), \
+           '(${0:6,.0f} -- ${1:6,.0f})'.format(tax_min, tax_max), \
+        '${0:6,.0f}'.format(sewer), '${0:6,.0f}'.format(permit), \
+        '(${0:6,.0f} -- ${1:6,.0f})'.format(design_min, design_max), \
+        '(${0:6,.0f} -- ${1:6,.0f})'.format(total_min, total_max), \
+        '${0:3,.0f}'.format(property_tax)
 
 
 prices = pd.read_csv("prices_byzipcode.csv")
@@ -79,9 +79,9 @@ def returns(build_size, zipcode):
     rental = float(build_size)*float(rent_per_fq)
 
     sales_per_fq = prices[prices['ZipCode'] == int(zip_code)].sales.values[0]
-    sales = 0.8*float(build_size)*float(sales_per_fq)
+    sales = 0.2*float(build_size)*float(sales_per_fq)
 
-    return '{0:6,.0f}'.format(rental), '{0:6,.0f}'.format(sales)
+    return '${0:6,.0f}'.format(rental), '${0:6,.0f}'.format(sales)
 
 
 def neighbor_adu(PIN, df, neighbors):

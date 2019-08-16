@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-
+import callbacks
 
 from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
@@ -13,7 +13,6 @@ import dash_table
 
 import base64
 
-SQFTLOT = 10000
 
 # Modal_address = html.Div(children=[
 #     #dbc.Button("BLOG", id="openBlog", size="lg"),
@@ -53,7 +52,7 @@ NavigationBar = dbc.NavbarSimple(
 
 # Address addressDropdown
 adunit = ads.Connection()
-addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+addresses = adunit.getAddresses(sqftlot=callbacks.SQFTLOT)
 AddressDropdown = dcc.Dropdown(
     id='addressDropdown',
     options=[
@@ -76,7 +75,6 @@ prices = pd.read_csv("prices_byzipcode.csv")
 
 def zipPlaceholder():
     from common_data import app_data
-    import callbacks
     if app_data.zipcode != 0:
         return str(app_data.zipcode)
     elif app_data.zipcode == 0:
@@ -94,11 +92,11 @@ FinFeasibility = html.Div([
         dcc.Markdown('''&nbsp; '''),
         dcc.Slider(
             id='BuildSizeInput',
-            min=0,
+            min=100,
             max=1000,
             step=10,
             marks={
-                250: '250 SF (Studio)',
+                300: '300 SF (Studio)',
                 500: '500 SF (1 Bed)',
                 750: '750 SF (2 Bed)',
             },
@@ -240,6 +238,11 @@ Home = html.Div([
                        style={'align': 'center', 'width': '100%', 'height': '100%'}), ], className="six columns",
              style={'padding': '5%', 'float': 'center'}),
     html.Div([
+        ToggleSwitch(
+            id='demo',
+            label=['Demo', 'Full'],
+            style={'width': '350px', 'margin': 'auto'},
+            value=False),
         dcc.Markdown('''
     **What is an ADU?**
     Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.

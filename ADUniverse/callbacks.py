@@ -1,6 +1,7 @@
 import financials as fin
 import update_map as updt
 import adusql as ads
+import numpy as np
 
 from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
@@ -14,6 +15,7 @@ from common_data import app_data
 
 import pandas as pd
 
+# SQFTLOT = 10000
 # def toggle_modal(n1, n2, is_open):
 #
 #     # return not is_open
@@ -354,3 +356,20 @@ def master_callback(value):
         show_new_page(value),
         # default_zipcode(zipc)
     ]
+
+# try dynamically change dataset
+
+
+global SQFTLOT
+SQFTLOT = 1000
+
+# FIXME this is the wrong callbacks
+
+
+@app.callback(
+    Output('demo_output', 'children'),
+    [Input('demo', 'value')])
+def demo_activation(value):
+    SQFTLOT = float(np.array([value]).astype(int))*1000 + \
+        (1-float(np.array([value]).astype(int)))*5000
+    return SQFTLOT

@@ -61,6 +61,9 @@ Home_layout = html.Div([
     #         style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     mdl.Home,
+    html.P(' © ADUniverse, DSSG 2019, eScience Institute, University of Washington'),
+    html.P(' Project Leads: Rick Mohler, Nick Welch, Joseph Hellerstein'),
+    html.P(' Fellows: Emily Finchum-Mason, Yuanhao Niu, Adrian Tullock, Anagha Uppal'),
 ],
 )
 
