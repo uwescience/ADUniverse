@@ -92,15 +92,15 @@ FinFeasibility = html.Div([
         dcc.Markdown('''&nbsp; '''),
         dcc.Slider(
             id='BuildSizeInput',
-            min=100,
+            min=200,
             max=1000,
             step=10,
             marks={
                 300: '300 SF (Studio)',
-                500: '500 SF (1 Bed)',
-                750: '750 SF (2 Bed)',
+                500: '600 SF (1 Bed)',
+                750: '800 SF (2 Bed)',
             },
-            value=500,),
+            value=600,),
         # html.H2("  "),
         dcc.Markdown('''&nbsp; '''),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
@@ -144,20 +144,24 @@ FinFeasibility = html.Div([
         html.P('Assumptions: APR 6.9% for a 15-year fixed-rate home equity loan.'),
         html.P('Reminder: Your home equity loan interest might be tax deductible.'),
         html.H3("Financial Benefits", style={'textAlign': 'center'}),
-        html.H5("Where do you live?"),
+        # html.H5("Where do you live?"),
         dcc.Dropdown(
             id='zipcode',
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            placeholder='Find your zipcode here...'),
+            placeholder='Modify your zipcode here...',
+            value='98105'),
+        html.H4("  "),
+        html.Div(id='ZipcodeOutput', style={'textAlign': 'center'}),
         # value=str(app_data.zipcode)),
         html.Table([
-            html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
+            html.Tr([html.Td(['Estimated Monthly Rental']),
                      html.Td(id='rental')]),
-            html.Tr([html.Td(['Estimated Value-Added to Property (Zillow)']),
+            html.Tr([html.Td(['Estimated Value-Added to Property']),
                      html.Td(id='sales')])
         ]),
+        html.P('*Based on Zillow home value and rental index.'),
     ], className="six columns",),
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
