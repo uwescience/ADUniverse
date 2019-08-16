@@ -246,7 +246,7 @@ Home = html.Div([
     html.Div([
     html.Div([dish.DangerouslySetInnerHTML('''
         <map name="image-map">
-            <area target="" alt="" title="" href="/map" coords="1,30,100,100" shape="rect">
+            <area target="" alt="" title="" href="/map" coords="1,30,100,100" shape="rect" cursor="pointer">
             <area target="" alt="" title="" href="/faq" coords="120,30,250,100" shape="rect">
             <area target="" alt="" title="" href="/finances" coords="60,190,175,260" shape="rect">
         </map>
