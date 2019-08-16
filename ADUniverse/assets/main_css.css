@@ -400,6 +400,10 @@ hr {
   background-color: #EFEECB; 
 }
 
+.area {
+  cursor: pointer; 
+}
+
 
 /* Media Queries
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

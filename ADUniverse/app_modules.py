@@ -12,6 +12,8 @@ from folium import Map
 import dash_table
 
 import base64
+import dash_dangerously_set_inner_html as dish
+
 
 SQFTLOT = 10000
 
@@ -32,7 +34,7 @@ NavigationBar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Map", href="/map")),
-        dbc.NavItem(dbc.NavLink("Financial Feasibility", href="/finances")),
+        dbc.NavItem(dbc.NavLink("Cost Estimator", href="/finances")),
         dbc.NavItem(dbc.NavLink("FAQ", href="/faq")),
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
         dbc.NavItem(dbc.NavLink("Testimonials", href="/testimonials")),
@@ -121,7 +123,7 @@ FinFeasibility = html.Div([
     ], className="six columns"),
 
     html.Div([
-        html.H3("Financial Cost", style={'textAlign': 'center'}),
+        html.H3("Cost Estimator", style={'textAlign': 'center'}),
         html.H5("How much will you borrow?"),
         html.H1("  "),
         dcc.Slider(
@@ -178,6 +180,7 @@ FAQ = dcc.Markdown('''
 ## More financial information?
 Here is the home equity loan information
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
+## What do I do to start the permitting process?
 '''
                    )
 
@@ -231,36 +234,51 @@ So you'll talk to the darn humans around you.
 
 ])
 
-image_filename = 'my-image.png'
+image_filename = 'assets/my-image.png'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
+image_filename2 = 'assets/webflow.png'
+webflow_image = base64.b64encode(open(image_filename2, 'rb').read())
 
 
 Home = html.Div([
-    html.Div([html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-                       style={'align': 'center', 'width': '100%', 'height': '100%'}), ], className="six columns",
-             style={'padding': '5%', 'float': 'center'}),
     html.Div([
-        dcc.Markdown('''
-    **What is an ADU?**
-    Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
+    html.Div([dish.DangerouslySetInnerHTML('''
+        <map name="image-map">
+            <area target="" alt="" title="" href="/map" coords="1,30,100,100" shape="rect">
+            <area target="" alt="" title="" href="/faq" coords="120,30,250,100" shape="rect">
+            <area target="" alt="" title="" href="/finances" coords="60,190,175,260" shape="rect">
+        </map>
+        ''')], id="image-map", style={'display':'none'}),
+        dcc.Markdown(['''    
+        **What is an ADU?**
+        Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.     
+        '''], style={'font': '2px'}),
+        html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
+            style={'align': 'center', 'width': '100%', 'height': '100%'}), 
+        dcc.Markdown('''     
+            ---
+            **What is the ADUniverse?**
+            Creating an accessory dwelling unit can raise several questions. What’s possible on my property? Where do I start? The ADUniverse is your gateway to answers. Our [map tool](/map) assesses the physical feasibility of an ADU on your lot. Our [cost estimator](/finances) helps you evaluate the financial costs and benefits of an ADU. Ready to proceed? You can explore pre-approved plans, get a loan from the City, and begin the permitting process. Are you a policymaker or ADU advocate? Explore our [citywide and neighborhood-level analysis](/analysis) of how ADUs can support affordability and equity goals. 
 
-    **What is the ADUniverse?**
-    Stuff and Things
-
-    **Links to the Pages**
-    '''),
-        dash_table.DataTable(
-            id='table',
-            columns=[
-                {'name': 'Column 1', 'id': 'column1'},
-                {'name': 'Column 2', 'id': 'column2'}, ],
-            data=[
-                {'column1': 'Find My Home', 'column2': 'What the Money'},
-                {'column1': 'Behind the Scenes', 'column2': 'City-Wide Analysis'}
-            ], style_table={'width': '100%', 'float': 'center', 'padding': '5%'}),
-    ], className="six columns", style={'padding': '5%'}),
+            **Navigate Through this Site**
+        '''), 
+        html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
+            style={'align': 'center', 'width': '100%', 'height': '100%'}, useMap="#image-map"), 
+        ], className="six columns", style={'colwidth': '500px', 'padding': '3%'}),
 
 
-])
+    html.Div([
+        html.H4('NEWS', style={'textAlign': 'center'}),
+        html.Iframe(src=f'https://www.youtube.com/embed/V9B_Nw9X4AI', style={'width':'560px', 'height':'315px', 'frameborder': '0'}),
+        dcc.Markdown(['''
+            
+            > The website will include a “Can I build an ADU?” service to help homeowners
+            > identify and appraise their ADU options by prototyping an ADU feasibility tool through the City’s
+            > participation in the UW Data Science for Social Good program.
+            - From the Seattle mayor's Executive Order'''], style={'font-style': 'italic'}),
+
+    ], className="six columns", style={'colwidth': '500px'}),
+    ])
+
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
