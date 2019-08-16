@@ -5,6 +5,7 @@ import dash_html_components as html
 Map_layout = html.Div([
     html.Div([
         html.H3("Help us find your home:", style={'textAlign': 'center'}),
+        html.Div("This address bar only contains single family and multi-family residential parcels.")
         mdl.AddressDropdown,
         html.H3(""),
         html.H3(""),
