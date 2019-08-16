@@ -1,6 +1,7 @@
 import financials as fin
 import update_map as updt
 import adusql as ads
+import numpy as np
 
 from adu_app import app
 from constant import SEATTLE, INIT_ZOOM
@@ -14,6 +15,7 @@ from common_data import app_data
 
 import pandas as pd
 
+# SQFTLOT = 10000
 # def toggle_modal(n1, n2, is_open):
 #
 #     # return not is_open
@@ -202,9 +204,8 @@ def update_dis_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
         value1 = value3 = value4 = None
         value2 = ""
-            # Year built? Before 1950s????? find an inspector 1959 # could change
-            # Size of house? 
-
+        # Year built? Before 1950s????? find an inspector 1959 # could change
+        # Size of house?
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
             value1 = html.Div(
@@ -233,7 +234,7 @@ def update_dis_details(df):
             if (df.iloc[0]["intersecting_sewer"] == 1):
                 value3 = html.Div(["Your home has a side sewer that crosses another lot. \
                     You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
-                # 
+                #
             if (df.iloc[0]["landlocked_parcel"] == 1):
                 value4 = html.Div(["Being a landlocked parcel, you may have to \
                     run a new side sewer through another's lot while constructing an ADU. \
@@ -357,3 +358,29 @@ def master_callback(value):
         show_new_page(value),
         # default_zipcode(zipc)
     ]
+
+# try dynamically change dataset
+
+
+# global SQFTLOT
+SQFTLOT = 1000
+
+# FIXME this is the wrong callbacks
+
+
+# @app.callback(
+#     Output('demo_output', 'children'),
+#     [Input('demo', 'value')])
+# def demo_activation(value):
+#     SQFTLOT = float(np.array([value]).astype(int))*1000 + \
+#         (1-float(np.array([value]).astype(int)))*5000
+#     return SQFTLOT
+
+# print the zipcode currently in the system
+
+
+@app.callback(
+    Output('ZipcodeOutput', 'children'),
+    [Input('zipcode', 'value')])
+def print_zipcode(value):
+    return 'Calculating gains for zipcode: "{}" '.format(value)

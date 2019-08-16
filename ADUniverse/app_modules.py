@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-
+import callbacks
 
 from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
@@ -15,7 +15,6 @@ import base64
 import dash_dangerously_set_inner_html as dish
 
 
-SQFTLOT = 10000
 
 # Modal_address = html.Div(children=[
 #     #dbc.Button("BLOG", id="openBlog", size="lg"),
@@ -55,7 +54,7 @@ NavigationBar = dbc.NavbarSimple(
 
 # Address addressDropdown
 adunit = ads.Connection()
-addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+addresses = adunit.getAddresses(sqftlot=callbacks.SQFTLOT)
 AddressDropdown = dcc.Dropdown(
     id='addressDropdown',
     options=[
@@ -78,7 +77,6 @@ prices = pd.read_csv("prices_byzipcode.csv")
 
 def zipPlaceholder():
     from common_data import app_data
-    import callbacks
     if app_data.zipcode != 0:
         return str(app_data.zipcode)
     elif app_data.zipcode == 0:
@@ -96,15 +94,15 @@ FinFeasibility = html.Div([
         dcc.Markdown('''&nbsp; '''),
         dcc.Slider(
             id='BuildSizeInput',
-            min=0,
+            min=200,
             max=1000,
             step=10,
             marks={
-                250: '250 SF (Studio)',
-                500: '500 SF (1 Bed)',
-                750: '750 SF (2 Bed)',
+                300: '300 SF (Studio)',
+                500: '600 SF (1 Bed)',
+                750: '800 SF (2 Bed)',
             },
-            value=500,),
+            value=600,),
         # html.H2("  "),
         dcc.Markdown('''&nbsp; '''),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
@@ -148,20 +146,24 @@ FinFeasibility = html.Div([
         html.P('Assumptions: APR 6.9% for a 15-year fixed-rate home equity loan.'),
         html.P('Reminder: Your home equity loan interest might be tax deductible.'),
         html.H3("Financial Benefits", style={'textAlign': 'center'}),
-        html.H5("Where do you live?"),
+        # html.H5("Where do you live?"),
         dcc.Dropdown(
             id='zipcode',
             options=[
                 {'label': i, 'value': i} for i in prices.ZipCode
             ],
-            placeholder='Find your zipcode here...'),
+            placeholder='Modify your zipcode here...',
+            value='98105'),
+        html.H4("  "),
+        html.Div(id='ZipcodeOutput', style={'textAlign': 'center'}),
         # value=str(app_data.zipcode)),
         html.Table([
-            html.Tr([html.Td(['Estimated Monthly Rental (Zillow)']),
+            html.Tr([html.Td(['Estimated Monthly Rental']),
                      html.Td(id='rental')]),
-            html.Tr([html.Td(['Estimated Value-Added to Property (Zillow)']),
+            html.Tr([html.Td(['Estimated Value-Added to Property']),
                      html.Td(id='sales')])
         ]),
+        html.P('*Based on Zillow home value and rental index.'),
     ], className="six columns",),
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
@@ -264,6 +266,11 @@ Home = html.Div([
         '''), 
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
             style={'align': 'center', 'width': '100%', 'height': '100%'}, useMap="#image-map"), 
+        ToggleSwitch(
+            id='demo',
+            label=['Demo', 'Full'],
+            style={'width': '350px', 'margin': 'auto'},
+            value=False),
         ], className="six columns", style={'colwidth': '500px', 'padding': '3%'}),
 
 
