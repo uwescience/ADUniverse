@@ -16,9 +16,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
 
-    # Based upon the amount of tree canopy in your rear yard the location and size of a detached
-    # accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach
-    # at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).
+
 
     if not(df.empty):
 

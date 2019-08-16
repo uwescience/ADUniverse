@@ -4,8 +4,6 @@ import dash_html_components as html
 
 Map_layout = html.Div([
     html.Div([
-        # mdl.Modal_address,
-        # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
         html.H3("Help us find your home:", style={'textAlign': 'center'}),
         mdl.AddressDropdown,
         html.H3(""),
@@ -15,8 +13,6 @@ Map_layout = html.Div([
         mdl.OutputDetails,
         html.Div(id='next_page'),
 
-        #html.H4("What's your Zipcode?", style={'textAlign': 'center'}),
-        # html.Div(id='zip_code'),  # style={'display': 'none'}
     ], className="five columns"),
     html.Div([
         mdl.MapBlock,
@@ -27,11 +23,9 @@ Map_layout = html.Div([
 
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
-# html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
 
 
 Finance_layout = html.Div([
-    #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     html.H2("Let's do the numbers!",
             style={'textAlign': 'center', 'color': '#7FDBFF'},),
 
@@ -40,7 +34,6 @@ Finance_layout = html.Div([
 )
 
 FAQ_layout = html.Div([
-    #html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
     html.H2("Frequently Asked Questions",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
@@ -57,8 +50,6 @@ Transparency_layout = html.Div([
 )
 
 Home_layout = html.Div([
-    # html.H2("Home",
-    #         style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     mdl.Home,
     html.P(' © ADUniverse, DSSG 2019, eScience Institute, University of Washington'),
@@ -71,7 +62,6 @@ Testimonials_layout = html.Div([
     html.H2("Stories and Testimonials",
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
-    # mdl.Home,
 ],
 )
 

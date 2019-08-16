@@ -16,18 +16,6 @@ import dash_dangerously_set_inner_html as dish
 
 
 
-# Modal_address = html.Div(children=[
-#     #dbc.Button("BLOG", id="openBlog", size="lg"),
-#     dbc.Modal(
-#         [
-#             dbc.ModalHeader("BLOG"),
-#             dbc.ModalBody("It's the body"),
-#             dbc.ModalFooter(dbc.Button("Close", id="closeBlog", className="ml-auto"),),
-#         ], id="modalBlog", is_open=True
-#     ),
-# ],
-# )
-
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
@@ -156,7 +144,6 @@ FinFeasibility = html.Div([
             value='98105'),
         html.H4("  "),
         html.Div(id='ZipcodeOutput', style={'textAlign': 'center'}),
-        # value=str(app_data.zipcode)),
         html.Table([
             html.Tr([html.Td(['Estimated Monthly Rental']),
                      html.Td(id='rental')]),
@@ -250,7 +237,7 @@ Home = html.Div([
             <area target="" alt="" title="" href="/faq" coords="130,30,255,100" shape="rect">
             <area target="" alt="" title="" href="/finances" coords="60,195,175,269" shape="rect">
         </map>
-        ''')], id="image-map", style={'display':'none'}),
+        ''')], id="image-map", style={'display':'none', 'cursor':'pointer'}),
         dcc.Markdown(['''    
         **What is an ADU?**
         Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.     
