@@ -245,10 +245,10 @@ webflow_image = base64.b64encode(open(image_filename2, 'rb').read())
 Home = html.Div([
     html.Div([
     html.Div([dish.DangerouslySetInnerHTML('''
-        <map name="image-map">
+        <map id="map-map" name="image-map">
             <area target="" alt="" title="" href="/map" coords="1,30,100,100" shape="rect" cursor="pointer">
-            <area target="" alt="" title="" href="/faq" coords="120,30,250,100" shape="rect">
-            <area target="" alt="" title="" href="/finances" coords="60,190,175,260" shape="rect">
+            <area target="" alt="" title="" href="/faq" coords="130,30,255,100" shape="rect">
+            <area target="" alt="" title="" href="/finances" coords="60,195,175,269" shape="rect">
         </map>
         ''')], id="image-map", style={'display':'none'}),
         dcc.Markdown(['''    
@@ -265,7 +265,7 @@ Home = html.Div([
             **Navigate Through this Site**
         '''), 
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
-            style={'align': 'center', 'width': '100%', 'height': '100%'}, useMap="#image-map"), 
+            style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map"), 
         ToggleSwitch(
             id='demo',
             label=['Demo', 'Full'],
