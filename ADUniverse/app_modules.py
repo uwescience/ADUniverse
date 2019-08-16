@@ -158,11 +158,8 @@ FinFeasibility = html.Div([
 OutputDetails = html.Div([], id='eligibilityDetails',
                          style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
 
-AdditionalGoodDetails = html.Div([], id='addGoodDetails',
+AdditionalDetails = html.Div([], id='addDetails',
                                  style={'margin-left': '10px', 'margin-right': '10px', })
-
-AdditionalBadDetails = html.Div([], id='addBadDetails',
-                                style={'margin-left': '10px', 'margin-right': '10px', })
 
 # FAQ Section
 FAQ = dcc.Markdown('''

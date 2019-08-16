@@ -116,20 +116,20 @@ def update_criteria_details(df):
             html.H4("Core Eligibility Details", style={'textAlign': 'center'}),
             html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
                       html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
-                      html.Div(value1), ], className='white-box'),
+                      html.Div(value1), ], className='white-box yellow-box'),
             html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
                       html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
                       html.Div(value2)], className='white-box yellow-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
                       html.Div(["If lot is larger than 5000 feet, no more than 35% \
                 should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
-                      html.Div(value3)], className='white-box'),
+                      html.Div(value3)], className='white-box yellow-box'),
             html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
                       html.Div(["Your home must not border a shoreline to build a DADU"]),
                       html.Div(value4)], className='white-box yellow-box'),
             html.Div([html.Div(["Existing ADUs"], style={'textAlign': 'center'}),
                       html.Div(["You may build upto 2 ADUs on a single property"]),
-                      html.Div(value_adu)], className='white-box'),
+                      html.Div(value_adu)], className='white-box yellow-box'),
 
             html.Div("Want even more information? Please see the Transparency \
                 section for more details on these terms", style={
@@ -139,92 +139,83 @@ def update_criteria_details(df):
     return output
 
 
-def update_advantage_details(df):
+def update_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
-        value1 = value2 = value3 = value4 = value5 = value6 = None
+        value_alley = value_basement = value_bus = value_corner = None
+        value_tree = value_sewer = value_lock = value_age = None
+        value_eca = ""
+
         if (df.iloc[0]["alley_lot"] == 1):
-            value1 = html.Div([dcc.Markdown("Your home in on a lot **neighboring an alley**. Renters, being able to enter through \
-            a separate entrance, would consider this advantageous.")], className='white-box')
+            value_alley = html.Div([dcc.Markdown("Your home in on a lot **neighboring an alley**. Renters, being able to enter through \
+            a separate entrance, would consider this advantageous.")], className='white-box green-box')
 
         # if (df.iloc[0]["corner_lot"] == 1)
 
         if (not pd.isna(df.iloc[0]["sqftfinbasement"])):
-            value2 = html.Div(["You have a sizable finished basement that could be converted to an AADU."], id="basement", className='white-box')
+            value_basement = html.Div(["You have a sizable finished basement that could be converted to an AADU."], id="basement", className='white-box green-box')
             if (df.iloc[0]["daylightbasement"]):
-                value2.children.append("A daylight basement in particular can be quite attractive to renters.")
+                value_basement.children.append("A daylight basement in particular can be quite attractive to renters.")
             # unfinished
             # add finished
             # add daylight
             # garage + grade
 
         if (not pd.isna(df.iloc[0]["miles_nearest_bus"]) == 1):
-            value3 = html.Div([dcc.Markdown("Your home is near a **frequent transit stop**, making it attractive \
-                to renters of AADUs and DADUs.")], className='white-box')
+            value_bus = html.Div([dcc.Markdown("Your home is near a **frequent transit stop**, making it attractive \
+                to renters of AADUs and DADUs.")], className='white-box green-box')
 
-        if not df.empty:
-            output = html.Div([
-                html.H5("Here are potential advantages of your lot", style={'textAlign': 'center'}),
-                value1, value2, value3, value4, value5, value6,
-            ])
-        return output
-
-
-def update_dis_details(df):
-    if (df.iloc[0]["zone_ind"] == 1):
-        value1 = value3 = value4 = value5 = None
-        value2 = ""
+        #Negative stuff
         if (df.iloc[0]["yrbuilt"] < 1959):
-            value5 = html.Div(["Because your home may be relatively old, if you wish to build an AADU, you may need to find an inspector to ensure no additional changes need to be made to your property."], className='white-box')
+            value_age = html.Div(["Because your home may be relatively old, if you wish to build an AADU, you may need to find an inspector to ensure no additional changes need to be made to your property."], className='white-box red-box')
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
-            value1 = html.Div([
+            value_tree = html.Div([
                 dcc.Markdown("Based upon the amount of **tree canopy** in your rear yard the location and size of a detached \
                 accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach \
-                at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).")], className='white-box')
+                at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).")], className='white-box red-box') ## soft red?
 
         if (df.iloc[0]["parcel_steepslope"] == 1):
-            value2 += "Steep slopes; "
+            value_eca += "Steep slopes; "
         if (df.iloc[0]["parcel_flood"] == 1):
-            value2 += "Flood prone areas; "
+            value_eca += "Flood prone areas; "
         if (df.iloc[0]["parcel_poteslide"] == 1):
-            value2 += "Potential slide area; "
+            value_eca += "Potential slide area; "
         if (df.iloc[0]["parcel_landf"] == 1):
-            value2 += "On or close to a landfill; "
+            value_eca += "On or close to a landfill; "
         if (df.iloc[0]["parcel_peat"] == 1):
-            value2 += "Peat settlements; "
+            value_eca += "Peat settlements; "
         if (df.iloc[0]["parcel_riparian"] == 1):
-            value2 += "Riparian corridor; "
+            value_eca += "Riparian corridor; "
 
         if (df.iloc[0]["side_sewer_conflict"] == 1):
-            value3 = html.Div([dcc.Markdown("Your home has a **conflicting side sewer** crossing \
+            value_sewer = html.Div([dcc.Markdown("Your home has a **conflicting side sewer** crossing \
                 another lot. You may need to reroute or construct a new side sewer \
                 for a DADU. Additionally, being a landlocked parcel, you may have \
                 to run a new side sewer through another's lot while constructing an ADU. \
-                You may need to talk to your neighbor about your options.")], className='white-box')
+                You may need to talk to your neighbor about your options.")], className='white-box red-box')
         else:
             if (df.iloc[0]["intersecting_sewer"] == 1):
-                value3 = html.Div(["Your home has a side sewer that crosses another lot. \
+                value_sewer = html.Div(["Your home has a side sewer that crosses another lot. \
                     You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
                 #
             if (df.iloc[0]["landlocked_parcel"] == 1):
-                value4 = html.Div([dcc.Markdown("Being a **landlocked parcel**, you may have to \
+                value_lock = html.Div([dcc.Markdown("Being a **landlocked parcel**, you may have to \
                     run a new side sewer through another's lot while constructing an ADU. \
                     You may need to talk to your neighbor about your options")], className='white-box')
 
         if not df.empty:
             output = html.Div([
-                html.H5("Here are potential disadvantages of your lot",
-                        style={'textAlign': 'center'}),
-                value5,
-                value1,
+                html.H5("Other potential considerations for your lot:", style={'textAlign': 'center'}),
+                value_age,
+                value_alley, value_basement, value_bus, value_corner, value_lock,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
                           html.Div(["Your parcel lies on the following environmentally critical areas that \
                     may make it more costly to permit and build a DADU: (If list empty, there are none)"]),
-                          value2], className='white-box'),
-                value3,
-                value4,
-            ])
+                          value_eca], className='white-box red-box'),
+                value_sewer,
+                value_tree,
 
+            ])
         return output
 
 
@@ -263,8 +254,7 @@ def update_zipcode(value):  #
     [
         Output('map', 'srcDoc'),
         Output('eligibilityDetails', 'children'),
-        Output('addGoodDetails', 'children'),
-        Output('addBadDetails', 'children'),
+        Output('addDetails', 'children'),
         Output('adu_around', 'children'),
         Output('next_page', 'children'),
     ],
@@ -284,8 +274,7 @@ def master_callback(value):
     return [
         update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
         update_criteria_details(df),
-        update_advantage_details(df),
-        update_dis_details(df),
+        update_details(df),
         neighbor_adu(value, df, neighbors),
         show_new_page(value),
     ]
