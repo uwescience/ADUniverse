@@ -113,16 +113,6 @@ class Connection:
         '''
         self.conn.close()
 
-    # def getCoords(self, PIN):
-    #     '''
-    #     Retrieve the long/lat coordinates for a specific address
-    #     '''
-    #     self.connect()
-    #     searchStr = "select latitude, longitude FROM Parcels p WHERE p.PIN = {}".format(PIN)
-    #     data = self.manual(searchStr)
-    #     self.disconnect()
-
-    #     return data
 
     def getParcelCoords(self, PIN):
         '''
@@ -148,41 +138,13 @@ class Connection:
         zipcode = self.manual(searchStr)
         return zipcode
 
-    # def getNeighbor(self, PIN):
-    #     '''
-    #     Retrieve the neighbor around a specific coordinates
-    #     '''
-    #     self.connect()
-    #     searchStr = "select g.coordY, g.coordX   \
-    #         FROM Parcels p  \
-    #         join ParcelGeo g on p.PIN = g.PIN   \
-    #         WHERE p.PIN = '{}'".format(PIN)
-    #     data_xy = self.manual(searchStr)
-    #     lat = round(data_xy.coordY[0], 2)
-    #     lon = round(data_xy.coordX[0], 2)
-    #     searchStr = "SELECT per.pin, par.address, par.latitude, par.longitude \
-    #                 FROM Permits per \
-    #                 LEFT JOIN Parcels par on per.PIN = par.PIN  \
-    #                 where par.latitude like '{0}%' AND par.longitude like '{1}%' \
-    #                 ".format(lat, lon)
-    #     data = self.manual(searchStr)
-    #     data['dist'] = np.sqrt((data['latitude'] - data_xy.coordY[0])**2 +
-    #                            (data['longitude'] - data_xy.coordX[0])**2)
-
-    #     # app_data.neighbor = data.sort_values(by=['dist']).head()
-    #     data = data.sort_values(by=['dist']).head(1).reset_index()
-    #     return data
 
     def getNeighbors(self, df):
         '''
         Retrieve the neighbor around a specific coordinates
         '''
         self.connect()
-        # searchStr = "select g.coordY, g.coordX   \
-        #     FROM Parcels p  \
-        #     join ParcelGeo g on p.PIN = g.PIN   \
-        #     WHERE p.PIN = '{}'".format(PIN)
-        # data_xy = self.manual(searchStr)
+
         lat = round(df.coordY[0], 2)
         lon = round(df.coordX[0], 2)
 

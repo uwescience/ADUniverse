@@ -15,19 +15,6 @@ from common_data import app_data
 
 import pandas as pd
 
-# SQFTLOT = 10000
-# def toggle_modal(n1, n2, is_open):
-#
-#     # return not is_open
-#     return is_open
-# app.callback(
-#     Output("modalBlog", "is_open"),
-#     [Input("closeBlog", "n_clicks"), Input("closeBlog", "n_clicks")],
-#     [State("modalBlog", "is_open")],
-# )(toggle_modal)
-
-# input slider for square foot
-
 
 @app.callback(
     Output('BuildSizeOutput', 'children'),
@@ -82,30 +69,9 @@ def returns(buildSize, zipcode):
 
 # dynamically updates the map based on the address selected
 
-
-# @app.callback(
-#     Output('map', 'srcDoc'),
-#     [Input('addressDropdown', 'value')]
-# )
 def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
-    # global df
-    # df = pd.DataFrame()
-    # global neighbors
-    # neighbors = pd.DataFrame()
-    # if value != None:
-    #     print("True")
-    #     adunit = ads.Connection("adunits.db")
-    #     df = adunit.getParcelCoords(value)
-    #     df.to_csv("df.csv")
-    #     neighbors = adunit.getNeighbors(value)
-
     return updt.update_map(df, neighbors, coords=coords, zoom=zoom)
 
-
-# @app.callback(
-#     Output('eligibilityDetails', 'children'),
-#     [Input('addressDropdown', 'value')]
-# )
 
 def update_criteria_details(df):
 
@@ -177,20 +143,23 @@ def update_advantage_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
         value1 = value2 = value3 = value4 = value5 = value6 = None
         if (df.iloc[0]["alley_lot"] == 1):
-            value1 = html.Div(["Your home in on a lot neighboring an alley. Renters, being able to enter through \
-            a separate entrance, would consider this advantageous."], className='white-box')
+            value1 = html.Div([dcc.Markdown("Your home in on a lot **neighboring an alley**. Renters, being able to enter through \
+            a separate entrance, would consider this advantageous.")], className='white-box')
 
         # if (df.iloc[0]["corner_lot"] == 1)
 
         if (not pd.isna(df.iloc[0]["sqftfinbasement"])):
-            value2 = html.Div(["You have a sizable basement that could be converted to an AADU. \
-                It is a finished basement r home in on a lot neighboring an alley. Renters, being able to enter through \
-            a separate entrance, would consider this advantageous."], className='white-box')
-            # Basement (presence, size, year built, finished/unfinished, daylight) ## GARAGES
+            value2 = html.Div(["You have a sizable finished basement that could be converted to an AADU."], id="basement", className='white-box')
+            if (df.iloc[0]["daylightbasement"]):
+                value2.children.append("A daylight basement in particular can be quite attractive to renters.")
+            # unfinished
+            # add finished
+            # add daylight
+            # garage + grade
 
         if (not pd.isna(df.iloc[0]["miles_nearest_bus"]) == 1):
-            value3 = html.Div(["Your home is near a frequent transit stop, making it attractive \
-                to renters of AADUs and DADUs."], className='white-box')
+            value3 = html.Div([dcc.Markdown("Your home is near a **frequent transit stop**, making it attractive \
+                to renters of AADUs and DADUs.")], className='white-box')
 
         if not df.empty:
             output = html.Div([
@@ -202,14 +171,16 @@ def update_advantage_details(df):
 
 def update_dis_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
-        value1 = value3 = value4 = None
+        value1 = value3 = value4 = value5 = None
         value2 = ""
-        # Year built? Before 1950s????? find an inspector 1959 # could change
-        # Size of house?
+        if (df.iloc[0]["yrbuilt"] < 1959):
+            value5 = html.Div(["Because your home may be relatively old, if you wish to build an AADU, you may need to find an inspector to ensure no additional changes need to be made to your property."], className='white-box')
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
-            value1 = html.Div(
-                ["Your home may have significant tree canopy cover that may restrict your ability to build a DADU"], className='white-box')
+            value1 = html.Div([
+                dcc.Markdown("Based upon the amount of **tree canopy** in your rear yard the location and size of a detached \
+                accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach \
+                at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).")], className='white-box')
 
         if (df.iloc[0]["parcel_steepslope"] == 1):
             value2 += "Steep slopes; "
@@ -225,26 +196,26 @@ def update_dis_details(df):
             value2 += "Riparian corridor; "
 
         if (df.iloc[0]["side_sewer_conflict"] == 1):
-            value3 = html.Div(["Your home has a conflicting side sewer crossing \
+            value3 = html.Div([dcc.Markdown("Your home has a **conflicting side sewer** crossing \
                 another lot. You may need to reroute or construct a new side sewer \
                 for a DADU. Additionally, being a landlocked parcel, you may have \
                 to run a new side sewer through another's lot while constructing an ADU. \
-                You may need to talk to your neighbor about your options."], className='white-box')
+                You may need to talk to your neighbor about your options.")], className='white-box')
         else:
             if (df.iloc[0]["intersecting_sewer"] == 1):
                 value3 = html.Div(["Your home has a side sewer that crosses another lot. \
                     You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
                 #
             if (df.iloc[0]["landlocked_parcel"] == 1):
-                value4 = html.Div(["Being a landlocked parcel, you may have to \
+                value4 = html.Div([dcc.Markdown("Being a **landlocked parcel**, you may have to \
                     run a new side sewer through another's lot while constructing an ADU. \
-                    You may need to talk to your neighbor about your options"], className='white-box')
+                    You may need to talk to your neighbor about your options")], className='white-box')
 
-            # Landfills?
         if not df.empty:
             output = html.Div([
                 html.H5("Here are potential disadvantages of your lot",
                         style={'textAlign': 'center'}),
+                value5,
                 value1,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
                           html.Div(["Your parcel lies on the following environmentally critical areas that \
@@ -269,71 +240,33 @@ def loan_calculator(loan):
     return fin.loan_calculator(loan)
 
 
-# @app.callback(
-#     Output('showDets', 'children'),
-#     [Input('addressDropdown', 'value')])
-# def show_eligDetails(PIN):
-#     return 0
-
-# # find out if neighbor has an adu and where
-
-
-# @app.callback(
-#     Output('adu_around', 'children'),
-#     [Input('addressDropdown', 'value')])
 def neighbor_adu(PIN, df, neighbors):
     return fin.neighbor_adu(PIN, df, neighbors)
 
-
-# @app.callback(
-#     Output('next_page', 'children'),
-#     [Input('addressDropdown', 'value')])
 def show_new_page(PIN):
     if PIN != None:
         return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
 # Zip code lookup
-# @app.callback(
-#     Output('zip_code', 'children'),
-#     [Input('addressDropdown', 'value')])
 def update_zipcode(value):  #
-    # if value != None:
-        # adunit = ads.Connection("adunits.db")
-        # zp_data = adunit.getZipcode(value)
 
     if value == None:
         return "Type your address first"
     else:
-        # global zp
-        # zp = zp_data.loc[0, 'zipcode']
-        # print("original zp ", zp)
-        # print(type(zp))
-        # app_data.zipcode = zp
-        # print("original app_data zp ", app_data.zipcode)
-        # # common_data.change(zp)
         return 'Your zipcode is {}'.format(value)
-    # else:
-    #     return "Type your address first"
 
 
-def default_zipcode(value):
-    if value != None:
-        return str(value)
 
 # Master Callback!
-
-
 @app.callback(
     [
         Output('map', 'srcDoc'),
-        #Output('zip_code', 'children'),
         Output('eligibilityDetails', 'children'),
         Output('addGoodDetails', 'children'),
         Output('addBadDetails', 'children'),
         Output('adu_around', 'children'),
         Output('next_page', 'children'),
-        #Output('zipcode', 'label')
     ],
     [Input('addressDropdown', 'value')])
 def master_callback(value):
@@ -350,13 +283,11 @@ def master_callback(value):
         zipc = df.iloc[0]["zipcode"]
     return [
         update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
-        # update_zipcode(zipc),
         update_criteria_details(df),
         update_advantage_details(df),
         update_dis_details(df),
         neighbor_adu(value, df, neighbors),
         show_new_page(value),
-        # default_zipcode(zipc)
     ]
 
 # try dynamically change dataset
