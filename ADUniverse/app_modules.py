@@ -194,6 +194,9 @@ Some variables such as your home's proximity to well-served transit stops, prese
 
 Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
 
+Our rental number comes from zillow and is condos, MF and all
+
+
 Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
 There may be mistakes in this data we are not responsible for.
 
@@ -203,7 +206,6 @@ There may be mistakes in this data we are not responsible for.
 ## Stuff We Haven't Calculated
 Rear coverage
 
-Side sewer
 
 ## Stuff In The Works Through the City
 Pre approved plans

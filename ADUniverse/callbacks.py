@@ -141,7 +141,7 @@ def update_criteria_details(df):
 
 def update_details(df):
     if (df.iloc[0]["zone_ind"] == 1):
-        value_alley = value_basement = value_bus = value_corner = None
+        value_alley = value_basement = value_garage = value_bus = value_corner = None
         value_tree = value_sewer = value_lock = value_age = None
         value_eca = ""
 
@@ -150,15 +150,15 @@ def update_details(df):
             a separate entrance, would consider this advantageous.")], className='white-box green-box')
 
         # if (df.iloc[0]["corner_lot"] == 1)
-
-        if (not pd.isna(df.iloc[0]["sqftfinbasement"])):
-            value_basement = html.Div(["You have a sizable finished basement that could be converted to an AADU."], id="basement", className='white-box green-box')
-            if (df.iloc[0]["daylightbasement"]):
+        if (df.iloc[0]["basement_total_sqft"] > 0.0):
+            value_basement = html.Div(["You have a sizable basement that could be converted to an AADU."], className='white-box green-box')
+            if (df.iloc[0]["sqftfinbasement"] > 0.0):
+                value_basement.children.append("An already finished basement will not be as expensive to retrofit for an AADU.")
+            if (df.iloc[0]["daylightbasement"] == "Y"):
                 value_basement.children.append("A daylight basement in particular can be quite attractive to renters.")
-            # unfinished
-            # add finished
-            # add daylight
-            # garage + grade
+        if (df.iloc[0]["garage_basement_sqft"] > 0.0 and not pd.isna(df.iloc[0]["garage_basement_sqft"])):
+            value_garage = html.Div(["You have a sizable garage that could be converted to an AADU."], className='white-box green-box')
+  
 
         if (not pd.isna(df.iloc[0]["miles_nearest_bus"]) == 1):
             value_bus = html.Div([dcc.Markdown("Your home is near a **frequent transit stop**, making it attractive \
@@ -207,7 +207,7 @@ def update_details(df):
             output = html.Div([
                 html.H5("Other potential considerations for your lot:", style={'textAlign': 'center'}),
                 value_age,
-                value_alley, value_basement, value_bus, value_corner, value_lock,
+                value_alley, value_basement, value_garage, value_bus, value_corner, value_lock,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
                           html.Div([dcc.Markdown("Your parcel lies on the following **environmentally critical areas** that \
                     may make it more costly to permit and build a DADU: (If list empty, there are none)")]),
