@@ -195,8 +195,8 @@ def update_details(df):
                 You may need to talk to your neighbor about your options.")], className='white-box red-box')
         else:
             if (df.iloc[0]["intersecting_sewer"] == 1):
-                value_sewer = html.Div(["Your home has a side sewer that crosses another lot. \
-                    You may need to reroute or construct a new side sewer for a DADU"], className='white-box')
+                value_sewer = html.Div([dcc.Markdown("Your home has a **side sewer** that crosses another lot. \
+                    You may need to reroute or construct a new side sewer for a DADU")], className='white-box')
                 #
             if (df.iloc[0]["landlocked_parcel"] == 1):
                 value_lock = html.Div([dcc.Markdown("Being a **landlocked parcel**, you may have to \
@@ -209,8 +209,8 @@ def update_details(df):
                 value_age,
                 value_alley, value_basement, value_bus, value_corner, value_lock,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
-                          html.Div(["Your parcel lies on the following environmentally critical areas that \
-                    may make it more costly to permit and build a DADU: (If list empty, there are none)"]),
+                          html.Div([dcc.Markdown("Your parcel lies on the following **environmentally critical areas** that \
+                    may make it more costly to permit and build a DADU: (If list empty, there are none)")]),
                           value_eca], className='white-box red-box'),
                 value_sewer,
                 value_tree,
