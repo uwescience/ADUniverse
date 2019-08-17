@@ -138,7 +138,7 @@ FinFeasibility = html.Div([
         dcc.Dropdown(
             id='zipcode',
             options=[
-                {'label': i, 'value': i} for i in prices.ZipCode
+                {'label': i, 'value': i} for i in sorted(prices.ZipCode)
             ],
             placeholder='Modify your zipcode here...',
             value='98105'),
