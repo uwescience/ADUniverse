@@ -24,6 +24,7 @@ By using the dataset (adunits.db) from this repository, you agree to the City of
 
 1. This code works for python 3.6. You should have miniconda installed. Then issue the following commands:
    - ``conda install -f -y -q --name test_adu -c conda-forge --file requirements.txt``
+   - ``pip install dash-dangerously-set-inner-html``
 
 1. You just installed all the necessary dependencies needed but LFS (large file system). Now let's install lfs with the following commands:
    - ``git lfs install``

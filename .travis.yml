@@ -17,6 +17,7 @@ install:
 #   - conda install pip
 #   - pip install -r requirements.txt
   - conda install -f -y -q --name test-environment -c conda-forge --file requirements.txt
+  - pip install dash-dangerously-set-inner-html
 #   - conda install -c conda-forge git-lfs 
   - git lfs install
 
