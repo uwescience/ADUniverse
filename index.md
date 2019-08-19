@@ -6,9 +6,9 @@ layout: default
 
 ![DPCD logo](OPCD_logo_outlined-01.png)
 
-# Project: ADUniverse
+# ADUniverse
 
-## Team Members
+## Project Team
 
 Project Leads: Rick Mohler, Nick Welch
 
