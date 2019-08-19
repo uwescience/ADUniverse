@@ -3,15 +3,16 @@ layout: page
 title: About
 ---
 
-### About
+# About
 
-Team Photo xxxxx
+## Student Fellows
+- add individual bios, headshots, roles, and contributions
 
-Individual Bios
 
-Roles or Contributions (optional, only if it makes sense to your team)
 
-Where readers can find more details about the project, e.g. code, data, reports, etc.
+For more details on the ADUniverse project, please visit out Github repository (https://github.com/uwescience/ADUniverse)
 
-Acknowledgements
+## Acknowledgements
+
+ADUniverse owes its existence to the incredible support of the City of Seattle's Office of Planning and Community Development as well as Mayor Jenny Durkan.  
 
