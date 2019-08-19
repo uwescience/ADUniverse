@@ -252,11 +252,6 @@ Home = html.Div([
         '''),
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
                  style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map"),
-        ToggleSwitch(
-            id='demo',
-            label=['Demo', 'Full'],
-            style={'width': '350px', 'margin': 'auto'},
-            value=False),
     ], className="six columns", style={'colwidth': '500px', 'padding': '3%'}),
 
 
