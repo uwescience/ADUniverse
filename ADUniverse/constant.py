@@ -1,5 +1,8 @@
 # This document contains constant values for use throughout the application
 
+# The criteria for selecting subsample, change to 0 if full database
+SQFTLOT = 1000
+
 # Seattle coordinates, default for the application map
 SEATTLE = (47.6062, -122.3321)
 

@@ -1,5 +1,4 @@
 import folium
-import sys
 import constant as C
 import adusql as ads
 import numpy as np
@@ -15,8 +14,6 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
         zoom = 18
 
     new_map = folium.Map(location=coords, zoom_start=zoom)
-
-
 
     if not(df.empty):
 
@@ -70,7 +67,7 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                         value += "<br> Your home has a side sewer that crosses another lot. You may need to reroute or construct a new side sewer for a DADU"
                     if (df.iloc[0]["landlocked_parcel"] == 1):
                         value += "<br> Being a landlocked parcel, you may have to run a new side sewer through another's lot while constructing an ADU."
-                
+
             value += "<br><br>More details on the eligibility criteria and your home's eligibility below"
             value += "<br>Check for neighborhood covenants"
 
