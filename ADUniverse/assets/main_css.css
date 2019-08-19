@@ -400,6 +400,14 @@ hr {
   background-color: #EFEECB; 
 }
 
+.green-box {
+  background-color: #c8f7c5;
+}
+
+.red-box {
+  background-color: #f1a9a0;
+}
+
 #map-map .area {
   cursor: pointer; 
   display: block;

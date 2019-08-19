@@ -16,6 +16,8 @@ Map_layout = html.Div([
         # mdl.Modal_address,
         # html.H1("Seattle ADU Feasibility", style={'textAlign': 'center'}),
         html.H3("Help us find your home:", style={'textAlign': 'center'}),
+        html.Div(["This address bar only contains single family and multi-family residential parcels."],
+                 style={'fontSize': '11px'}),
         html.Div(id='addressDropdown'),
         # mdl.AddressDropdown,
         html.H3(""),
@@ -34,8 +36,7 @@ Map_layout = html.Div([
     ], className="five columns"),
     html.Div([
         mdl.MapBlock,
-        mdl.AdditionalGoodDetails,
-        mdl.AdditionalBadDetails,
+        mdl.AdditionalDetails,
 
     ], className="seven columns"),
 
