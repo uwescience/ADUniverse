@@ -3,5 +3,12 @@ layout: page
 title: Methods
 ---
 
+# Methods
 
-We used Github and Google Drive are jointly serving as host for our code and documentation repository.
+## Analysis
+
+## User Tool
+
+## Project Documentation
+
+Github and Google Drive are jointly serving as host for our code and documentation repository.
