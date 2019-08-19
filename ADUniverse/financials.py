@@ -91,8 +91,6 @@ def neighbor_adu(PIN, df, neighbors):
     """
     if PIN != None:
 
-        # adunit = ads.Connection("adunits.db")
-        # ngb_data = adunit.getNeighbor(PIN)
         if neighbors.empty == True:
             return "We didn't find an ADU around you. Be the FIRST!"
         else:

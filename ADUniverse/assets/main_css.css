@@ -400,6 +400,11 @@ hr {
   background-color: #EFEECB; 
 }
 
+#map-map .area {
+  cursor: pointer; 
+  display: block;
+}
+
 
 /* Media Queries
 –––––––––––––––––––––––––––––––––––––––––––––––––– */

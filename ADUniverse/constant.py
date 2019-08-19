@@ -4,7 +4,7 @@
 SEATTLE = (47.6062, -122.3321)
 
 # Initial level for zoom parameter
-INIT_ZOOM = 12
+INIT_ZOOM = 11
 
 # Structural Parameter Assumptions
 APR = 0.069  # annual interest rate

@@ -15,7 +15,6 @@ from app_modules import NavigationBar
 #     SQFTLOT = 1000
 
 app.layout = html.Div([
-    # Modal_address,
     dcc.Location(id='url', refresh=False),
     NavigationBar,
     html.Div(id='page-content')
