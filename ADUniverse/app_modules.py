@@ -182,6 +182,8 @@ FAQ = dcc.Markdown('''
 Here is the home equity loan information
 *Disclaimer: We help to gather useful informtion to facilitate your decisions *
 ## What do I do to start the permitting process?
+## Other links
+http://the-block-project.org/
 '''
                    )
 

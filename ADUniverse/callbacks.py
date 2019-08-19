@@ -58,6 +58,7 @@ def returns(buildSize, zipcode):
     if (zipcode is None):
         try:
             format(zipc)
+            print(zipc)
         except NameError:
             return fin.returns(buildSize, format('98105'))
         else:
@@ -134,6 +135,7 @@ def update_criteria_details(df):
             html.Div("Want even more information? Please see the Transparency \
                 section for more details on these terms", style={
                 'textAlign': 'center'}),
+            dcc.Link("Figure out your financial options on the next page", href='/finances')
         ])
 
     return output
@@ -240,9 +242,9 @@ def neighbor_adu(PIN, df, neighbors):
     return fin.neighbor_adu(PIN, df, neighbors)
 
 
-def show_new_page(PIN):
-    if PIN != None:
-        return dcc.Link("Figure out your financial options on the next page", href='/finances')
+# def show_new_page(PIN):
+#     if PIN != None:
+#         return dcc.Link("Figure out your financial options on the next page", href='/finances')
 
 
 # Zip code lookup
@@ -262,7 +264,7 @@ def update_zipcode(value):  #
         Output('eligibilityDetails', 'children'),
         Output('addDetails', 'children'),
         Output('adu_around', 'children'),
-        Output('next_page', 'children'),
+        #Output('next_page', 'children'),
         # Output('zipcode', 'label')
     ],
     [Input('addressDropdown', 'value')])
@@ -278,12 +280,13 @@ def master_callback(value):
         neighbors = adunit.getNeighbors(df)
         neighbors.to_csv("neighbors.csv")
         zipc = df.iloc[0]["zipcode"]
+        print(zipc)
     return [
         update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
         update_criteria_details(df),
         update_details(df),
         neighbor_adu(value, df, neighbors),
-        show_new_page(value),
+        #show_new_page(value),
     ]
 
 # print the zipcode currently in the system
