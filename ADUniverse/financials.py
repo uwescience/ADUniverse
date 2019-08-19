@@ -70,10 +70,8 @@ def returns(build_size, zipcode):
 
     if int(zipcode) in list(prices['ZipCode']):
         zip_code = zipcode
-        # print("OUT", zip_code)
     else:
         zip_code = '98105'
-        # print("IN", zip_code)
 
     rent_per_fq = prices[prices['ZipCode'] == int(zip_code)].rent.values[0]
     rental = float(build_size)*float(rent_per_fq)

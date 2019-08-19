@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import pandas as pd
-
+import constant as C
 
 from constant import SEATTLE, INIT_ZOOM
 from dash_daq import ToggleSwitch  # requires dash_daq version 0.1.0
@@ -41,7 +41,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Neighborhood View", href="/neighborhood")),
 
     ],
-    #brand="ADUniverse",
+    # brand="ADUniverse",
     brand_href="/",
     brand_external_link=True,
     color="primary",
@@ -52,12 +52,10 @@ NavigationBar = dbc.NavbarSimple(
     }
 )
 
-SQFTLOT = 1000
-
 # Address addressDropdown
 adunit = ads.Connection()
 addresses = adunit.getAddresses()
-addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+addresses = adunit.getAddresses(sqftlot=C.SQFTLOT)
 AddressDropdown = dcc.Dropdown(
     id='addressDropdown',
     options=[
@@ -106,7 +104,6 @@ FinFeasibility = html.Div([
                 800: '800 SF (2 Bed)',
             },
             value=500,),
-        # html.H2("  "),
         dcc.Markdown('''&nbsp; '''),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
         html.H4('Cost Breakdown:', style={'textAlign': 'center'}),
@@ -149,7 +146,6 @@ FinFeasibility = html.Div([
         html.P('Assumptions: APR 6.9% for a 15-year fixed-rate home equity loan.'),
         html.P('Reminder: Your home equity loan interest might be tax deductible.'),
         html.H3("Financial Benefits", style={'textAlign': 'center'}),
-        # html.H5("Where do you live?"),
         dcc.Dropdown(
             id='zipcode',
             options=[

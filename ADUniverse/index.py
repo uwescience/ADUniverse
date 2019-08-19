@@ -3,7 +3,6 @@ import callbacks
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import pdb
 import sys
 
 from adu_app import app
