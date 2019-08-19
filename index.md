@@ -4,6 +4,8 @@ layout: default
 
 <img src="{{ site.url }}{{ site.baseurl }}/assets/img/eScience.png">
 
+![DPCD logo](OPCD_logo_outlined-01.png)
+
 # Project: ADUniverse
 
 ## Team Members
