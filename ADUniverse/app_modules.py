@@ -38,19 +38,20 @@ NavigationBar = dbc.NavbarSimple(
     }
 )
 
+SQFTLOT = 1000
 
 # Address addressDropdown
-# adunit = ads.Connection()
-# addresses = adunit.getAddresses()
-# addresses = adunit.getAddresses(sqftlot=SQFTLOT)
-# AddressDropdown = dcc.Dropdown(
-#     id='addressDropdown',
-#     options=[
-#         {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
-#     ],
-#     placeholder='Type your house address here...',
-#     style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
-# )
+adunit = ads.Connection()
+addresses = adunit.getAddresses()
+addresses = adunit.getAddresses(sqftlot=SQFTLOT)
+AddressDropdown = dcc.Dropdown(
+    id='addressDropdown',
+    options=[
+        {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
+    ],
+    placeholder='Type your house address here...',
+    style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
+)
 
 # create empty map zoomed in on Seattle
 Map(location=SEATTLE, zoom_start=INIT_ZOOM, control_scale=True).save("map.html")
@@ -87,10 +88,10 @@ FinFeasibility = html.Div([
             step=10,
             marks={
                 300: '300 SF (Studio)',
-                500: '600 SF (1 Bed)',
-                750: '800 SF (2 Bed)',
+                500: '500 SF (1 Bed)',
+                800: '800 SF (2 Bed)',
             },
-            value=600,),
+            value=500,),
         # html.H2("  "),
         dcc.Markdown('''&nbsp; '''),
         html.Div(id='BuildSizeOutput', style={'textAlign': 'center'}),
@@ -122,7 +123,7 @@ FinFeasibility = html.Div([
                 200000: '200 K',
                 300000: '300 K',
             },
-            value=150000,
+            value=50000,
         ),
         html.H2("  "),
         html.Table([
