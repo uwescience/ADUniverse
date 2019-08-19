@@ -14,10 +14,23 @@ import dash_table
 import base64
 import dash_dangerously_set_inner_html as dish
 
+SEATTLE_LOGO = "assets/seattle-logo.png"
 
 # Navigation Bar
 NavigationBar = dbc.NavbarSimple(
     children=[
+        html.A(
+            # Use row and col to control vertical alignment of logo / brand
+            dbc.Row(
+                [
+                    dbc.Col(html.Img(src=SEATTLE_LOGO, height="50px")),
+                    dbc.Col(dbc.NavbarBrand("ADUniverse", className="ml-2")),
+                ],
+                align="center",
+                no_gutters=True,
+            ),
+            href="/",
+        ),
         dbc.NavItem(dbc.NavLink("Home", href="/")),
         dbc.NavItem(dbc.NavLink("Map", href="/map")),
         dbc.NavItem(dbc.NavLink("Cost Estimator", href="/finances")),
@@ -28,7 +41,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Neighborhood View", href="/neighborhood")),
 
     ],
-    brand="ADUniverse",
+    #brand="ADUniverse",
     brand_href="/",
     brand_external_link=True,
     color="primary",
