@@ -3,10 +3,7 @@ layout: page
 title: Results
 ---
 
-**Findings**
-
-_What were the outcomes of your analyses?
-What is your interpretation of those findings?_
+# Findings
 
 One of the first objectives of this project was to understand the historical landscape surrounding ADU construction, including characterizing the neighborhoods and parcels in which ADUs had previously been built as well as the effects that building ADUs have on the market value and assessed value of the parcel.  This information is crucial in determining how and to whom the ADUniverse web application ought to be marketed.  The analysis is also instrumental in terms of highlighting measures that need to be taken by the city to supplement the informational capacities of the app, which includes creating partnerships with other city agencies engaged in housing affordability work, pursuing city subsidies to encourage ADU construction, and generating supplemental informational resources targeted to specific use cases.
 
@@ -20,7 +17,7 @@ Hedonic panel regression, controlling for all measured marketable housing criter
 
 ![](chg_sp_time.png)
 
-Attached ADUs, on the other hand, are negatively associated with both market and assessed value relative to comparable homes.  Although the value gap has closed over time and continues to close, there is still a sizeable difference.  
+The average values illustrated in the figures above, however, mask considerable heterogeneity in housing characteristics, all of which come to bear on the market and assessed value of the home.  Controlling for this heterogeneity, we find that attached ADUs are negatively associated with both market and assessed value relative to comparable homes.  Although the value gap has closed over time and continues to close, there is still a sizeable difference.   
 
 Taken together, these findings indicate a continuing increase in the desirability of AADUs and DADUs for potential buyers, but they also suggest that interventions may be needed in order to more accurately approximate the value added to a parcel through ADU construction.  Qualitative evidence, for instance, points to the fact that neither private home appraisers nor county assessors have the frameworks or capacities to value ADUs.  Increasing communication and collaboration between Seattle Department of Planning and Community Development and the King County Assessor’s office to better quantify ADU value may ameliorate these issues and increase the profitability of ADU for the homeowners.
 
