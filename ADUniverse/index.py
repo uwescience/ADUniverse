@@ -40,6 +40,8 @@ def display_page(pathname):
         return ap.Testimonials_layout
     elif pathname == '/analysis':
         return ap.Analysis_layout
+    elif pathname == '/neighborhood':
+        return ap.Neighborhood_layout
     else:
         return '404'
 

@@ -91,3 +91,11 @@ Analysis_layout = html.Div([
     mdl.Analysis,
 ],
 )
+
+Neighborhood_layout = html.Div([
+    html.H2("Citywide Analysis",
+            style={'textAlign': 'center', 'color': '#7FDBFF'}),
+
+    mdl.ADU_Counts,
+],
+)

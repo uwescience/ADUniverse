@@ -25,6 +25,7 @@ NavigationBar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Transparency", href="/transparency")),
         dbc.NavItem(dbc.NavLink("Testimonials", href="/testimonials")),
         dbc.NavItem(dbc.NavLink("Analysis", href="/analysis")),
+        dbc.NavItem(dbc.NavLink("Neighborhood View", href="/neighborhood")),
 
     ],
     brand="ADUniverse",
@@ -271,4 +272,7 @@ Home = html.Div([
 ])
 
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
+                       style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
+
+ADU_Counts = html.Iframe(id='adc', srcDoc=open("adu_counts.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
