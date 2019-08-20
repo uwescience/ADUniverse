@@ -70,16 +70,16 @@ def returns(build_size, zipcode):
 
     if int(zipcode) in list(prices['ZipCode']):
         zip_code = zipcode
+
+        rent_per_fq = prices[prices['ZipCode'] == int(zip_code)].rent.values[0]
+        rental = float(build_size)*float(rent_per_fq)
+
+        sales_per_fq = prices[prices['ZipCode'] == int(zip_code)].sales.values[0]
+        sales = 0.2*float(build_size)*float(sales_per_fq)
+
+        return '${0:6,.0f}'.format(rental), '${0:6,.0f}'.format(sales)
     else:
-        zip_code = '98105'
-
-    rent_per_fq = prices[prices['ZipCode'] == int(zip_code)].rent.values[0]
-    rental = float(build_size)*float(rent_per_fq)
-
-    sales_per_fq = prices[prices['ZipCode'] == int(zip_code)].sales.values[0]
-    sales = 0.2*float(build_size)*float(sales_per_fq)
-
-    return '${0:6,.0f}'.format(rental), '${0:6,.0f}'.format(sales)
+        return "Can't find your ZipCode", "Can't find your ZipCode"
 
 
 def neighbor_adu(PIN, df, neighbors):

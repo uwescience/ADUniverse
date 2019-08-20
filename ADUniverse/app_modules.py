@@ -153,7 +153,7 @@ FinFeasibility = html.Div([
             ],
             placeholder='Modify your zipcode here...',
             # value='98105'
-            ),
+        ),
         html.H4("  "),
         html.Div(id='ZipcodeOutput', style={'textAlign': 'center'}),
         html.Table([

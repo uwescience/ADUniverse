@@ -290,7 +290,15 @@ def master_callback(value):
     Output('ZipcodeOutput', 'children'),
     [Input('zipcode', 'value')])
 def print_zipcode(value):
-    return 'Calculating gains for zipcode: "{}" '.format(value)
+    if (value is None):
+        try:
+            format(zipc)
+        except NameError:
+            return 'Calculating gains for zipcode: "{}" '.format('98105')
+        else:
+            return 'Calculating gains for zipcode: "{}" '.format(zipc)
+    else:
+        return 'Calculating gains for zipcode: "{}" '.format(value)
 
 
 # try dynamically change dataset
