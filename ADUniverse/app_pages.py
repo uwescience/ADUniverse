@@ -28,8 +28,7 @@ Map_layout = html.Div([
         #     style={'width': '350px', 'margin': 'auto'},
         #     value=False),
 
-        html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
-        html.Div(id='adu_around'),
+        mdl.NeighborInfo,
         mdl.OutputDetails,
         html.Div(id='next_page'),
 

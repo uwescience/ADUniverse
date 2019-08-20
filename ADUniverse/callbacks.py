@@ -58,7 +58,6 @@ def returns(buildSize, zipcode):
     if (zipcode is None):
         try:
             format(zipc)
-            print(zipc)
         except NameError:
             return fin.returns(buildSize, format('98105'))
         else:
@@ -239,7 +238,10 @@ def loan_calculator(loan):
 
 
 def neighbor_adu(PIN, df, neighbors):
-    return fin.neighbor_adu(PIN, df, neighbors)
+    output =  html.Div([html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
+        fin.neighbor_adu(PIN, df, neighbors)], )
+
+    return output
 
 
 # Zip code lookup
@@ -258,7 +260,7 @@ def update_zipcode(value):  #
         # Output('zip_code', 'children'),
         Output('eligibilityDetails', 'children'),
         Output('addDetails', 'children'),
-        Output('adu_around', 'children'),
+        Output('neighborinfo', 'children')
         # Output('zipcode', 'label')
     ],
     [Input('addressDropdown', 'value')])
@@ -274,7 +276,6 @@ def master_callback(value):
         neighbors = adunit.getNeighbors(df)
         neighbors.to_csv("neighbors.csv")
         zipc = df.iloc[0]["zipcode"]
-        print(zipc)
     return [
         update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
         update_criteria_details(df),

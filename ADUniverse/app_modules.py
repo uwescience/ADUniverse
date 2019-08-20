@@ -167,6 +167,9 @@ FinFeasibility = html.Div([
 
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
+NeighborInfo = html.Div([], id='neighborinfo',
+                         style={'margin-left': '15px', 'margin-right': '15px',})
+
 OutputDetails = html.Div([], id='eligibilityDetails',
                          style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
 

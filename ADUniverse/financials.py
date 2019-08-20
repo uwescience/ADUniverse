@@ -94,7 +94,7 @@ def neighbor_adu(PIN, df, neighbors):
         else:
             neighbors = neighbors.head(1).reset_index()
             address = neighbors.loc[0, 'address']
-        return ("Your neighbor got one! Zoom out to see more on map!\
+        return ("At least one of your neighbors has an ADU. Zoom out to see more on the map.\
                 The closest one @ {}".format(address))
     else:
         return "Please enter your address first"
