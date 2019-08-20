@@ -144,7 +144,7 @@ FinFeasibility = html.Div([
         ]),
         html.H2("  "),
         html.P('Assumptions: APR 6.9% for a 15-year fixed-rate home equity loan.'),
-        html.P('Reminder: Your home equity loan interest might be tax deductible.'),
+        html.P('Reminder: Your home equity loan interest might be tax deductible!'),
         html.H3("Financial Benefits", style={'textAlign': 'center'}),
         dcc.Dropdown(
             id='zipcode',
