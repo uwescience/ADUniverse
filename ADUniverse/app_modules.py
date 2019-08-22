@@ -168,7 +168,7 @@ FinFeasibility = html.Div([
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
 NeighborInfo = html.Div([], id='neighborinfo',
-                         style={'margin-left': '15px', 'margin-right': '15px',})
+                        style={'margin-left': '15px', 'margin-right': '15px', })
 
 OutputDetails = html.Div([], id='eligibilityDetails',
                          style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
@@ -196,9 +196,9 @@ on environmentally critical areas if you'd like to dig in. Please contact the ci
 You may be living within the jurisdiction of a homeowner's association that may have its own rules in place regarding ADUs. 
 The best way to begin, if you have not looked into their rules, is to Google your neighborhood name followed by "homeowners association" 
 ## Other links
-If you may not have the funds to build an ADU on your property at the moment, but wish to affect the housing crisis, consider the 
-[Block Project](http://the-block-project.org/). Volunteers with this nonprofit design and build a small ADU in your backyard and 
-house a member of the homeless community, while you pay only their water bill. 
+If you may not have the funds to build an ADU on your property at the moment, but wish to affect the housing crisis, consider the
+[Block Project](http://the-block-project.org/). Volunteers with this nonprofit design and build a small ADU in your backyard and
+house a member of the homeless community, while you pay only their water bill.
 
 '''
                    )
@@ -224,14 +224,14 @@ You must be in a single family lot to build any sort of ADU
 Your lot size must be at least 3200 square feet
 Your lot width (the side of your home neighboring the street) must be at least 25 feet
 Your lot depth (the adjoining line) must be at least 70 feet
-Property must have sufficient available lot area for a new accessory structure (or project is conversion of an existing structure). 
+Property must have sufficient available lot area for a new accessory structure (or project is conversion of an existing structure).
 Maximum lot coverage:
-35 percent of lot area for lots >= 5,000 sq. ft. 
+35 percent of lot area for lots >= 5,000 sq. ft.
 1,000 sq. ft. + 15 percent of lot area for lots < 5,000 sq. ft
 You may build a maximum of x sized ADU on your lot
 Property must have sufficient available area of the rear yard for a new accessory structure
-(or project is conversion of an existing structure) 
-Maximum rear yard coverage: 
+(or project is conversion of an existing structure)
+Maximum rear yard coverage:
 60 percent of designated rear yard (25 feet or 20 percent of lot depth, whichever is less, and 10 feet minimum)
 This 
 You can not build any ADU if your home lies along the shoreline.
@@ -255,10 +255,11 @@ There may be mistakes in this data we are not responsible for.
 Our rental number comes from zillow. Rental values comes from values from rented out condos, multi-family and other types of homes. 
 For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower 
 the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs 
+
 from the City of Seattle (2018).
-For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on 
-the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the 
-prevailing market rate accessed from Wells Fargo website for a 15-year fixed-rate loan. Both interest rates and rental income 
+For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on
+the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the
+prevailing market rate accessed from Wells Fargo website for a 15-year fixed-rate loan. Both interest rates and rental income
 are subjected to future market fluctuations, our analysis doesn’t take this into consideration.
 
 
@@ -271,7 +272,7 @@ Rear yard coverage
 Pre approved ADU plans
 Low income Homeowner assistance
 Direct connection to Voucher 8 holder
-Once these are created, these can be integrated into the app to suggest, based on the user’s inputs, city-supported loan 
+Once these are created, these can be integrated into the app to suggest, based on the user’s inputs, city-supported loan
 options and low-income renter voucher options to you.
 
 
@@ -305,7 +306,7 @@ Home = html.Div([
         Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
         '''], style={'font': '2px'}),
         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-                 style={'align': 'center', 'width': '100%', 'height': '100%'}),
+                 style={'align': 'center', 'width': '100%', 'height': '25%'}),
         dcc.Markdown('''
             ---
             **What is the ADUniverse?**
@@ -314,8 +315,8 @@ Home = html.Div([
             **Navigate Through this Site**
         '''),
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
-                 style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map"),
-    ], className="six columns", style={'colwidth': '500px', 'padding': '3%'}),
+                     style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map")
+    ], className="seven columns"),
 
 
     html.Div([
@@ -324,13 +325,17 @@ Home = html.Div([
                     style={'width': '560px', 'height': '315px', 'frameborder': '0'}),
         dcc.Markdown(['''
 
-            > The website will include a “Can I build an ADU?” service to help homeowners
-            > identify and appraise their ADU options by prototyping an ADU feasibility tool through the City’s
+            > (City) will develop a one-stop ADU website that provides a comprehensive inventory of
+            > ADU information, guidance, resources ... by prototyping an ADU feasibility tool through the City’s
             > participation in the UW Data Science for Social Good program.
-            - From the Seattle mayor's Executive Order'''], style={'font-style': 'italic'}),
-
-    ], className="six columns", style={'colwidth': '500px'}),
-])
+            - From Mayor Durkan's Executive Order'''], style={'font-style': 'italic'}),
+        dcc.Markdown('''
+        © ADUniverse, DSSG 2019, eScience Institute, University of Washington
+        Project Leads: Rick Mohler, Nick Welch, Joseph Hellerstein
+        Fellows: Emily Finchum-Mason, Yuanhao Niu, Adrian Tullock, Anagha Uppal
+        '''),
+    ], className="five columns"),
+], className="row", style={'margin-left': '20px', 'margin-right': '20px', })
 
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})
