@@ -121,23 +121,23 @@ def update_criteria_details(df):
             html.H4("Core Eligibility Details", style={'textAlign': 'center'}),
             html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
                       html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
-                      html.Div(value1), ], className='white-box yellow-box'),
+                      html.Div(value1), ], className='white-box'),
             html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
                       html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
-                      html.Div(value2)], className='white-box yellow-box'),
+                      html.Div(value2)], className='white-box'),
             html.Div([html.Div(["Lot Dimensions"], style={'textAlign': 'center'}),
                       html.Div([" Your lot must be at least 25 feet wide and 70 feet deep for a DADU"]),
-                      html.Div(value5)], className='white-box yellow-box'),
+                      html.Div(value5)], className='white-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
                       html.Div(["If lot is larger than 5000 feet, no more than 35% \
                 should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
-                      html.Div(value3)], className='white-box yellow-box'),
+                      html.Div(value3)], className='white-box'),
             html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
                       html.Div(["Your home must not border a shoreline to build a DADU"]),
-                      html.Div(value4)], className='white-box yellow-box'),
+                      html.Div(value4)], className='white-box'),
             html.Div([html.Div(["Existing ADUs"], style={'textAlign': 'center'}),
                       html.Div(["You may build upto 2 ADUs on a single property"]),
-                      html.Div(value_adu)], className='white-box yellow-box'),
+                      html.Div(value_adu)], className='white-box'),
 
             html.Div("Want even more information? Please see the Transparency \
                 section for more details on these terms", style={
@@ -182,9 +182,9 @@ def update_details(df):
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
             value_tree = html.Div([
-                dcc.Markdown("Based upon the amount of **tree canopy** in your rear yard the location and size of a detached \
+                dcc.Markdown("Based upon the amount of **tree canopy** in your rear yard, the location and size of a detached \
                 accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach \
-                at the applicant services center (link).  Information regarding the city’s tree protection ordinance can be found here (link).")], className='white-box red-box')  # soft red?
+                at the applicant services center (link).  Information regarding the City’s tree protection ordinance can be found here (link).")], className='white-box red-box')  # soft red?
 
         if (df.iloc[0]["parcel_steepslope"] == 1):
             value_eca += "Steep slopes; "
