@@ -1,7 +1,7 @@
 # This document contains constant values for use throughout the application
 
 # The criteria for selecting subsample, change to 0 if full database
-SQFTLOT = 9000
+SQFTLOT = 0
 
 # Seattle coordinates, default for the application map
 SEATTLE = (47.6062, -122.3321)
@@ -18,7 +18,7 @@ ANNUAL_MATURITY = 15*12
 
 # Cost function constants
 ADU_VAR = 125
-AADU_SEWER = 6760
+AADU_SEWER = 0
 DADU_FIXED = 125000
 DADU_SEWER = 11268
 DESIGN_PERCENTAGE = 0.06
