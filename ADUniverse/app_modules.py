@@ -178,12 +178,23 @@ AdditionalDetails = html.Div([], id='addDetails',
 
 # FAQ Section
 FAQ = dcc.Markdown('''
-## More financial information?
+## Can you give me some more financial information?
 Here is the home equity loan information
-*Disclaimer: We help to gather useful informtion to facilitate your decisions *
+## I guess I have to talk to an architect?
+Here is a contact for the architects' association in Seattle
 ## What do I do to start the permitting process?
+Here are some contacts to get you started and for questions.
+## So I have to become a landlord..
+Here are some resources about being a landlord!
+## What's the deal with these side sewers?
+## What are my neighborhood covenants?
+You may be living within the jurisdiction of a homeowner's association that may have its own rules in place regarding ADUs.
+The best way to begin, if you have not looked into their rules, is to Google your neighborhood name followed by "homeowners association"
 ## Other links
-http://the-block-project.org/
+If you may not have the funds to build an ADU on your property at the moment, but wish to affect the housing crisis, consider the
+[Block Project](http://the-block-project.org/). Volunteers with this nonprofit design and build a small ADU in your backyard and
+house a member of the homeless community, while you pay only their water bill.
+
 '''
                    )
 
@@ -193,41 +204,70 @@ Transparency = html.Div([
            href='https://www.rhawa.org/', target="_blank"),
 
     dcc.Markdown('''
+## ADUniverse
+Accessory Dwelling Units (ADU) such as backyard cottages and in-house mother-in-law apartments provide a way for the
+City of Seattle to address the housing affordability crisis. This project is about aiding owners of single family homes
+to assess the eligibility and desirability of building an ADU. We illustrate our vision via a prototype software tool for homeowners.
+
+
 ## Here's all the stuff that goes into making a decision to be eligible for an ADU
 The current legislation states that:
 You can build up to 2 ADUs
 The owner does not have to occupy any of the units
-There is no parking requirements
+There is no parking requirement
 You must be in a single family lot to build any sort of ADU
-Your lot size must be at least y
-Your lot width (the side of your home neighboring the street) must be at least xx
-Your lot depth (the adjoining line) must be at least xxx
+Your lot size must be at least 3200 square feet
+Your lot width (the side of your home neighboring the street) must be at least 25 feet
+Your lot depth (the adjoining line) must be at least 70 feet
+Property must have sufficient available lot area for a new accessory structure (or project is conversion of an existing structure).
+Maximum lot coverage:
+35 percent of lot area for lots >= 5,000 sq. ft.
+1,000 sq. ft. + 15 percent of lot area for lots < 5,000 sq. ft
 You may build a maximum of x sized ADU on your lot
-Your lot coverage including ADUs may be no more than yy
+Property must have sufficient available area of the rear yard for a new accessory structure
+(or project is conversion of an existing structure)
+Maximum rear yard coverage:
+60 percent of designated rear yard (25 feet or 20 percent of lot depth, whichever is less, and 10 feet minimum)
 You can not build any ADU if your home lies along the shoreline.
 
 Other variables such as your parcel being on environmentally critical areas, sharing side sewers with other parcels, trees and tree roots in your anticipated build site might (or might not!) all affect the cost to permit and build an ADU.
-Some variables such as your home's proximity to well-served transit stops, presence on corner lots or by an alley, ___, __, and others might advantage a built ADU(???) increase market value of your ADU???
+Some variables such as your home's proximity to well-served transit stops, presence on corner lots or by an alley, a large basement or garage, and others might advantage a built ADU(???) increase market value of your ADU???
 
 Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
 
-Our rental number comes from zillow and is condos, MF and all
-
+## Here's how we came up with our estimates
+We identified each parcel’s placement on neighborhood, zip code, environmental variables (steep slope, riparian corridors,
+peat settlements, etc), city zones, and on high tree cover yards. We were then able to measure these parcels’ proximity to other
+zones, to nearest and frequent transit stops, to alleys and to the shoreline. Using ArcGIS tools, we created corner lot,
+alley lot, and lot coverage indicators by overlaying relevant shapefiles and manipulating intersecting features.
+Their potential median home value based on their location in a Zillow neighborhood was also calculated.
 
 Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
 There may be mistakes in this data we are not responsible for.
 
 ## Assumptions Made
+Our rental number comes from zillow and is condos, MF and all
+For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower
+the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs
+from the City of Seattle (2018).
+For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on
+the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the
+prevailing market rate accessed from Wells Fargo website for a 15-year fixed-rate loan. Both interest rates and rental income
+are subjected to future market fluctuations, our analysis doesn’t take this into consideration.
 
 
-## Stuff We Haven't Calculated
-Rear coverage
+
+## Stuff We Haven't Gotten To:
+Rear yard coverage
 
 
 ## Stuff In The Works Through the City
-Pre approved plans
+Pre approved ADU plans
+Low income Homeowner assistance
+Direct connection to Voucher 8 holder
+Once these are created, these can be integrated into the app to suggest, based on the user’s inputs, city-supported loan
+options and low-income renter voucher options to you.
 
-low income Homeowner assistance, direct connection to 8 Voucher holder
 
 ## Why Do You Post My Neighbors' Addresses?
 So you'll talk to the darn humans around you.
@@ -284,7 +324,7 @@ Home = html.Div([
             - From Mayor Durkan's Executive Order'''], style={'font-style': 'italic'}),
         dcc.Markdown('''
         © ADUniverse, DSSG 2019, eScience Institute, University of Washington
-        Project Leads: Rick Mohler, Nick Welch, Joseph Hellerstein  
+        Project Leads: Rick Mohler, Nick Welch, Joseph Hellerstein
         Fellows: Emily Finchum-Mason, Yuanhao Niu, Adrian Tullock, Anagha Uppal
         '''),
     ], className="five columns"),

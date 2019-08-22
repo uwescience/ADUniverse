@@ -38,6 +38,8 @@ def update_map(df, df_ngb, coords=C.SEATTLE, zoom=C.INIT_ZOOM):
                 value += "<br> This is not a single family zoned home"
             if (df.iloc[0]["ls_indic"] == 0):
                 value += "<br> This lot is not large enough to house a DADU"
+            if (df.iloc[0]["lot_dim_indic"] == "no"):
+                value += "<br> This lot's dimensions are not large enough to house a DADU"
             if (df.iloc[0]["lotcov_indic"] == 0):
                 value += "<br> There is insufficient lot coverage on this parcel to build a DADU"
             if (not pd.isna(df.iloc[0]["ADU"])):
