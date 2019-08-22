@@ -85,6 +85,11 @@ def update_criteria_details(df):
     else:
         value2 = "Your lot is {} square feet and therefore qualifies!".format(df.iloc[0]["sqftlot"])
 
+    if (df.iloc[0]["lot_dim_indic"] == "no"):
+        value5 = "Your lot's width is {} and depth is {} and therefore does not qualify.".format(df.iloc[0]["lot_width"], df.iloc[0]["lot_depth"])
+    else:
+        value5 = "Your lot's width is {} and depth is {} and therefore qualifies!".format(df.iloc[0]["lot_width"], df.iloc[0]["lot_depth"])
+
     if (df.iloc[0]["sqftlot"] >= 5000):
         if (df.iloc[0]["lotcoverage"] <= 0.35):
             value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% qualifies!".format(
@@ -120,6 +125,9 @@ def update_criteria_details(df):
             html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
                       html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
                       html.Div(value2)], className='white-box yellow-box'),
+            html.Div([html.Div(["Lot Dimensions"], style={'textAlign': 'center'}),
+                      html.Div([" Your lot must be at least 25 feet wide and 70 feet deep for a DADU"]),
+                      html.Div(value5)], className='white-box yellow-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
                       html.Div(["If lot is larger than 5000 feet, no more than 35% \
                 should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
