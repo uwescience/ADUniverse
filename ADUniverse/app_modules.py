@@ -168,7 +168,7 @@ FinFeasibility = html.Div([
 ], className="row", style={'margin-left': '25px', 'margin-right': '25px', })
 
 NeighborInfo = html.Div([], id='neighborinfo',
-                         style={'margin-left': '15px', 'margin-right': '15px',})
+                        style={'margin-left': '15px', 'margin-right': '15px', })
 
 OutputDetails = html.Div([], id='eligibilityDetails',
                          style={'margin-left': '15px', 'margin-right': '15px', 'height': '420px'})
@@ -259,7 +259,7 @@ Home = html.Div([
         Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
         '''], style={'font': '2px'}),
         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
-                 style={'align': 'center', 'width': '100%', 'height': '100%'}),
+                 style={'align': 'center', 'width': '100%', 'height': '25%'}),
         dcc.Markdown('''
             ---
             **What is the ADUniverse?**
@@ -268,8 +268,8 @@ Home = html.Div([
             **Navigate Through this Site**
         '''),
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
-                 style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map"),
-    ], className="six columns", style={'colwidth': '500px', 'padding': '3%'}),
+                     style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map")
+    ], className="seven columns"),
 
 
     html.Div([
@@ -278,13 +278,17 @@ Home = html.Div([
                     style={'width': '560px', 'height': '315px', 'frameborder': '0'}),
         dcc.Markdown(['''
 
-            > The website will include a “Can I build an ADU?” service to help homeowners
-            > identify and appraise their ADU options by prototyping an ADU feasibility tool through the City’s
+            > (City) will develop a one-stop ADU website that provides a comprehensive inventory of
+            > ADU information, guidance, resources ... by prototyping an ADU feasibility tool through the City’s
             > participation in the UW Data Science for Social Good program.
-            - From the Seattle mayor's Executive Order'''], style={'font-style': 'italic'}),
-
-    ], className="six columns", style={'colwidth': '500px'}),
-])
+            - From Mayor Durkan's Executive Order'''], style={'font-style': 'italic'}),
+        dcc.Markdown('''
+        © ADUniverse, DSSG 2019, eScience Institute, University of Washington
+        Project Leads: Rick Mohler, Nick Welch, Joseph Hellerstein  
+        Fellows: Emily Finchum-Mason, Yuanhao Niu, Adrian Tullock, Anagha Uppal
+        '''),
+    ], className="five columns"),
+], className="row", style={'margin-left': '20px', 'margin-right': '20px', })
 
 Analysis = html.Iframe(id='anal', srcDoc=open("analysis.html", "r").read(),
                        style={'display': 'inline-block', 'width': '100%', 'height': '800px'})

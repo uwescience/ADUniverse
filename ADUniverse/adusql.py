@@ -101,8 +101,6 @@ class Connection:
         '''
         self.connect()
         data = pd.read_sql_query(query, self.conn)
-        #new_query = "%s and sqftlot > %d" % (query, sqftlot)
-        #data = pd.read_sql_query(new_query, self.conn)
         self.disconnect()
         return data
 
@@ -111,7 +109,6 @@ class Connection:
         Close the database connection
         '''
         self.conn.close()
-
 
     def getParcelCoords(self, PIN):
         '''
@@ -136,7 +133,6 @@ class Connection:
         global zipcode
         zipcode = self.manual(searchStr)
         return zipcode
-
 
     def getNeighbors(self, df):
         '''
@@ -166,8 +162,6 @@ class Connection:
         :param int zoneid: integer describing zone ID
         '''
         self.connect()
-        # searchStr = "select address, PIN FROM Parcels group by address"
-        # data = self.manual(searchStr)
         query1 = "select address, PIN FROM Parcels"
         query2 = "group by address"
         query = "%s where sqftlot > %d %s" % (query1, sqftlot, query2)
