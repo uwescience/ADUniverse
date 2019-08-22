@@ -158,7 +158,6 @@ def update_details(df):
             value_alley = html.Div([dcc.Markdown("Your home in on a lot **neighboring an alley**. Renters, being able to enter through \
             a separate entrance, would consider this advantageous.")], className='white-box green-box')
 
-        # if (df.iloc[0]["corner_lot"] == 1)
         if (df.iloc[0]["basement_total_sqft"] > 0.0):
             value_basement = html.Div(
                 ["You have a sizable basement that could be converted to an AADU."], className='white-box green-box')
@@ -246,8 +245,8 @@ def loan_calculator(loan):
 
 
 def neighbor_adu(PIN, df, neighbors):
-    output =  html.Div([html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
-        fin.neighbor_adu(PIN, df, neighbors)], )
+    output = html.Div([html.H4("Let's find an ADU around you!", style={'textAlign': 'center'}),
+                       fin.neighbor_adu(PIN, df, neighbors)], )
 
     return output
 
@@ -280,9 +279,7 @@ def master_callback(value):
     if value != None:
         adunit = ads.Connection("adunits.db")
         df = adunit.getParcelCoords(value)
-        df.to_csv("df.csv")
         neighbors = adunit.getNeighbors(df)
-        neighbors.to_csv("neighbors.csv")
         zipc = df.iloc[0]["zipcode"]
     return [
         update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM),
@@ -307,40 +304,3 @@ def print_zipcode(value):
             return 'Calculating gains for zipcode: "{}" '.format(zipc)
     else:
         return 'Calculating gains for zipcode: "{}" '.format(value)
-
-
-# try dynamically change dataset
-
-# SQFTLOT = 1000
-#
-#
-# @app.callback(
-#     Output('addressDropdown', 'children'),
-#     [Input('demo', 'value')])
-# def demo_activation(value):
-#     if value == 'False':
-#         print("demo database")
-#         adunit = ads.Connection()
-#         addresses = adunit.getAddresses(sqftlot=SQFTLOT)
-#         AddressDropdown = dcc.Dropdown(
-#             id='address_Dropdown',
-#             options=[
-#                 {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
-#             ],
-#             placeholder='Type your house address here...',
-#             style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
-#         )
-#     else:
-#         print("full database")
-#         adunit = ads.Connection()
-#         addresses = adunit.getAddresses(sqftlot=0)
-#         AddressDropdown = dcc.Dropdown(
-#             id='address_Dropdown',
-#             options=[
-#                 {'label': i, 'value': j} for i, j in zip(addresses.address, addresses.PIN)
-#             ],
-#             placeholder='Type your house address here...',
-#             style={'width': '100%', 'display': 'inline-block', 'vertical-align': 'top'}
-#         )
-#
-#     return AddressDropdown

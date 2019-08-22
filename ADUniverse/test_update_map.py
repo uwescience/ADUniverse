@@ -1,10 +1,12 @@
 import update_map
 import pandas as pd
-
-# FIXME: Call update_map with a value
-# FIXME: Test if result is a file descriptor if called with a value
+import adusql as ads
 
 
 def test_update_map():
-    result = update_map.update_map(pd.DataFrame(), pd.DataFrame())
+    PIN = 3626039263
+    adunit = ads.Connection("adunits.db")
+    df = adunit.getParcelCoords(PIN)
+    neighbors = adunit.getNeighbors(df)
+    result = update_map.update_map(df, neighbors)
     assert(isinstance(result, object))
