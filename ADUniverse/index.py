@@ -3,15 +3,10 @@ import callbacks
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
-import sys
 
 from adu_app import app
 from app_modules import NavigationBar
 
-# if len(sys.argv) == 1:
-#     SQFTLOT = sys.argv[1]
-# else:
-#     SQFTLOT = 1000
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
