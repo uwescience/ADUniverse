@@ -7,8 +7,6 @@ title: Results
 
 One of the first objectives of this project was to understand the historical landscape surrounding ADU construction, including characterizing the neighborhoods and parcels in which ADUs had previously been built as well as the effects that building ADUs have on the market value and assessed value of the parcel.  This information is crucial in determining how and to whom the ADUniverse web application ought to be marketed.  The analysis is also instrumental in terms of highlighting measures that need to be taken by the city to supplement the informational capacities of the app, which includes creating partnerships with other city agencies engaged in housing affordability work, pursuing city subsidies to encourage ADU construction, and generating supplemental informational resources targeted to specific use cases.
 
-_maybe dashboard here?_
-
 Value-added analysis of parcels with and without ADUs was carried out using sale price and assessed value data from the King County Assessor’s office regarding single-family zoned parcels in Seattle between 1996 (the recorded ADU home sale) and 2018 (the last complete data cycle).  Preliminary descriptive analysis, illustrated by Figure [X] suggests that the value (both market and assessed) homes with attached and detached ADUs mirror (if not slightly exceeds) those  without.
 
 ![](av_chg_time.png)
