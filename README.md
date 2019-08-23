@@ -6,6 +6,9 @@ Auxiliary Dwelling Units (ADU) such as backyard cottages and in-house mother-in-
 
 See [project web page](https://uwescience.github.io/ADUniverse/).
 
+For a demonstration of the app, visit [ADUniverse Web App Demonstration](https://youtu.be/nAPOM0hTsNU)
+
+
 By using the dataset (adunits.db) from this repository, you agree to the City of Seattle's [Terms of Use and Policy](https://data.seattle.gov/stories/s/Data-Policy/6ukr-wvup/), as well as to the [King County Assessors'](https://info.kingcounty.gov/assessor/DataDownload/default.aspx), the US Census Bureau's and Zillow's, from whom this data was acquired. 
 
 ## Installation and Running
