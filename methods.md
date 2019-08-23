@@ -5,6 +5,8 @@ title: Methods
 
 ## User Tool
 
+![](home_page_app.png)
+
 For a demonstration of the ADUniverse web app, please visit [ADUniverse Web App Demonstration](https://youtu.be/nAPOM0hTsNU)
 
 ## Project Documentation
