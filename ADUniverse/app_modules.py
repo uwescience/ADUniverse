@@ -178,18 +178,23 @@ AdditionalDetails = html.Div([], id='addDetails',
 
 # FAQ Section
 FAQ = dcc.Markdown('''
-## Can you give me some more financial information?
+## Where can I build a DADU?
+Only in the rear yard, ... @Rick for details
+See the transparency section for more information.
+## How can I get more financial information?
 Here is the home equity loan information
-## I guess I have to talk to an architect?
+## I guess I have to talk to an architect or contractor? 
 Here is a contact for the architects' association in Seattle
 ## What do I do to start the permitting process?
 Here are some contacts to get you started and for questions.
-## So I have to become a landlord..
+## So I have to become a landlord?
 Here are some resources about being a landlord!
-## What's the deal with these side sewers?
-## What are my neighborhood covenants?
-You may be living within the jurisdiction of a homeowner's association that may have its own rules in place regarding ADUs.
-The best way to begin, if you have not looked into their rules, is to Google your neighborhood name followed by "homeowners association"
+## My lot's in an environmentally critical area. What does that mean?  
+Here's the [Seattle city code](https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT25ENPRHIPR_CH25.09REENCRAR) 
+on environmentally critical areas if you'd like to dig in. Please contact the city or a professional to discuss the effects further.
+## What are my neighborhood covenants? 
+You may be living within the jurisdiction of a homeowner's association that may have its own rules in place regarding ADUs. 
+The best way to begin, if you have not looked into their rules, is to Google your neighborhood name followed by "homeowners association" 
 ## Other links
 If you may not have the funds to build an ADU on your property at the moment, but wish to affect the housing crisis, consider the
 [Block Project](http://the-block-project.org/). Volunteers with this nonprofit design and build a small ADU in your backyard and
@@ -228,6 +233,7 @@ Property must have sufficient available area of the rear yard for a new accessor
 (or project is conversion of an existing structure)
 Maximum rear yard coverage:
 60 percent of designated rear yard (25 feet or 20 percent of lot depth, whichever is less, and 10 feet minimum)
+This 
 You can not build any ADU if your home lies along the shoreline.
 
 Other variables such as your parcel being on environmentally critical areas, sharing side sewers with other parcels, trees and tree roots in your anticipated build site might (or might not!) all affect the cost to permit and build an ADU.
@@ -235,20 +241,21 @@ Some variables such as your home's proximity to well-served transit stops, prese
 
 Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
 
-## Here's how we came up with our estimates
-We identified each parcel’s placement on neighborhood, zip code, environmental variables (steep slope, riparian corridors,
-peat settlements, etc), city zones, and on high tree cover yards. We were then able to measure these parcels’ proximity to other
-zones, to nearest and frequent transit stops, to alleys and to the shoreline. Using ArcGIS tools, we created corner lot,
-alley lot, and lot coverage indicators by overlaying relevant shapefiles and manipulating intersecting features.
-Their potential median home value based on their location in a Zillow neighborhood was also calculated.
+## What's Under the Hood
+We identified each parcel’s placement on neighborhood, zip code, environmental variables (steep slope, riparian corridors, 
+peat settlements, etc), city zones, and on high tree cover yards. We were then able to measure these parcels’ proximity to other 
+zones, to nearest and frequent transit stops, to alleys and to the shoreline. Using ArcGIS tools, we created corner lot, 
+alley lot, and lot coverage indicators by overlaying relevant shapefiles and manipulating intersecting features. 
+Their potential median home value based on their location in a Zillow neighborhood was also calculated. 
 
 Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
 There may be mistakes in this data we are not responsible for.
 
 ## Assumptions Made
-Our rental number comes from zillow and is condos, MF and all
-For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower
-the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs
+Our rental number comes from zillow. Rental values comes from values from rented out condos, multi-family and other types of homes. 
+For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower 
+the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs 
+
 from the City of Seattle (2018).
 For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on
 the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the
@@ -257,7 +264,7 @@ are subjected to future market fluctuations, our analysis doesn’t take this in
 
 
 
-## Stuff We Haven't Gotten To:
+## Stuff the App Doesn't Take Into Account:
 Rear yard coverage
 
 
@@ -274,7 +281,7 @@ So you'll talk to the darn humans around you.
 (Discussions about the issues surrounding this)
 
 
-*Disclaimer: We help to gather useful informtion to facilitate your decisions *
+*Disclaimer: We help to gather useful information to facilitate your decisions *
 ''')
 
 ])

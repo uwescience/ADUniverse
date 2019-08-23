@@ -49,12 +49,20 @@ def cost_breakdown(build_dadu, size):
 
     property_tax = (total_min+total_max)/2*C.PROPERTY_TAX/12
 
-    return '(${0:6,.0f} -- ${1:6,.0f})'.format(construction_min, construction_max), \
-           '(${0:6,.0f} -- ${1:6,.0f})'.format(tax_min, tax_max), \
-        '${0:6,.0f}'.format(sewer), '${0:6,.0f}'.format(permit), \
-        '(${0:6,.0f} -- ${1:6,.0f})'.format(design_min, design_max), \
-        '(${0:6,.0f} -- ${1:6,.0f})'.format(total_min, total_max), \
-        '${0:3,.0f}'.format(property_tax)
+    if build_dadu == 1:
+        return '(${0:6,.0f} -- ${1:6,.0f})'.format(construction_min, construction_max), \
+               '(${0:6,.0f} -- ${1:6,.0f})'.format(tax_min, tax_max), \
+            '${0:6,.0f}'.format(sewer), '${0:6,.0f}'.format(permit), \
+            '(${0:6,.0f} -- ${1:6,.0f})'.format(design_min, design_max), \
+            '(${0:6,.0f} -- ${1:6,.0f})'.format(total_min, total_max), \
+            '${0:3,.0f}'.format(property_tax)
+    else:
+        return '(${0:6,.0f} -- ${1:6,.0f})'.format(construction_min, construction_max), \
+               '(${0:6,.0f} -- ${1:6,.0f})'.format(tax_min, tax_max), \
+            "(Not Applicable)",  '${0:6,.0f}'.format(permit), \
+            '(${0:6,.0f} -- ${1:6,.0f})'.format(design_min, design_max), \
+            '(${0:6,.0f} -- ${1:6,.0f})'.format(total_min, total_max), \
+            '${0:3,.0f}'.format(property_tax)
 
 
 prices = pd.read_csv("prices_byzipcode.csv")
