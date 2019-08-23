@@ -41,7 +41,7 @@ FAQ_layout = html.Div([
             style={'textAlign': 'center', 'color': '#7FDBFF'}),
 
     mdl.FAQ,
-],
+],style={'marginLeft': 15, 'marginRight': 15}
 )
 
 Transparency_layout = html.Div([

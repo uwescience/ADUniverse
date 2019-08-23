@@ -134,7 +134,7 @@ FinFeasibility = html.Div([
                 200000: '200 K',
                 300000: '300 K',
             },
-            value=50000,
+            value=100000,
         ),
         html.H2("  "),
         html.Table([
@@ -182,22 +182,27 @@ FAQ = dcc.Markdown('''
 Only in the rear yard, ... @Rick for details
 See the transparency section for more information.
 ## How can I get more financial information?
-Here is the home equity loan information
-## I guess I have to talk to an architect or contractor? 
+Go to your bank and find a financial advisor to find out more information about mortgage.
+## I guess I have to talk to an architect or contractor?
 Here is a contact for the architects' association in Seattle
 ## What do I do to start the permitting process?
 Here are some contacts to get you started and for questions.
 ## So I have to become a landlord?
 Here are some resources about being a landlord!
-## My lot's in an environmentally critical area. What does that mean?  
-Here's the [Seattle city code](https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT25ENPRHIPR_CH25.09REENCRAR) 
-on environmentally critical areas if you'd like to dig in. Please contact the city or a professional to discuss the effects further.
-## What are my neighborhood covenants? 
-You may be living within the jurisdiction of a homeowner's association that may have its own rules in place regarding ADUs. 
-The best way to begin, if you have not looked into their rules, is to Google your neighborhood name followed by "homeowners association" 
+## My lot's in an environmentally critical area. What does that mean?
+Here's the [Seattle city code](https://library.municode.com/wa/seattle/codes/municipal_code?nodeId=TIT25ENPRHIPR_CH25.09REENCRAR)
+on environmentally critical areas if you'd like to dig in. Please contact the \
+city or a professional to discuss the effects further.
+## What are my neighborhood covenants?
+You may be living within the jurisdiction of a homeowner's association that may \
+have its own rules in place regarding ADUs.
+The best way to begin, if you have not looked into their rules, is to Google \
+your neighborhood name followed by "homeowners association"
 ## Other links
-If you may not have the funds to build an ADU on your property at the moment, but wish to affect the housing crisis, consider the
-[Block Project](http://the-block-project.org/). Volunteers with this nonprofit design and build a small ADU in your backyard and
+If you may not have the funds to build an ADU on your property at the moment, \
+but wish to affect the housing crisis, consider the
+[Block Project](http://the-block-project.org/). Volunteers with this nonprofit \
+design and build a small ADU in your backyard and
 house a member of the homeless community, while you pay only their water bill.
 
 '''
@@ -210,9 +215,12 @@ Transparency = html.Div([
 
     dcc.Markdown('''
 ## ADUniverse
-Accessory Dwelling Units (ADU) such as backyard cottages and in-house mother-in-law apartments provide a way for the
-City of Seattle to address the housing affordability crisis. This project is about aiding owners of single family homes
-to assess the eligibility and desirability of building an ADU. We illustrate our vision via a prototype software tool for homeowners.
+Accessory Dwelling Units (ADU) such as backyard cottages and in-house \
+mother-in-law apartments provide a way for the
+City of Seattle to address the housing affordability crisis. This project is \
+about aiding owners of single family homes
+to assess the eligibility and desirability of building an ADU. We illustrate \
+our vision via a prototype software tool for homeowners.
 
 
 ## Here's all the stuff that goes into making a decision to be eligible for an ADU
@@ -224,7 +232,8 @@ You must be in a single family lot to build any sort of ADU
 Your lot size must be at least 3200 square feet
 Your lot width (the side of your home neighboring the street) must be at least 25 feet
 Your lot depth (the adjoining line) must be at least 70 feet
-Property must have sufficient available lot area for a new accessory structure (or project is conversion of an existing structure).
+Property must have sufficient available lot area for a new accessory structure \
+(or project is conversion of an existing structure).
 Maximum lot coverage:
 35 percent of lot area for lots >= 5,000 sq. ft.
 1,000 sq. ft. + 15 percent of lot area for lots < 5,000 sq. ft
@@ -233,58 +242,80 @@ Property must have sufficient available area of the rear yard for a new accessor
 (or project is conversion of an existing structure)
 Maximum rear yard coverage:
 60 percent of designated rear yard (25 feet or 20 percent of lot depth, whichever is less, and 10 feet minimum)
-This 
+This
 You can not build any ADU if your home lies along the shoreline.
 
-Other variables such as your parcel being on environmentally critical areas, sharing side sewers with other parcels, trees and tree roots in your anticipated build site might (or might not!) all affect the cost to permit and build an ADU.
-Some variables such as your home's proximity to well-served transit stops, presence on corner lots or by an alley, a large basement or garage, and others might advantage a built ADU(???) increase market value of your ADU???
+Other variables such as your parcel being on environmentally critical areas, \
+sharing side sewers with other parcels, trees and tree roots in your anticipated \
+build site might (or might not!) all affect the cost to permit and build an ADU.
+Some variables such as your home's proximity to well-served transit stops, presence \
+on corner lots or by an alley, a large basement or garage, and others might advantage\
+ a built ADU increase market value of your ADU???
 
-Everything has a degree of uncertainty. Many of these variables were calculated. Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
+Everything has a degree of uncertainty. Many of these variables were calculated. \
+Existence of unpermitted accessory structures could be barriers to building that would be difficult for this tool to assess. Your lot width and depth, and presence on corner lots, for instance, are merely estimates.
 
 ## What's Under the Hood
-We identified each parcel’s placement on neighborhood, zip code, environmental variables (steep slope, riparian corridors, 
-peat settlements, etc), city zones, and on high tree cover yards. We were then able to measure these parcels’ proximity to other 
-zones, to nearest and frequent transit stops, to alleys and to the shoreline. Using ArcGIS tools, we created corner lot, 
-alley lot, and lot coverage indicators by overlaying relevant shapefiles and manipulating intersecting features. 
-Their potential median home value based on their location in a Zillow neighborhood was also calculated. 
+We identified each parcel’s placement on neighborhood, zip code, environmental \
+variables (steep slope, riparian corridors,
+peat settlements, etc), city zones, and on high tree cover yards. We were then \
+able to measure these parcels’ proximity to other
+zones, to nearest and frequent transit stops, to alleys and to the shoreline.  \
+Using ArcGIS tools, we created corner lot,
+alley lot, and lot coverage indicators by overlaying relevant shapefiles and   \
+manipulating intersecting features.
+Their potential median home value based on their location in a Zillow \
+neighborhood was also calculated.
 
-Our data was collected from a combination of City of Seattle OpenGIS Portal, King County Assessors, the US Census Bureau and Zillow.
+Our data was collected from a combination of City of Seattle OpenGIS Portal, \
+King County Assessors, the US Census Bureau and Zillow.
 There may be mistakes in this data we are not responsible for.
 
 ## Assumptions Made
-Our rental number comes from zillow. Rental values comes from values from rented out condos, multi-family and other types of homes. 
-For the cost estimation, we understand that each parcel has its own physical characters that may add up or lower 
-the cost of construction. Our estimate is based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs 
+For the cost estimation, we understand that each parcel has its own physical \
+characters that may add up or lower the cost of construction. Our estimate is \
+based on appendix 1 of the Environmental Statement Impact (EIS) report on ADUs\
+ from the City of Seattle (2018).
 
-from the City of Seattle (2018).
-For the mortgage calculation, we assumed the homeowner will use home equity loans (HELOC). This assumption is based on
-the experience of Oregon where most ADU constructors use either cash/savings or home equity loans. The 6.9% APR is the
-prevailing market rate accessed from Wells Fargo website for a 15-year fixed-rate loan. Both interest rates and rental income
-are subjected to future market fluctuations, our analysis doesn’t take this into consideration.
+For the mortgage calculation, we assumed the homeowner will borrow from home \
+equity loans (HELOC) for 15 years. This assumption is based on the experience \
+of Oregon where most ADU constructors use either cash/savings or home equity loans.\
+The 6.9% APR is the prevailing market rate accessed from Wells Fargo website for a \
+15-year fixed-rate loan. Both interest rates and rental income are subjected to \
+future market fluctuations, our analysis doesn’t take this into consideration.
+
+For rental calculation, we used the Zillow median rent listing price ($ per square feet)\
+ for one bed room for the current month if the zipcode exist in the data. \
+ However, the median rent listing covers only a small range of zipcodes in Seattle. \
+ We compare it with the Zillow Rent Index (ZRI) which underestimates the per square \
+ feet value since it includes many single family residence(SFR). SFRs are larger and \
+ tend to have lower per square feet value. We impute the value of rent for the missing \
+ zipcodes based on the ZRI values if they are not in rent listing database. \
+ For value-added, we used the Zillow Home Value Index (ZHVI). From the past experience \
+ on remodelling, the new constrution tends to add around 50% of the investment to the value of house.
 
 
-
-## Stuff the App Doesn't Take Into Account:
+## Issues the App Doesn't Take Into Account:
 Rear yard coverage
 
 
-## Stuff In The Works Through the City
+## Future Works Through the City
 Pre approved ADU plans
 Low income Homeowner assistance
 Direct connection to Voucher 8 holder
-Once these are created, these can be integrated into the app to suggest, based on the user’s inputs, city-supported loan
+Once these are created, these can be integrated into the app to suggest, based \
+on the user’s inputs, city-supported loan
 options and low-income renter voucher options to you.
 
 
 ## Why Do You Post My Neighbors' Addresses?
-So you'll talk to the darn humans around you.
-(Discussions about the issues surrounding this)
+We are trying to connect people desire to construct ADUs and build a community together!
 
 
-*Disclaimer: We help to gather useful information to facilitate your decisions *
+* Disclaimer: We help to gather best available data to facilitate your decisions
 ''')
 
-])
+],style={'marginLeft': 15, 'marginRight': 15})
 
 image_filename = 'assets/my-image.png'
 encoded_image = base64.b64encode(open(image_filename, 'rb').read())
@@ -303,19 +334,32 @@ Home = html.Div([
         ''')], id="image-map", style={'display': 'none', 'cursor': 'pointer'}),
         dcc.Markdown(['''
         **What is an ADU?**
-        Accessory dwelling units (ADUs) are small, secondary homes located within, attached to, or in the rear yard of a single-family lot. A detached accessory dwelling unit (DADU), often called a backyard cottage or carriage house, is a secondary unit located in a separate structure from the main house. An attached accessory dwelling unit (AADU), often called a basement apartment or secondary suite, is located within or connected to the main house.
+        Accessory dwelling units (ADUs) are small, secondary homes located within, \
+        attached to, or in the rear yard of a single-family lot. A detached accessory \
+        dwelling unit (DADU), often called a backyard cottage or carriage house, \
+        is a secondary unit located in a separate structure from the main house. \
+        An attached accessory dwelling unit (AADU), often called a basement apartment \
+        or secondary suite, is located within or connected to the main house.
         '''], style={'font': '2px'}),
         html.Img(src='data:image/png;base64,{}'.format(encoded_image.decode()), alt="Types of Accessory Dwelling Units",
                  style={'align': 'center', 'width': '100%', 'height': '25%'}),
         dcc.Markdown('''
             ---
             **What is the ADUniverse?**
-            Creating an accessory dwelling unit can raise several questions. What’s possible on my property? Where do I start? The ADUniverse is your gateway to answers. Our [map tool](/map) assesses the physical feasibility of an ADU on your lot. Our [cost estimator](/finances) helps you evaluate the financial costs and benefits of an ADU. Ready to proceed? You can explore pre-approved plans, get a loan from the City, and begin the permitting process. Are you a policymaker or ADU advocate? Explore our [citywide and neighborhood-level analysis](/analysis) of how ADUs can support affordability and equity goals.
+            Creating an accessory dwelling unit can raise several questions. \
+            What’s possible on my property? Where do I start? The ADUniverse \
+            is your gateway to answers. Our [map tool](/map) assesses the physical\
+             feasibility of an ADU on your lot. Our [cost estimator](/finances) \
+             helps you evaluate the financial costs and benefits of an ADU. \
+             Ready to proceed? You can explore pre-approved plans, get a loan \
+             from the City, and begin the permitting process. Are you a policymaker \
+             or ADU advocate? Explore our [citywide and neighborhood-level analysis](/analysis) \
+             of how ADUs can support affordability and equity goals.
 
             **Navigate Through this Site**
         '''),
         html.Img(src='data:image/png;base64,{}'.format(webflow_image.decode()), alt="Navigation for ADUniverse page",
-                     style={'align': 'center', 'width': '530px', 'height': '298px'}, useMap="#image-map")
+                     style={'align': 'center', 'width': '650px', 'height': '300px'}, useMap="#image-map")
     ], className="seven columns"),
 
 
