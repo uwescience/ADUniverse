@@ -92,21 +92,21 @@ def update_criteria_details(df):
 
     if (df.iloc[0]["sqftlot"] >= 5000):
         if (df.iloc[0]["lotcoverage"] <= 0.35):
-            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% qualifies!".format(
+            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% qualifies!".format(
                 df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
         else:
-            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% does not qualify.".format(
+            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% does not qualify.".format(
                 df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
     else:
         if (df.iloc[0]["lotcoverage"] <= df.iloc[0]["sm_lotcov"]):
-            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% is less than the threshold of {} \
+            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% is less than the threshold of {} \
                 and therefore qualifies!".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
         else:
-            value3 = "Your {} square foot lot with a lot coverage of {:0.2f}% is greater than the threshold of {} \
+            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% is greater than the threshold of {} \
              and therefore does not qualify.".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
 
     if (df.iloc[0]["shoreline_ind"] == 1):
-        value4 = "Your lot borders a shoreline. Unfortunately, no DADU can be built here."
+        value4 = "Your lot is located within 200 feet of a designated shoreline (i.e., a Shoreline District). Unfortunately, no DADU can be built here."
     else:
         value4 = "Your lot does not border a shoreline. You are good to go."
 
@@ -178,13 +178,14 @@ def update_details(df):
         # Negative stuff
         if (df.iloc[0]["yrbuilt"] < 1959):
             value_age = html.Div(
-                ["Because your home may be relatively old, if you wish to build an AADU, you may need to find an inspector to ensure no additional changes need to be made to your property."], className='white-box red-box')
+                ["Given the age of your home, you converting existing space to an AADU could require substantial changes or upgrades to meet current building codes."], className='white-box red-box')
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
             value_tree = html.Div([
-                dcc.Markdown("Based upon the amount of **tree canopy** in your rear yard, the location and size of a detached \
-                accessory dwelling unit may be limited.  You should consult with a design professional or a land use coach \
-                at the applicant services center (link).  Information regarding the City’s tree protection ordinance can be found here (link).")], className='white-box red-box')  # soft red?
+                dcc.Markdown("The amount of tree canopy in your rear yard could constrain the location and size of a DADU. \
+                	Consult with a design professional or a land use coach at the \
+                	[applicant services center](https://www.seattle.gov/sdci/about-us/who-we-are/applicant-services-center). \
+                	Information regarding the City’s tree protection ordinance can be found [here](http://www.seattle.gov/sdci/codes/codes-we-enforce-(a-z)/tree-protection-code).")], className='white-box red-box')  # soft red?
 
         if (df.iloc[0]["parcel_steepslope"] == 1):
             value_eca += "Steep slopes; "
