@@ -76,14 +76,14 @@ def update_map(df, neighbors, coords=SEATTLE, zoom=INIT_ZOOM):
 def update_criteria_details(df):
 
     if (df.iloc[0]["zone_ind"] == 0):
-        value1 = "Your home does not qualify."
+        value1 = "Your home is not eligible."
     else:
-        value1 = "Your home qualifies!"
+        value1 = "Your home is eligible."
 
     if (df.iloc[0]["ls_indic"] == 0):
-        value2 = "Your lot is {} and therefore does not qualify.".format(df.iloc[0]["sqftlot"])
+        value2 = "Your lot is {} and therefore is not eligible for a DADU.".format(df.iloc[0]["sqftlot"])
     else:
-        value2 = "Your lot is {} square feet and therefore qualifies!".format(df.iloc[0]["sqftlot"])
+        value2 = "Your lot is {} square feet and therefore is eligible for a DADU".format(df.iloc[0]["sqftlot"])
 
     if (df.iloc[0]["lot_dim_indic"] == "no"):
         value5 = "Your lot's width is {} and depth is {} and therefore does not qualify.".format(df.iloc[0]["lot_width"], df.iloc[0]["lot_depth"])
@@ -92,57 +92,57 @@ def update_criteria_details(df):
 
     if (df.iloc[0]["sqftlot"] >= 5000):
         if (df.iloc[0]["lotcoverage"] <= 0.35):
-            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% qualifies!".format(
+            value3 = "Your {}-square-foot lot has an estimated lot coverage of {:0.2f}%. Therefore it is eligible for a DADU.".format(
                 df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
         else:
-            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% does not qualify.".format(
+            value3 = "Your {}-square-foot lot has an estimated lot coverage of {:0.2f}%. Therefore it is not eligible for a DADU.".format(
                 df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"])
     else:
         if (df.iloc[0]["lotcoverage"] <= df.iloc[0]["sm_lotcov"]):
-            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% is less than the threshold of {} \
-                and therefore qualifies!".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
+            value3 = "Your {}-square-foot lot has an estimated lot coverage of {:0.2f}%, less than the threshold of {} \
+                and therefore is eligible for a DADU".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
         else:
-            value3 = "Your {}-square-foot lot with a lot coverage of {:0.2f}% is greater than the threshold of {} \
-             and therefore does not qualify.".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
+            value3 = "Your {}-square-foot lot has an estimated lot coverage of {:0.2f}%, greater than the threshold of {} \
+             and therefore is eligible for a DADU.".format(df.iloc[0]["sqftlot"], 100*df.iloc[0]["lotcoverage"], df.iloc[0]["sm_lotcov"])
 
     if (df.iloc[0]["shoreline_ind"] == 1):
-        value4 = "Your lot is located within 200 feet of a designated shoreline (i.e., a Shoreline District). Unfortunately, no DADU can be built here."
+        value4 = "Your lot is located within 200 feet of a designated shoreline (i.e., in the Shoreline District). DADUs are not allowed on lots in the Shoreline District."
     else:
-        value4 = "Your lot does not border a shoreline. You are good to go."
+        value4 = "Your lot is not located in the Shoreline District, an area where DADUs are not allowed. Therefore your lot is eligible."
 
     if (not pd.isna(df.iloc[0]["ADU"])):
-        value_adu = "There is already at least one existing ADU on this \
-        property. You may build upto one more."
+        value_adu = "At least one ADU already exists on this \
+        property. A lot may have up to two ADUs, so you may add at least one more."
     else:
-        value_adu = "There are no existing ADUs on this property. You are good to go."
+        value_adu = "No ADUs currently exist on this property."
 
     if not df.empty:
         output = html.Div([
             html.H4("Core Eligibility Details", style={'textAlign': 'center'}),
             html.Div([html.Div(["Zoning"], style={'textAlign': 'center'}),
-                      html.Div(["Your home must be in a single family lot to build an AADU or DADU"]),
+                      html.Div(["Your lot must be in a single-family zone to build an AADU or DADU"]),
                       html.Div(value1), ], className='white-box'),
             html.Div([html.Div(["Lot Size"], style={'textAlign': 'center'}),
-                      html.Div([" Your lot must be at least 3200 square feet for a DADU"]),
+                      html.Div(["Your lot must be at least 3,200 square feet in area to have a DADU"]),
                       html.Div(value2)], className='white-box'),
             html.Div([html.Div(["Lot Dimensions"], style={'textAlign': 'center'}),
-                      html.Div([" Your lot must be at least 25 feet wide and 70 feet deep for a DADU"]),
+                      html.Div(["Your lot must be at least 25 feet wide and 70 feet deep for a DADU"]),
                       html.Div(value5)], className='white-box'),
             html.Div([html.Div(["Lot Coverage"], style={'textAlign': 'center'}),
                       html.Div(["If lot is larger than 5000 feet, no more than 35% \
                 should be covered. If lot is smaller, no more than 1000 plus 15% should be covered."], style={}),
                       html.Div(value3)], className='white-box'),
             html.Div([html.Div(["Shoreline"], style={'textAlign': 'center'}),
-                      html.Div(["Your home must not border a shoreline to build a DADU"]),
+                      html.Div(["Your home must not be located within the Shoreline District to be eligible for a DADU"]),
                       html.Div(value4)], className='white-box'),
             html.Div([html.Div(["Existing ADUs"], style={'textAlign': 'center'}),
-                      html.Div(["You may build upto 2 ADUs on a single property"]),
+                      html.Div(["A lot may have up two ADUs"]),
                       html.Div(value_adu)], className='white-box'),
 
             html.Div("Want even more information? Please see the Transparency \
                 section for more details on these terms", style={
                 'textAlign': 'center'}),
-            dcc.Link("Figure out your financial options on the next page", href='/finances')
+            dcc.Link("Explore the financial implications of creating an ADU on the next page", href='/finances')
         ])
 
     return output
@@ -178,7 +178,7 @@ def update_details(df):
         # Negative stuff
         if (df.iloc[0]["yrbuilt"] < 1959):
             value_age = html.Div(
-                ["Given the age of your home, you converting existing space to an AADU could require substantial changes or upgrades to meet current building codes."], className='white-box red-box')
+                ["Given the age of your home, converting existing space to an AADU might require substantial changes or upgrades to meet current building code requirements."], className='white-box red-box')
 
         if (df.iloc[0]["treecanopy_prct"] > 30):
             value_tree = html.Div([
@@ -201,20 +201,20 @@ def update_details(df):
             value_eca += "Riparian corridor; "
 
         if (df.iloc[0]["side_sewer_conflict"] == 1):
-            value_sewer = html.Div([dcc.Markdown("Your home has a **conflicting side sewer** crossing \
+            value_sewer = html.Div([dcc.Markdown("Your home appears to have a **conflicting side sewer** crossing \
                 another lot. You may need to reroute or construct a new side sewer \
-                for a DADU. Additionally, being a landlocked parcel, you may have \
-                to run a new side sewer through another's lot while constructing an ADU. \
-                You may need to talk to your neighbor about your options.")], className='white-box red-box')
+                for a DADU. Additionally, your lot appears to be landlocked, meaning it \
+                lacks direct access to the right-of-way. As a result, you may need to run \
+                a new side sewer through a neighboring lot in order to construct an ADU.")], className='white-box red-box')
         else:
             if (df.iloc[0]["intersecting_sewer"] == 1):
-                value_sewer = html.Div([dcc.Markdown("Your home has a **side sewer** that crosses another lot. \
+                value_sewer = html.Div([dcc.Markdown("Your home has a **side sewer** that crosses a neighboring lot. \
                     You may need to reroute or construct a new side sewer for a DADU")], className='white-box')
                 #
             if (df.iloc[0]["landlocked_parcel"] == 1):
-                value_lock = html.Div([dcc.Markdown("Being a **landlocked parcel**, you may have to \
-                    run a new side sewer through another's lot while constructing an ADU. \
-                    You may need to talk to your neighbor about your options")], className='white-box')
+                value_lock = html.Div([dcc.Markdown("Your lot appears to be **landlocked**, \
+                meaning it lacks direct access to the right-of-way. As a result, you may have to \
+                    run a new side sewer through a neighboring lot in order to construct an ADU.")], className='white-box')
 
         if not df.empty:
             output = html.Div([
@@ -223,8 +223,8 @@ def update_details(df):
                 value_age,
                 value_alley, value_basement, value_garage, value_bus, value_corner, value_lock,
                 html.Div([html.Div(["Environmentally Critical Areas"], style={'textAlign': 'center'}),
-                          html.Div([dcc.Markdown("Your parcel lies on the following **environmentally critical areas** that \
-                    may make it more costly to permit and build a DADU: (If list empty, there are none)")]),
+                          html.Div([dcc.Markdown("Your lot has the following **environmentally critical areas (ECAs)** that \
+                    may make it more costly to permit and build a DADU: (If list is empty, no ECAs are present)")]),
                           value_eca], className='white-box red-box'),
                 value_sewer,
                 value_tree,
