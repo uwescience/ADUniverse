@@ -3,6 +3,21 @@ layout: page
 title: Motivation
 ---
 
+### Background
+
+Access to affordable housing in Seattle has become a major concern as the city’s economy and population have increased.  Lack of housing stock make it increasingly difficult for people that work in the city to live here, resulting in widespread traffic congestion and resulting pollution.  Providing sustainable solutions to increase housing stock has become a central focus of the Seattle policy agenda.  
+
+The City of Seattle has developed a portfolio of solutions to address the housing shortage, starting with the 2015 Housing Affordability and Liveability Agenda (HALA) and the more recent Neighborhoods for All initiative in 2018.  Both agendas offer a wide variety of policy interventions to address the diverse housing related issues plaguing the city, from lack of affordable units to outright housing insecurity.  Given Seattle’s unique land area concerns, the prospect of increasing available housing is a central challenge and deciding how to accomplish this goal in a politically palatable way.  HALA, for example, was critically received by citizens, stemming from its focus on upzoning areas that had historically been single family zones.
+
+One important measure has been to encourage Seattle residents to maximize their own land usage by building accessory dwelling units on their property.  By lowering regulatory and administrative barriers, such as restrictions on lot size, coverage, and owner occupancy, the City hopes to make the process simpler and less resource intensive for citizens.  In July of 2019, the Seattle City Council voted unanimously to reduce restrictions on homeowners and explore expanding ADUs as a means of providing affordable housing in some Seattle’s most desirable and accessible neighborhoods.  
+
+Seattle’s most recent push for ADUs follows in the footsteps of other major Pacific Northwest cities like Vancouver, B.C. and Portland, who have not only passed cornerstone legislation on ADUs, but also expanded the availability of educational resources on the logistics of building them.  The efforts in Vancouver and Portland have been extremely successful in building momentum around ADUs.  
+
+Although building accessory dwelling units has been legal in Seattle since 1995, only around 2% of Seattle homeowners on eligible lots have elected to build them.  Many homeowners express the desire to create their own ADU, either in the service of housing aging parents or for the income potential through renting the unit, but have run into obstacles including a lack of easily accessible information about the physical and financial considerations of building an ADU.  Seeing an opportunity, the City of Seattle began to hold community forums on the South End in 2010 and were able to provide educational tools on what ADUs are and how to go about building them.  These campaigns were successful in encouraging a greater number of homeowners to adopt ADUs, but there is still significant work to be done in expanding ADU uptake across the city and the solution is in providing information and access to resources.
+
+Our work fills this gap by providing an easy-to-use tool for Seattle citizens to determine whether an ADU is right for them.   Drawing inspiration from existing proprietary tools, as well as novel, open source data, our web application will provide homeowners with a score that takes into account both the physical feasibility of the build given their lot characteristics as well as the financial feasibility given their desired usage of the unit. 
+
+
 ### Questions
 
 We hope to answer three questions through our work:
@@ -18,19 +33,6 @@ We hope to answer three questions through our work:
 
 We are filling the needs of users of all levels.
 
-### Background
-
-Access to affordable housing in Seattle has become a major concern as the city’s economy and population have increased.  Lack of housing stock make it increasingly difficult for people that work in the city to live here, resulting in widespread traffic congestion and resulting pollution.  Providing sustainable solutions to increase housing stock has become a central focus of the Seattle policy agenda.  
-
-The City of Seattle has developed a portfolio of solutions to address the housing shortage, starting with the 2015 Housing Affordability and Liveability Agenda (HALA) and the more recent Neighborhoods for All initiative in 2018.  Both agendas offer a wide variety of policy interventions to address the diverse housing related issues plaguing the city, from lack of affordable units to outright housing insecurity.  Given Seattle’s unique land area concerns, the prospect of increasing available housing is a central challenge and deciding how to accomplish this goal in a politically palatable way.  HALA, for example, was critically received by citizens, stemming from its focus on upzoning areas that had historically been single family zones.
-
-One important measure has been to encourage Seattle residents to maximize their own land usage by building accessory dwelling units on their property.  By lowering regulatory and administrative barriers, such as restrictions on lot size, coverage, and owner occupancy, the City hopes to make the process simpler and less resource intensive for citizens.  In July of 2019, the Seattle City Council voted unanimously to reduce restrictions on homeowners and explore expanding ADUs as a means of providing affordable housing in some Seattle’s most desirable and accessible neighborhoods.  
-
-Seattle’s most recent push for ADUs follows in the footsteps of other major Pacific Northwest cities like Vancouver, B.C. and Portland, who have not only passed cornerstone legislation on ADUs, but also expanded the availability of educational resources on the logistics of building them.  The efforts in Vancouver and Portland have been extremely successful in building momentum around ADUs.  
-
-Although building accessory dwelling units has been legal in Seattle since 1995, only around 2% of Seattle homeowners on eligible lots have elected to build them.  Many homeowners express the desire to create their own ADU, either in the service of housing aging parents or for the income potential through renting the unit, but have run into obstacles including a lack of easily accessible information about the physical and financial considerations of building an ADU.  Seeing an opportunity, the City of Seattle began to hold community forums on the South End in 2010 and were able to provide educational tools on what ADUs are and how to go about building them.  These campaigns were successful in encouraging a greater number of homeowners to adopt ADUs, but there is still significant work to be done in expanding ADU uptake across the city and the solution is in providing information and access to resources.
-
-Our work fills this gap by providing an easy-to-use tool for Seattle citizens to determine whether an ADU is right for them.   Drawing inspiration from existing proprietary tools, as well as novel, open source data, our web application will provide homeowners with a score that takes into account both the physical feasibility of the build given their lot characteristics as well as the financial feasibility given their desired usage of the unit. 
 
 
 ### Stakeholders
