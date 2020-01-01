@@ -38,12 +38,12 @@ We are filling the needs of users of all levels.
 ### Stakeholders
 
 
-(1) The potential homeowners interested in building an ADU: We help these homeowners to understand if an ADU would be the right and the feasible decision for them. We understand that homeowners might be interested in building ADUs for different purposes. Some are building ADUs for the rental income while others might be more interested in housing family members. Based on these choices by the users, we to present different information relevant for them. For example, we help to project rental income if the owner chooses the former option.
+(1) Homeowners interested in building an ADU: We help these homeowners to understand if an ADU would be the right and the feasible decision for them. We understand that homeowners might be interested in building ADUs for different purposes. Some are building ADUs for the rental income while others might be more interested in housing family members. Based on these choices by the users, we to present different information relevant for them. For example, we help to project rental income if the owner chooses the former option.
 
 
 (2) City planning committee: We provide information on the broader neighborhood level. City planners can use this app to identify neighborhoods they should market to or could provide financial and educational support to in order to increase the number of ADUs in the city. 
 
-(3) AARP(American Association of Retired Persons): AARP loves the flexibility of ADUs. It expands housing options for elders, for instance enabling more people to stay at home through retirement. 
+(3) AARP (American Association of Retired Persons): AARP loves the flexibility of ADUs. It expands housing options for elders, for instance enabling more people to stay at home through retirement. 
 
 
 
