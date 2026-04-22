@@ -6,8 +6,6 @@ layout: default
 
 ![DPCD logo](OPCD_logo_outlined-01.png)
 
-**This website is part of the eScience Institute, University of Washington Web Archive.**
-
 # ADUniverse
 
 Accessory Dwelling Units (ADU) such as backyard cottages and in-house mother-in-law apartments provide a way for the City of Seattle to address the housing affordability crisis. This project is about aiding owners of single family homes to assess the eligibility and desirability of building an ADU. We illustrate our vision via a prototype software tool for homeowners. 
